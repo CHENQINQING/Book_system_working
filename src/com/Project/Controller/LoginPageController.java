@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
@@ -55,7 +56,9 @@ public class LoginPageController implements Initializable {
             visitManager(event);
         }
         else {
-            System.out.println("None");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Customer scene has not been created. Please enter 'a','a' to log in as manager.");
+            alert.show();
             //visitCustomer(event);
         }
         
@@ -68,7 +71,7 @@ public class LoginPageController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/BookManagingPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("");
+        stage.setTitle("Book management page");
         stage.show();
     }
     
