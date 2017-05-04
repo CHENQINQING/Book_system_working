@@ -64,6 +64,18 @@ public class LoginPageController implements Initializable {
         
     }
     
+    @FXML
+    public void searchBook(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource(""));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
+        
+    }
+    
     //go to manager page.
     private void visitManager(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
