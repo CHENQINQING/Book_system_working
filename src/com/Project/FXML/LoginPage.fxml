@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.LoginPageController">
+   <children>
+      <TabPane fx:id="tabPane" prefHeight="500.0" prefWidth="700.0" style="-fx-background-radius: 10;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="searchTab" text="User Search">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="455.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="TOP" prefHeight="77.0" prefWidth="455.0" text="Some Bookstore System" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Calibri Bold Italic" size="39.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <HBox alignment="CENTER" prefHeight="223.0" prefWidth="700.0">
+                                 <children>
+                                    <TextField fx:id="textField" alignment="CENTER" prefHeight="39.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                                       <HBox.margin>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <ComboBox fx:id="combo" prefHeight="42.0" prefWidth="175.0" style="-fx-background-radius: 20;">
+                                       <HBox.margin>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                       </HBox.margin>
+                                    </ComboBox>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="searchBt" alignment="CENTER" mnemonicParsing="false" onAction="#searchBook" style="-fx-background-radius: 100;" text="Search">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="LoginTab" text="Login">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;">
+                     <children>
+                        <TextField fx:id="username" layoutX="105.0" layoutY="165.0" prefHeight="39.0" prefWidth="270.0" style="-fx-background-radius: 10;" />
+                        <TextField fx:id="password" layoutX="107.0" layoutY="263.0" prefHeight="39.0" prefWidth="267.0" style="-fx-background-radius: 10;" />
+                        <Label layoutX="493.0" layoutY="171.0" text="Username">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="493.0" layoutY="269.0" text="Password">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="loginBt" layoutX="502.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleLogin" style="-fx-background-radius: 100;" text="Login">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Label contentDisplay="TOP" layoutX="148.0" layoutY="24.0" prefHeight="77.0" prefWidth="435.0" text="Some Bookstore System">
+                           <font>
+                              <Font name="Calibri Bold Italic" size="39.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

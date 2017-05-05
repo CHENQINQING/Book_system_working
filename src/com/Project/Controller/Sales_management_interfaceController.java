@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package book_system.GUI;
+package com.Project.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
