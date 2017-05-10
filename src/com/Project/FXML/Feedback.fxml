@@ -6,22 +6,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="com.Project.Controller.FeedbackController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.FeedbackController">
    <children>
-      <Button layoutX="134.0" layoutY="361.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="274.0" layoutY="361.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="405.0" layoutY="361.0" mnemonicParsing="false" text="Button" />
-      <TextArea layoutX="42.0" layoutY="140.0" prefHeight="200.0" prefWidth="517.0" />
-      <Label alignment="CENTER" layoutX="216.0" layoutY="14.0" prefHeight="58.0" prefWidth="168.0" text="Feedback" textFill="#06eaee">
+      <Button layoutX="309.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" text="Clear" />
+      <TextArea layoutX="79.0" layoutY="126.0" prefHeight="265.0" prefWidth="542.0" />
+      <Label alignment="CENTER" layoutX="266.0" layoutY="24.0" prefHeight="58.0" prefWidth="168.0" text="Feedback" textFill="#06eaee">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="82.0" prefHeight="45.0" prefWidth="517.0" text="W">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="65.0" layoutY="82.0" prefHeight="44.0" prefWidth="570.0" text="Welcome to feedback, if you have some suggestions, please tell us.">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Button layoutX="137.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" text="Save" />
+      <Button layoutX="488.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" text="Menu" />
    </children>
 </AnchorPane>

@@ -152,5 +152,9 @@ public class Book {
     public void setType(String type) {
         this.type = type;
     }
+
+    public int getInventory() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

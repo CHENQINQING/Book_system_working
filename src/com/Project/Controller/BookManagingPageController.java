@@ -8,6 +8,7 @@ package com.Project.Controller;
 import classes.Book;
 import classes.Help;
 import database.JCDB;
+import database.JDBC;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -187,7 +188,9 @@ public class BookManagingPageController implements Initializable {
                     typeCombo.getSelectionModel().getSelectedItem().toString(), 
                     introArea.getText());
             
-            JCDB.managerAddNewBook(
+            JDBC.managerAddNewBook(
+                    b.getId(),
+                    b.getInventory(), 
                     b.getName(), 
                     b.getAuthor(),
                     b.getPrice(),
