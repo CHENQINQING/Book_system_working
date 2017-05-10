@@ -16,7 +16,7 @@ import java.sql.Statement;
  *
  * @author Xuantong
  */
-public class JCDB {
+public class JDBC {
     private final static String dbName = "book_system";
     private final static String user = "root" ;
     private final static String password = "root";
