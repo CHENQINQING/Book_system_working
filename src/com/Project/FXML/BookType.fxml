@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="book_system.TypeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.TypeController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="386.0" layoutY="161.0" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -105,17 +105,17 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="59.0" prefWidth="690.0">
                      <children>
-                        <Button mnemonicParsing="false" text="save">
+                        <Button mnemonicParsing="false" text="Save">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="ButtonClear" mnemonicParsing="false" onAction="#ButtonClear" text="clear">
+                        <Button fx:id="ButtonClear" mnemonicParsing="false" onAction="#ButtonClear" text="Clear">
                            <HBox.margin>
                               <Insets left="30.0" right="30.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="menu">
+                        <Button mnemonicParsing="false" onAction="#ButtonMeun" text="Meun">
                            <HBox.margin>
                               <Insets left="30.0" />
                            </HBox.margin>

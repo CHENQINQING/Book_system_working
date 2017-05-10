@@ -15,9 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -25,22 +23,10 @@ import javafx.stage.Stage;
  *
  * @author liushuai
  */
-public class PublisherController implements Initializable {
+public class FeedbackController implements Initializable {
 
     @FXML
-    private Button ButtonClear;
-    @FXML
-    private TextField contact;
-    @FXML
-    private TextField telephone;
-    @FXML
-    private Button ButtonMeun;
-    @FXML
-    private TextField search;
-    @FXML
-    private TextField publishername;
-    @FXML
-    private TextArea publisherintroduction;
+    private TextArea text;
 
     /**
      * Initializes the controller class.
@@ -49,14 +35,9 @@ public class PublisherController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
     @FXML
     private void ButtonClear(ActionEvent event) {
-        publishername.setText("");
-        publisherintroduction.setText("");
-        contact.setText("");
-        telephone.setText("");
-        search.setText("");
+        text.setText("");
     }
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {
@@ -67,10 +48,6 @@ public class PublisherController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Menu");
         stage.show();
-    }
-
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
     }
     
 }
