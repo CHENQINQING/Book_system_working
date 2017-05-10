@@ -24,7 +24,6 @@ public class Book_system extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
-
     }
 
     /**

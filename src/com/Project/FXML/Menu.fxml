@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: GRAY;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: GRAY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.MenuController">
    <children>
       <Label alignment="CENTER" layoutX="106.0" prefHeight="42.0" prefWidth="389.0" text="WELCOME C-L-L BOOK SYSTEM MENU" textFill="#00fffb">
          <font>
@@ -20,6 +24,6 @@
       <Button layoutX="226.0" layoutY="187.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="BOOK PUBLISHER" />
       <Button layoutX="407.0" layoutY="187.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="FEEDBACK" />
       <Button layoutX="407.0" layoutY="103.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="LOG OUT" />
-      <Button layoutX="226.0" layoutY="103.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="BOOK MANAGMENT" />
+      <Button layoutX="226.0" layoutY="103.0" mnemonicParsing="false" onAction="#switchToAddNewBookPage" prefHeight="50.0" prefWidth="150.0" text="ADD BOOK" />
    </children>
 </AnchorPane>

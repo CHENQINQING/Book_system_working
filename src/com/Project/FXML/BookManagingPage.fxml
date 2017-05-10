@@ -14,12 +14,12 @@
          <children>
             <HBox alignment="CENTER" prefHeight="75.0" prefWidth="700.0">
                <children>
-                  <TextField fx:id="bookNameTf1" prefHeight="39.0" prefWidth="299.0" promptText="Book Name" style="-fx-background-radius: 10;">
+                  <TextField fx:id="bookNameTf1" onAction="#handleSearchAction" prefHeight="39.0" prefWidth="299.0" promptText="Book Name" style="-fx-background-radius: 10;">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="searchBt" mnemonicParsing="false" onAction="#handleSearchAction" style="-fx-background-radius: 100;" text="Search">
+                  <Button fx:id="searchBt" mnemonicParsing="false" onAction="#handleSearchAction" style="-fx-background-radius: 10;" text="Search">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
@@ -27,24 +27,20 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="back" mnemonicParsing="false" onAction="#handleBackAction" style="-fx-background-radius: 100;" text="Back">
+                  <Button mnemonicParsing="false" onAction="#handleDeleteAction" style="-fx-background-radius: 10;" text="Delete">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
                   </Button>
                </children>
             </HBox>
             <TableView fx:id="tv" prefHeight="190.0" prefWidth="700.0" style="-fx-background-radius: 10;">
               <columns>
-                <TableColumn fx:id="nameT" prefWidth="115.0" text="NAME" />
-                <TableColumn fx:id="authorT" prefWidth="141.0" text="AUTHORS" />
-                  <TableColumn fx:id="publisherT" minWidth="8.0" prefWidth="137.0" text="PUBLISHER" />
-                  <TableColumn fx:id="priceT" minWidth="0.0" prefWidth="72.0" text="PRICE" />
-                  <TableColumn fx:id="typeT" prefWidth="149.0" text="TYPE" />
-                  <TableColumn fx:id="stockT" prefWidth="85.0" text="STOCK" />
+                <TableColumn fx:id="NAME" prefWidth="115.0" text="NAME" />
+                <TableColumn fx:id="AUTHOR" prefWidth="141.0" text="AUTHORS" />
+                  <TableColumn fx:id="PUBLISHER" minWidth="8.0" prefWidth="170.0" text="PUBLISHER" />
+                  <TableColumn fx:id="PRICE" minWidth="0.0" prefWidth="127.0" text="PRICE" />
+                  <TableColumn fx:id="TYPE" prefWidth="146.0" text="TYPE" />
               </columns>
             </TableView>
             <VBox prefHeight="200.0" prefWidth="100.0">
@@ -89,16 +85,16 @@
                   </GridPane>
                   <HBox alignment="CENTER_LEFT" prefHeight="102.0" prefWidth="700.0">
                      <children>
-                        <TextArea fx:id="introArea" prefHeight="102.0" prefWidth="521.0" promptText="ENTERING BOOK INTRODUCTION">
+                        <TextArea fx:id="introArea" prefHeight="86.0" prefWidth="351.0" promptText="ENTERING BOOK INTRODUCTION">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </TextArea>
-                        <VBox alignment="CENTER" prefHeight="102.0" prefWidth="179.0">
+                        <VBox alignment="CENTER" prefHeight="102.0" prefWidth="179.0" spacing="20.0">
                            <children>
                               <Button fx:id="saveBt" mnemonicParsing="false" onAction="#handleSaveAction" prefHeight="39.0" prefWidth="70.0" style="-fx-background-radius: 10;" text="Save">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets />
                                  </VBox.margin>
                                  <font>
                                     <Font name="System Bold" size="18.0" />
@@ -106,8 +102,25 @@
                               </Button>
                               <Button fx:id="clearBt" mnemonicParsing="false" onAction="#handleClearAction" prefHeight="39.0" prefWidth="70.0" style="-fx-background-radius: 10;" text="Clear">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets />
                                  </VBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#handleLogoutAction" style="-fx-background-radius: 10;" text="Log Out">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="back" mnemonicParsing="false" onAction="#handleBackAction" style="-fx-background-radius: 10;" text="&lt;&lt;Back">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>

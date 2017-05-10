@@ -33,17 +33,24 @@ public class LoginPageController implements Initializable {
     @FXML private Tab searchTab, loginTab;
     @FXML private TabPane tabPane;
     @FXML private Button searchBt, loginBt;
-    @FXML private ComboBox combo;
+    @FXML private ComboBox combo,loginCombo;
     @FXML private TextField username, password;
     
     //ObservableList used for holding comboBox value.
     private ObservableList<String> list = FXCollections.observableArrayList("Name","Author","Publisher");
+    private ObservableList<String> loginList = FXCollections.observableArrayList("Manager","Member");
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setComboBoxValue();
+    }
+    
+    private void setComboBoxValue(){
         //set comboBox value.
         combo.setValue("Name");
         combo.setItems(list);
+        //set combo value to log in type.
+        loginCombo.setItems(loginList);
     }
     
     @FXML
@@ -81,7 +88,7 @@ public class LoginPageController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Book management page");
+        stage.setTitle("Menu");
         stage.show();
     }
     
