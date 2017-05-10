@@ -6,20 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="665.0" prefWidth="912.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.Project.Controller.Sales_management_interfaceController">
+<AnchorPane id="AnchorPane" fx:id="data_text" prefHeight="665.0" prefWidth="912.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.Sales_management_interfaceController">
    <children>
-      <TableView layoutX="7.0" layoutY="116.0" prefHeight="200.0" prefWidth="930.0" AnchorPane.topAnchor="116.0">
-        <columns>
-          <TableColumn prefWidth="357.0" text="book information" />
-          <TableColumn minWidth="0.0" prefWidth="216.0" text="total price" />
-            <TableColumn prefWidth="202.0" text="date" />
-            <TableColumn prefWidth="154.0" text="quantity" />
-        </columns>
-      </TableView>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="21.0" prefWidth="309.0" text="book sales management " />
       <Label layoutX="226.0" layoutY="51.0" prefHeight="21.0" prefWidth="58.0" text="Date:" />
-      <TextField layoutX="284.0" layoutY="46.0" />
+      <TextField layoutX="284.0" layoutY="46.0" promptText="YYYY-MM-DD" />
       <Button layoutX="515.0" layoutY="46.0" mnemonicParsing="false" text="Search" />
       <Pane layoutX="5.0" layoutY="319.0" prefHeight="403.0" prefWidth="943.0">
          <children>
@@ -36,10 +27,10 @@
             <Label layoutX="20.0" layoutY="259.0" prefHeight="21.0" prefWidth="51.0" text="Book:  " />
             <ChoiceBox layoutX="71.0" layoutY="254.0" prefWidth="150.0" />
             <Label layoutX="310.0" layoutY="259.0" text="Quantity：  " />
-            <TextField layoutX="400.0" layoutY="254.0" prefHeight="31.0" prefWidth="100.0" />
-            <Label layoutX="100.0" layoutY="14.0" prefHeight="21.0" prefWidth="150.0" text="Label" />
-            <Label layoutX="354.0" layoutY="14.0" prefHeight="21.0" prefWidth="219.0" text="Label" />
-            <Label layoutX="660.0" layoutY="14.0" prefHeight="21.0" prefWidth="170.0" text="Label" />
+            <TextField fx:id="quantity_text" layoutX="400.0" layoutY="254.0" prefHeight="31.0" prefWidth="100.0" />
+            <Label fx:id="totalprice" layoutX="100.0" layoutY="14.0" prefHeight="21.0" prefWidth="150.0" text="0" />
+            <Label fx:id="DateL" layoutX="354.0" layoutY="14.0" prefHeight="21.0" prefWidth="219.0" text="-" />
+            <Label fx:id="QuantityL" layoutX="660.0" layoutY="14.0" prefHeight="21.0" prefWidth="170.0" text="0" />
             <Label layoutX="511.0" layoutY="259.0" text="price: " />
             <Label layoutX="575.0" layoutY="259.0" prefHeight="21.0" prefWidth="73.0" text="repertory: " />
             <Label layoutX="660.0" layoutY="259.0" prefHeight="21.0" prefWidth="65.0" text="Label" />
@@ -49,5 +40,6 @@
             <Button layoutX="579.0" layoutY="325.0" mnemonicParsing="false" text="cancel" />
          </children>
       </Pane>
+      <TextArea fx:id="textA" layoutX="14.0" layoutY="91.0" prefHeight="232.0" prefWidth="930.0" />
    </children>
 </AnchorPane>

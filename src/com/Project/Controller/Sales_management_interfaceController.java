@@ -19,7 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -31,42 +34,61 @@ public class Sales_management_interfaceController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @FXML
-    private Button search;
-    @FXML
-    private Button Add;
-    @FXML
-    private Button Delete;
-    @FXML
-    private Button confirm;
-    @FXML
-    private Button cancel;
+
     @FXML 
     private TextField data_text;
     @FXML
     private TextField quantity_text;
+    @FXML
+    private TextArea textA;
+    @FXML
+    private Label totalprice;
+    @FXML
+    private Label DateL;
+    @FXML
+    private Label QuantityL;
     
     
-    private String date;
+    String date,totalp;
     ResultSet rs;
+    Double price;
+    int quantity;
+    String totalq;
+    String text1=null;
     
     @FXML
-    private void handleSearchButtonAction(ActionEvent event){
+    private void handleSearchButtonAction(ActionEvent event) throws SQLException{
         //yyy-mm-dd
         if(data_text.getText().matches("^\\d{4}-0[1-9]|1[1-2]-0[1-9]|[1-2]")){
             date = data_text.getText();
         }
         else{
             System.out.println("Please follow the format: yyyy-mm-dd");
+            JOptionPane.showMessageDialog(null, "Time ：follow the time format", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         DatabaseConnection connection = new DatabaseConnection();
-        String sql = "SELECT RECORD_DATE FROM city WHERE RECORD_DATE='" + date + "'";  
-        ResultSet rs = connection.query(sql);
+        String sql = "SELECT import.RECORD_DATE,import_has_book.IN_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
+                + "FROM import,import_has_book,book "
+                +"WHERE import.idImport = import_has_book.import_idImport and import_has_book.book_idBook = book.idBook"
+                +"and import.RECORD_DATE ="+"'" + date + "'";  
+        rs = connection.query(sql);
+        while(rs.next()){
+            text1=text1+"book: "+rs.getString("")+"  price: "+rs.getDouble("BOOK_PRICE")+"  date: "+rs.getString("RECORD_DATE")+"  quantity:"+rs.getInt("IN_SUM")+"\r\n";
+            price= price+rs.getDouble("BOOK_PRICE")*rs.getInt("IN_SUM");
+            quantity= quantity+rs.getInt("IN_SUM");
+        }
+        totalp = price.toString();
+        textA.appendText(text1);
+        totalprice.setText(totalp);
+        DateL.setText(date);
+        totalq=String.valueOf(quantity);
+        QuantityL.setText(totalq);
+        
     }
     
     public void getTime(){
         Date date=new Date();
-        DateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
         String time=format.format(date);
     }
     
