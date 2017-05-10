@@ -29,16 +29,38 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        // TODO
     }
-    
-    @FXML
-    public void switchToAddNewBookPage(ActionEvent event) throws IOException{
+
+    @FXML    
+    public void logout(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/BookManagingPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/LoginPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Login page");
+        stage.show();
+    }
+    @FXML    
+    public void visitBookType(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/BookType.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Book type");
+        stage.show();
+    }
+    
+    @FXML    
+    public void visitBookPublisher(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/BookPublisher.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Book Publisher");
         stage.show();
     }
 }
