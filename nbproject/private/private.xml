@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Xuantong/Documents/NetBeansProjects/Book_system_working/src/book_system/Book_system.java</file>
-            <file>file:/C:/Users/Xuantong/Documents/NetBeansProjects/Book_system_working/src/com/Project/Controller/BookManagingPageController.java</file>
-            <file>file:/C:/Users/Xuantong/Documents/NetBeansProjects/Book_system_working/src/com/Project/Controller/LoginPageController.java</file>
-            <file>file:/C:/Users/Xuantong/Documents/NetBeansProjects/Book_system_working/src/database/JCDB.java</file>
+            <file>file:/C:/Users/liush/Desktop/software/project/1/Book_system_working/src/com/Project/Controller/LoginPageController.java</file>
+            <file>file:/C:/Users/liush/Desktop/software/project/1/Book_system_working/src/com/Project/Controller/PublisherController.java</file>
+            <file>file:/C:/Users/liush/Desktop/software/project/1/Book_system_working/src/com/Project/Controller/TypeController.java</file>
+            <file>file:/C:/Users/liush/Desktop/software/project/1/Book_system_working/src/com/Project/Controller/FeedbackController.java</file>
+            <file>file:/C:/Users/liush/Desktop/software/project/1/Book_system_working/src/com/Project/Controller/MenuController.java</file>
         </group>
     </open-files>
 </project-private>
