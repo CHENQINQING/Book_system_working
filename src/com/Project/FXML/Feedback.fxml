@@ -8,8 +8,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.FeedbackController">
    <children>
-      <Button layoutX="309.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" text="Clear" />
-      <TextArea layoutX="79.0" layoutY="126.0" prefHeight="265.0" prefWidth="542.0" />
+      <Button layoutX="309.0" layoutY="426.0" mnemonicParsing="false" onAction="#ButtonClear" prefHeight="36.0" prefWidth="82.0" text="Clear" />
+      <TextArea fx:id="text" layoutX="79.0" layoutY="126.0" prefHeight="265.0" prefWidth="542.0" promptText="thank you for your feedback~">
+         <font>
+            <Font size="21.0" />
+         </font></TextArea>
       <Label alignment="CENTER" layoutX="266.0" layoutY="24.0" prefHeight="58.0" prefWidth="168.0" text="Feedback" textFill="#06eaee">
          <font>
             <Font name="System Bold" size="29.0" />
@@ -21,6 +24,6 @@
          </font>
       </Label>
       <Button layoutX="137.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" text="Save" />
-      <Button layoutX="488.0" layoutY="426.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" text="Menu" />
+      <Button layoutX="488.0" layoutY="426.0" mnemonicParsing="false" onAction="#ButtonMeun" prefHeight="36.0" prefWidth="82.0" text="Menu" />
    </children>
 </AnchorPane>

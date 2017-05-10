@@ -14,12 +14,12 @@
       </Label>
       <Button layoutX="43.0" layoutY="103.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="BOOK SEARCH" />
       <Button layoutX="407.0" layoutY="270.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="CALCULATOR" />
-      <Button layoutX="226.0" layoutY="270.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="BOOK SALES" />
-      <Button layoutX="44.0" layoutY="270.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="BOOK REPEROTY" />
+      <Button layoutX="226.0" layoutY="270.0" mnemonicParsing="false" onAction="#sale" prefHeight="50.0" prefWidth="150.0" text="BOOK SALES" />
+      <Button layoutX="44.0" layoutY="270.0" mnemonicParsing="false" onAction="#resperoty" prefHeight="50.0" prefWidth="150.0" text="BOOK REPEROTY" />
       <Button layoutX="44.0" layoutY="187.0" mnemonicParsing="false" onAction="#visitBookType" prefHeight="50.0" prefWidth="150.0" text="BOOK TYPE" />
       <Button layoutX="226.0" layoutY="187.0" mnemonicParsing="false" onAction="#visitBookPublisher" prefHeight="50.0" prefWidth="150.0" text="BOOK PUBLISHER" />
-      <Button layoutX="407.0" layoutY="187.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="FEEDBACK" />
+      <Button layoutX="407.0" layoutY="187.0" mnemonicParsing="false" onAction="#Feedback" prefHeight="50.0" prefWidth="150.0" text="FEEDBACK" />
       <Button layoutX="407.0" layoutY="103.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="150.0" text="LOG OUT" />
-      <Button layoutX="226.0" layoutY="103.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="ADD BOOK" />
+      <Button layoutX="226.0" layoutY="103.0" mnemonicParsing="false" onAction="#Bookmanaging" prefHeight="50.0" prefWidth="150.0" text="ADD BOOK" />
    </children>
 </AnchorPane>

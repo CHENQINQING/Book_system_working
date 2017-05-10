@@ -63,4 +63,44 @@ public class MenuController implements Initializable {
         stage.setTitle("Book Publisher");
         stage.show();
     }
+    @FXML    
+    public void Feedback(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Feedback.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Feedback");
+        stage.show();
+    }
+    @FXML    
+    public void Bookmanaging(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/BookManagingPage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Book Management");
+        stage.show();
+    }
+    @FXML    
+    public void sale(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/sales_management_interface.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Book sale management");
+        stage.show();
+    }
+    @FXML    
+    public void resperoty(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/resperoty_management_interface.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Book resperoty management");
+        stage.show();
+    }
 }
