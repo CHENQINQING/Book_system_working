@@ -24,7 +24,7 @@ public class JCDB {
     
     
     //A method thet search for a city name in the database
-    public static void searchBook(String bookName){
+    /*public static void searchBook(String bookName){
         Connection conn = null;
         ResultSet rs = null;
         PreparedStatement prepStmt = null;
@@ -42,22 +42,21 @@ public class JCDB {
         } catch (SQLException ex) {
             System.out.println("something went wrong when executing query");
         }
-    }
+    }*/
     
-    public static void managerAddNewBook(int id, int inventory, String bookName, String authors, double price, String pulisher, String type, String intro) throws SQLException {
+    public static void managerAddNewBook(String bookName, String authors, double price, String pulisher, String type, String intro) throws SQLException {
         try(Connection conn = establishConnection();){
-            String statement = "INSERT INTO book (book_id, book_name, publisher, author, price, introduction, inventory, type) VALUES (?,?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO book (book_name, publisher, author, price, introduction, type) VALUES (?,?,?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             // remove ++ from here, do it in last
-            prepStmt.setInt(1, id);
-            prepStmt.setString(2, bookName);
-            prepStmt.setString(3, pulisher);
-            prepStmt.setString(4, authors);
-            prepStmt.setDouble(5, price);
-            prepStmt.setString(6, intro);
-            prepStmt.setInt(7, inventory);
-            prepStmt.setString(8, type);
+            //prepStmt.setInt(1, id);
+            prepStmt.setString(1, bookName);
+            prepStmt.setString(2, pulisher);
+            prepStmt.setString(3, authors);
+            prepStmt.setDouble(4, price);
+            prepStmt.setString(5, intro);
+            prepStmt.setString(6, type);
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");
@@ -67,20 +66,55 @@ public class JCDB {
         }
     }
     
-    public static ResultSet ManagerRitriveBook(String getBookName){
+    public static ResultSet ManagerSearchBook(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "select * from book where book_name LIKE'" + getBookName + "%'";
+            String statement = "SELECT * FROM Book WHERE book_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
+            System.out.println("Success");
             
         } catch (Exception e) {
             System.out.println("Cannot ritrive any book.");
         }
         return rs;
+    }
+    
+    public static ResultSet ManagerRitriveBook(){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "SELECT book_name, publisher, author, price, type FROM Book";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any book.");
+        }
+        return rs;
+    }
+    
+    public static void ManagerDeleteBook(String bookName){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "DELETE FROM Book WHERE book_name = ?";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            prepStmt.setString(1, bookName);
+            prepStmt.execute();
+            System.out.println("Success removed");
+            
+        } catch (Exception e) {
+            System.out.println("ERROR. Not delete.");
+        }
     }
     
     public static Connection establishConnection() {

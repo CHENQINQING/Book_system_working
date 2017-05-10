@@ -80,6 +80,7 @@
                               <Font name="Calibri Bold Italic" size="39.0" />
                            </font>
                         </Label>
+                        <ComboBox fx:id="loginCombo" layoutX="107.0" layoutY="362.0" prefWidth="150.0" promptText="LOGIN AS:" style="-fx-background-radius: 10;" />
                      </children>
                   </AnchorPane>
             </content>

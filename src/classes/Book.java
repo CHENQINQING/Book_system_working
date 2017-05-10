@@ -16,20 +16,27 @@ public class Book {
     private String author;
     private double price;
     private String intro;
-    private int inventory;
+    //private int inventory;
     private String type;
     
     public Book(){
         
     }
-
-    public Book(int id, int inventory, String name, String author, double price, String publisher, String type, String intro) {
-        this.id = id;
+    
+    public Book(String name, String author, double price, String publisher, String type) {
         this.name = name;
         this.publisher = publisher;
         this.author = author;
         this.price = price;
-        this.inventory = inventory;
+        this.type = type;
+    }
+    
+    public Book(String name, String author, double price, String publisher, String type, String intro) {
+        //this.id = id;
+        this.name = name;
+        this.publisher = publisher;
+        this.author = author;
+        this.price = price;
         this.type = type;
         this.intro = intro;
     }
@@ -121,16 +128,16 @@ public class Book {
     /**
      * @return the stock
      */
-    public int getInventory() {
+    /*public int getInventory() {
         return inventory;
-    }
+    }*/
 
     /**
      * @param stock the stock to set
      */
-    public void setInventory(int inventory) {
+    /*public void setInventory(int inventory) {
         this.inventory = inventory;
-    }
+    }*/
 
     /**
      * @return the type
