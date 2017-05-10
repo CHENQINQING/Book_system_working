@@ -55,19 +55,6 @@ public class DatabaseConnection {
     }
     
 
-    public void printUserInfo(ResultSet result) {
-        try
-        {
-            while(result.next()) {
-                System.out.println("userNname:" + result.getString(1) 
-                        + ", password:" + result.getString(2));
-            }
-        } catch (SQLException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
     
     public ResultSet query(String sql) {
 

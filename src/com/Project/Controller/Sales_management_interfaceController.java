@@ -15,10 +15,13 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -47,27 +50,34 @@ public class Sales_management_interfaceController implements Initializable {
     private Label DateL;
     @FXML
     private Label QuantityL;
+    @FXML
+    private ComboBox book;
     
     
     String date,totalp;
+    String sql;
     ResultSet rs;
     Double price;
     int quantity;
     String totalq;
     String text1=null;
+    private ObservableList<String> booklist = FXCollections.observableArrayList();
+    DatabaseConnection connection = new DatabaseConnection();
+    
     
     @FXML
     private void handleSearchButtonAction(ActionEvent event) throws SQLException{
         //yyy-mm-dd
         if(data_text.getText().matches("^\\d{4}-0[1-9]|1[1-2]-0[1-9]|[1-2]")){
             date = data_text.getText();
+            textA.setText("");
         }
         else{
             System.out.println("Please follow the format: yyyy-mm-dd");
             JOptionPane.showMessageDialog(null, "Time ：follow the time format", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        DatabaseConnection connection = new DatabaseConnection();
-        String sql = "SELECT import.RECORD_DATE,import_has_book.IN_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
+       
+        sql = "SELECT import.RECORD_DATE,import_has_book.IN_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
                 + "FROM import,import_has_book,book "
                 +"WHERE import.idImport = import_has_book.import_idImport and import_has_book.book_idBook = book.idBook"
                 +"and import.RECORD_DATE ="+"'" + date + "'";  
@@ -91,10 +101,20 @@ public class Sales_management_interfaceController implements Initializable {
         DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
         String time=format.format(date);
     }
+    public void getbooklist() throws SQLException{
+        sql = "select BOOK_NAME from book";
+        rs = connection.query(sql);
+        while(rs.next()){
+            booklist.add(rs.getString("BOOK_NAME"));
+        }
+        book.setValue("choose");
+        book.setItems(booklist);
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
     
 }
