@@ -85,20 +85,20 @@ public class Sales_manageController implements Initializable {
         text1="";
         price=0.0;
         quantity=0;
-        if(data_text.getText().matches("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))")){
+        if(data_text.getText().matches("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))|([1-2][0-9]{3})")){
             date = data_text.getText();
             System.out.println(date);
-            sql = "SELECT import.RECORD_DATE,import_has_book.IN_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
-                + "FROM import,import_has_book,book "
-                +"WHERE import.idImport = import_has_book.import_idImport and import_has_book.book_idBook = book.idBook"
-                +" and import.RECORD_DATE =" + "'" + date + "'";  
+            sql = "SELECT sales.RECORD_DATE,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
+                + "FROM sales,book_has_sales,book "
+                +"WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_idBook = book.idBook"
+                +" and sales.RECORD_DATE like" + "'" + date + "%'";  
         rs = connection.query(sql);
         if(rs.next()){
             rs = connection.query(sql);
         while(rs.next()){
-            text1=text1+"book: "+rs.getString("BOOK_NAME")+"  price: "+rs.getDouble("BOOK_PRICE")+"  date: "+rs.getString("RECORD_DATE")+"  quantity:"+rs.getInt("IN_SUM")+"\r\n";
-            price= price+rs.getDouble("BOOK_PRICE")*rs.getInt("IN_SUM");
-            quantity= quantity+rs.getInt("IN_SUM");
+            text1=text1+"book: "+rs.getString("BOOK_NAME")+"  price: "+rs.getDouble("BOOK_PRICE")+"  date: "+rs.getString("RECORD_DATE")+"  quantity:"+rs.getInt("TRADE_SUM")+"\r\n";
+            price= price+rs.getDouble("BOOK_PRICE")*rs.getInt("TRADE_SUM");
+            quantity= quantity+rs.getInt("TRADE_SUM");
         }
         totalp = price.toString();
         textA.appendText(text1);
