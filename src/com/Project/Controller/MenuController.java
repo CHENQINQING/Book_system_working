@@ -87,7 +87,7 @@ public class MenuController implements Initializable {
     public void sale(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/sales_management_interface.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/sales_manage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Book sale management");

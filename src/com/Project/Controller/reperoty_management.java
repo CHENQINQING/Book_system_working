@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
  *
  * @author chenq
  */
-public class Sales_management_interfaceController implements Initializable {
+public class reperoty_management implements Initializable {
 
     /**
      * Initializes the controller class.

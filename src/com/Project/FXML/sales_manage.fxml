@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="628.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.Sales_manageController">
+   <children>
+      <Button layoutX="433.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleSearchButtonAction" text="search" />
+      <Label layoutX="125.0" layoutY="34.0" text="Date" />
+      <TextField fx:id="data_text" layoutX="196.0" layoutY="29.0" promptText="yyyy-mm-dd" />
+      <TextArea fx:id="textA" layoutX="25.0" layoutY="66.0" prefHeight="110.0" prefWidth="728.0" />
+      <Label layoutX="27.0" layoutY="190.0" text="Total price:  " />
+      <Label fx:id="totalprice" layoutX="125.0" layoutY="190.0" prefHeight="21.0" prefWidth="95.0" text="0" />
+      <Label layoutX="261.0" layoutY="190.0" prefHeight="21.0" prefWidth="35.0" text="Date" />
+      <Label fx:id="DateL" layoutX="315.0" layoutY="190.0" prefHeight="21.0" prefWidth="171.0" text="-" />
+      <Label layoutX="527.0" layoutY="190.0" text="Quantity" />
+      <Label fx:id="QuantityL" layoutX="637.0" layoutY="190.0" prefHeight="21.0" prefWidth="82.0" text="0" />
+      <TableView layoutX="27.0" layoutY="294.0" prefHeight="176.0" prefWidth="453.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="book" layoutX="27.0" layoutY="489.0" prefHeight="31.0" prefWidth="217.0" />
+      <Button layoutX="530.0" layoutY="583.0" mnemonicParsing="false" text="cancel" />
+      <Button layoutX="605.0" layoutY="583.0" mnemonicParsing="false" text="add" />
+      <Button layoutX="688.0" layoutY="583.0" mnemonicParsing="false" text="delete" />
+      <Button layoutX="448.0" layoutY="583.0" mnemonicParsing="false" text="confirm" />
+      <Button layoutX="672.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="back" />
+      <Label layoutX="501.0" layoutY="304.0" text="amount" />
+      <TextField fx:id="amountL" layoutX="561.0" layoutY="299.0" />
+      <Label layoutX="502.0" layoutY="352.0" text="repertory" />
+      <Label fx:id="repertory" layoutX="628.0" layoutY="352.0" prefHeight="21.0" prefWidth="95.0" text="0" />
+      <Button layoutX="429.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleSureButtonAction" text="sure?" />
+      <Label fx:id="bookName" layoutX="261.0" layoutY="494.0" prefHeight="21.0" prefWidth="152.0" text="book name here" />
+   </children>
+</AnchorPane>

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="665.0" prefWidth="912.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="book_system.GUI.Sales_management_interfaceController">
+<AnchorPane id="AnchorPane" prefHeight="665.0" prefWidth="912.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.reperoty_management">
    <children>
       <TableView layoutX="7.0" layoutY="116.0" prefHeight="200.0" prefWidth="930.0" AnchorPane.topAnchor="116.0">
         <columns>
@@ -42,6 +42,7 @@
             <Button layoutX="830.0" layoutY="254.0" mnemonicParsing="false" text="Delete" />
             <Button layoutX="278.0" layoutY="325.0" mnemonicParsing="false" text="confirm" />
             <Button layoutX="579.0" layoutY="325.0" mnemonicParsing="false" text="cancel" />
+            <Button layoutX="830.0" layoutY="325.0" mnemonicParsing="false" text="back" />
          </children>
       </Pane>
    </children>
