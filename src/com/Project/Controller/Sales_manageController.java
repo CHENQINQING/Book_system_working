@@ -5,6 +5,8 @@
  */
 package com.Project.Controller;
 
+import classes.Book;
+import classes.salesView;
 import database.DatabaseConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +32,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -63,6 +67,9 @@ public class Sales_manageController implements Initializable {
     private Label repertory;
     @FXML
     private Label bookName;
+    @FXML
+    private TableView table;
+
     
     
     String date,totalp;
@@ -75,7 +82,13 @@ public class Sales_manageController implements Initializable {
     String totalq="";
     String text1="";
     private ObservableList<String> booklist = FXCollections.observableArrayList();
+    //private ObservableList<String> tablelist = FXCollections.observableArrayList();
     DatabaseConnection connection = new DatabaseConnection();
+    private final ObservableList<salesView> data  
+            = FXCollections.observableArrayList();  
+  
+  
+//ObservableList<TableColumn> observableList = table.getColumns(); 
     
     
     @FXML
@@ -143,7 +156,9 @@ public class Sales_manageController implements Initializable {
         bookName.setText((String) book.getValue());
     }
 
-    
+    public void tableView(){
+        
+    }
     
     public void getTime(){
         Date date=new Date();

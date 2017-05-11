@@ -18,10 +18,11 @@
       <Label fx:id="DateL" layoutX="315.0" layoutY="190.0" prefHeight="21.0" prefWidth="171.0" text="-" />
       <Label layoutX="527.0" layoutY="190.0" text="Quantity" />
       <Label fx:id="QuantityL" layoutX="637.0" layoutY="190.0" prefHeight="21.0" prefWidth="82.0" text="0" />
-      <TableView layoutX="27.0" layoutY="294.0" prefHeight="176.0" prefWidth="453.0">
+      <TableView fx:id="table" layoutX="27.0" layoutY="294.0" prefHeight="176.0" prefWidth="453.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn minWidth="0.0" prefWidth="198.0" text="book" />
+            <TableColumn prefWidth="104.0" text="price" />
+          <TableColumn prefWidth="148.0" text="total_price" />
         </columns>
       </TableView>
       <ComboBox fx:id="book" layoutX="27.0" layoutY="489.0" prefHeight="31.0" prefWidth="217.0" />
