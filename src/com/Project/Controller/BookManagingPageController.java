@@ -85,10 +85,10 @@ public class BookManagingPageController implements Initializable {
     
     private void getComboBoxValue(){
         //set comboBox value.
-        publisherCombo.setValue("one");
+        publisherCombo.setValue("publisher");
         publisherCombo.setItems(publisherList);
         
-        typeCombo.setValue("aaa");
+        typeCombo.setValue("type");
         typeCombo.setItems(typeList);
     }
 
@@ -99,7 +99,7 @@ public class BookManagingPageController implements Initializable {
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
-                System.out.println(rs.getString("publisher"));
+                System.out.println(rs.getString("publisher_publisherName"));
                 System.out.println(rs.getString("author"));
                 System.out.println(rs.getDouble("price"));
                 System.out.println(rs.getString("type"));
@@ -108,7 +108,7 @@ public class BookManagingPageController implements Initializable {
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher"), 
+                        rs.getString("publisher_publisherName"), 
                         rs.getString("type")));
             }
         } catch (Exception e) {
@@ -243,8 +243,8 @@ public class BookManagingPageController implements Initializable {
             authorBt.clear();
             priceBt.clear();
             introArea.clear();
-            publisherCombo.setPromptText("PUBLISHER");
-            typeCombo.setPromptText("TYPE");
+            publisherCombo.setValue("publisher");
+            typeCombo.setValue("type");
         }
     }
     
@@ -254,8 +254,8 @@ public class BookManagingPageController implements Initializable {
         authorBt.setText("");
         priceBt.setText("");
         introArea.setText("");
-        publisherCombo.setPromptText("PUBLISHER");
-        typeCombo.setPromptText("TYPE");
+        publisherCombo.setValue("publisher");
+        typeCombo.setValue("type");
     }
     
     @FXML
@@ -283,7 +283,7 @@ public class BookManagingPageController implements Initializable {
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher"), 
+                        rs.getString("publisher_publisherName"), 
                         rs.getString("type")));
             }
         } catch (Exception e) {

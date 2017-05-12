@@ -5,8 +5,11 @@
  */
 package com.Project.Controller;
 
+import classes.LoginStorage;
+import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +41,7 @@ public class LoginPageController implements Initializable {
     
     //ObservableList used for holding comboBox value.
     private ObservableList<String> list = FXCollections.observableArrayList("Name","Author","Publisher");
-    private ObservableList<String> loginList = FXCollections.observableArrayList("Manager","Member");
+    private ObservableList<String> loginList = FXCollections.observableArrayList("employee","member");
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,21 +57,48 @@ public class LoginPageController implements Initializable {
     }
     
     @FXML
-    private void handleLogin(ActionEvent event) throws IOException {
+    private void handleLogin(ActionEvent event) throws IOException, SQLException {
         String uname = username.getText();
-        String pwd = password.getText();
+        String pword = password.getText();
         
-        //Check if username and password belongs to admin or members
-        if(uname.equals("a") && pwd.equals("a")) {
-            visitManager(event);
+        if(!uname.isEmpty()&&!pword.isEmpty()&&loginCombo.getSelectionModel().getSelectedItem()!=null){
+            String loginType = loginCombo.getSelectionModel().getSelectedItem().toString();
+            int id;
+            boolean validUsername = JCDB.verifyAccount(uname, loginType);
+            if(!validUsername){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("ERROR");
+                alert.setContentText("Account does not exists");
+                alert.showAndWait();
+            }else{
+                id = JCDB.getId(uname, pword, loginType);
+                if(id == 0){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("ERROR");
+                    alert.setContentText("Wrong Password");
+                    alert.showAndWait();
+                }else{
+                    if(loginType.equals("employee")){
+                        LoginStorage.getInstance().setUsername(uname);
+                        LoginStorage.getInstance().setId(id);
+                        LoginStorage.getInstance().setAccountType("employee");
+                        visitEmployee(event);
+                    }
+                    else if(loginType.equals("member")){
+                        LoginStorage.getInstance().setUsername(uname);
+                        LoginStorage.getInstance().setId(id);
+                        LoginStorage.getInstance().setAccountType("member");
+                        visitCustomer(event);
+                    }
+                }
+            }
+            
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Username, password or login type cannot be empty");
+            alert.showAndWait();
         }
-        else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Customer scene has not been created. Please enter 'a','a' to log in as manager.");
-            alert.show();
-            //visitCustomer(event);
-        }
-        
     }
     
     @FXML
@@ -82,7 +112,7 @@ public class LoginPageController implements Initializable {
     }
     
     //go to manager page.
-    private void visitManager(ActionEvent event) throws IOException{
+    private void visitEmployee(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));

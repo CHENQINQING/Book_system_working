@@ -41,4 +41,14 @@ public class MenuController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
+    @FXML
+    public void logoutAction(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/LoginPage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

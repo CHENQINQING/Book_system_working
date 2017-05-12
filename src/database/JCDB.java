@@ -46,7 +46,7 @@ public class JCDB {
     
     public static void managerAddNewBook(String bookName, String authors, double price, String pulisher, String type, String intro) throws SQLException {
         try(Connection conn = establishConnection();){
-            String statement = "INSERT INTO book (book_name, publisher, author, price, introduction, type) VALUES (?,?,?,?,?,?)";
+            String statement = "INSERT INTO book (book_name, publisher_publisherName, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             // remove ++ from here, do it in last
@@ -132,6 +132,57 @@ public class JCDB {
             System.out.println("Not connected to database");
         }
         return null;
+    }
+    
+    public static boolean verifyAccount(String username, String accountType) throws SQLException{
+        Connection conn = establishConnection();
+        String query = "";
+        if(accountType.equals("employee")) {
+            query = "SELECT count(*) FROM employee WHERE username = ?";
+        }
+        else if(accountType.equals("member")) {
+            query = "SELECT count(*) FROM member WHERE username = ?";
+        }
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, username);
+        ResultSet rs = statement.executeQuery();
+        int count = 0;
+        while(rs.next()) {
+            count = rs.getInt(1);
+        }
+        if(count==0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    public static int getId(String username, String pwd, String accountType) {
+        Connection conn = establishConnection();
+        String query = "";
+        if(accountType.equals("employee")) {
+            query = "SELECT employee_id FROM employee WHERE username = ? AND password = ?";
+        }
+        else if(accountType.equals("member")) {
+            query = "SELECT customer_id FROM member WHERE username = ? AND password = ?";
+        }
+        int id = 0;
+        try {
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, pwd);
+            ResultSet rs = statement.executeQuery();
+            System.out.println(statement);
+            System.out.println(rs);
+            while(rs.next()) {
+                id = rs.getInt(1);
+            }
+        }
+        catch(SQLException e) {
+            
+        }
+        return id;
     }
 }
     
