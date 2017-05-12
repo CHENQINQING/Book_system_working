@@ -5,6 +5,7 @@
  */
 package database;
 
+import classes.Book;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -44,19 +45,19 @@ public class JCDB {
         }
     }*/
     
-    public static void managerAddNewBook(String bookName, String authors, double price, String pulisher, String type, String intro) throws SQLException {
+    public static void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
             String statement = "INSERT INTO book (book_name, publisher_publisherName, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             // remove ++ from here, do it in last
             //prepStmt.setInt(1, id);
-            prepStmt.setString(1, bookName);
-            prepStmt.setString(2, pulisher);
-            prepStmt.setString(3, authors);
-            prepStmt.setDouble(4, price);
-            prepStmt.setString(5, intro);
-            prepStmt.setString(6, type);
+            prepStmt.setString(1, book.getName());
+            prepStmt.setString(2, book.getPublisher());
+            prepStmt.setString(3, book.getAuthor());
+            prepStmt.setDouble(4, book.getPrice());
+            prepStmt.setString(5, book.getIntro());
+            prepStmt.setString(6, book.getType());
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");

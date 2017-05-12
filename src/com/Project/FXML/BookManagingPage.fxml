@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -24,12 +25,26 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="13.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../buttonIcon/find.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                   <Button mnemonicParsing="false" onAction="#handleDeleteAction" style="-fx-background-radius: 10;" text="Delete">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../buttonIcon/deletered.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
                </children>
@@ -92,38 +107,66 @@
                         </TextArea>
                         <VBox alignment="CENTER" prefHeight="102.0" prefWidth="179.0" spacing="20.0">
                            <children>
-                              <Button fx:id="saveBt" mnemonicParsing="false" onAction="#handleSaveAction" prefHeight="39.0" prefWidth="70.0" style="-fx-background-radius: 10;" text="Save">
+                              <Button fx:id="saveBt" mnemonicParsing="false" onAction="#handleSaveAction" style="-fx-background-radius: 10;" text="Save">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../buttonIcon/floppy_drive.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
-                              <Button fx:id="clearBt" mnemonicParsing="false" onAction="#handleClearAction" prefHeight="39.0" prefWidth="70.0" style="-fx-background-radius: 10;" text="Clear">
+                              <Button fx:id="clearBt" mnemonicParsing="false" onAction="#handleClearAction" style="-fx-background-radius: 10;" text="ClearText">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../buttonIcon/edit_clear.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#handleLogoutAction" style="-fx-background-radius: 10;" text="Log Out">
+                              <Button mnemonicParsing="false" onAction="#handleLogoutAction" style="-fx-background-radius: 10;" text="Logout">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../buttonIcon/exit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
-                              <Button fx:id="back" mnemonicParsing="false" onAction="#handleBackAction" style="-fx-background-radius: 10;" text="&lt;&lt;Back">
+                              <Button fx:id="back" mnemonicParsing="false" onAction="#handleBackAction" style="-fx-background-radius: 10;" text="Home">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font>
+                                 <graphic>
+                                    <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../buttonIcon/home.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
                               </Button>
                            </children>
                         </VBox>

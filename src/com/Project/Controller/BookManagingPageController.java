@@ -32,6 +32,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -63,6 +65,8 @@ public class BookManagingPageController implements Initializable {
     private ComboBox publisherCombo;
     @FXML
     private ComboBox typeCombo;
+    @FXML
+    private Button back;
     
     //ObservableList used for holding comboBox value.
     private ObservableList<String> publisherList = FXCollections.observableArrayList("one","two","three");
@@ -147,7 +151,6 @@ public class BookManagingPageController implements Initializable {
     @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException {
         SaveToDatabase();
-        showNewBook();
     }
 
     private void SaveToDatabase() throws SQLException, NumberFormatException {
@@ -179,7 +182,7 @@ public class BookManagingPageController implements Initializable {
         }
         else{
             double price = Double.valueOf(priceBt.getText());
-            Book b = new Book(
+            Book book = new Book(
                     bookNameTf2.getText(),
                     authorBt.getText(),
                     price,
@@ -187,13 +190,9 @@ public class BookManagingPageController implements Initializable {
                     typeCombo.getSelectionModel().getSelectedItem().toString(), 
                     introArea.getText());
             
-            JCDB.managerAddNewBook(
-                    b.getName(), 
-                    b.getAuthor(),
-                    b.getPrice(),
-                    b.getPublisher(), 
-                    b.getType(),
-                    b.getIntro());
+            JCDB.managerAddNewBook(book);
+            showNewBook();
+            
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
             alert.setContentText("The Data Has Been Saved");
@@ -202,50 +201,23 @@ public class BookManagingPageController implements Initializable {
     }
     
     private void showNewBook(){
-        boolean isPrice = Help.isInteger(priceBt.getText());
-        if(!isPrice){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("PRICE IS INVALID");
-            alert.show();
-        }
-        else if(bookNameTf2.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID BOOK NAME.");
-            alert.show();
-        }
-        else if(authorBt.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID AUTHOR.");
-            alert.show();
-        }
-        else if(introArea.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID INTRODUCTION.");
-            alert.show();
-        }
-        else{
-            Book book = new Book(
-                    bookNameTf2.getText(), 
-                    authorBt.getText(), 
-                    Integer.parseInt(priceBt.getText()), 
-                    publisherCombo.getSelectionModel().getSelectedItem().toString(), 
-                    typeCombo.getSelectionModel().getSelectedItem().toString(), 
-                    introArea.getText());
+        Book book = new Book(
+                bookNameTf2.getText(), 
+                authorBt.getText(), 
+                Integer.parseInt(priceBt.getText()), 
+                publisherCombo.getSelectionModel().getSelectedItem().toString(), 
+                typeCombo.getSelectionModel().getSelectedItem().toString(), 
+                introArea.getText());
         
-            tv.getItems().add(book);
+        tv.getItems().add(book);
         
-            //Clear text field.
-            bookNameTf2.clear();
-            authorBt.clear();
-            priceBt.clear();
-            introArea.clear();
-            publisherCombo.setValue("publisher");
-            typeCombo.setValue("type");
-        }
+        //Clear text field.
+        bookNameTf2.clear();
+        authorBt.clear();
+        priceBt.clear();
+        introArea.clear();
+        publisherCombo.setValue("publisher");
+        typeCombo.setValue("type");
     }
     
     @FXML

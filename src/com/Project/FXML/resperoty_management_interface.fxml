@@ -6,20 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="665.0" prefWidth="912.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="book_system.GUI.Sales_management_interfaceController">
+<AnchorPane id="AnchorPane" prefHeight="665.0" prefWidth="912.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.reperoty_management">
    <children>
-      <TableView layoutX="7.0" layoutY="116.0" prefHeight="200.0" prefWidth="930.0" AnchorPane.topAnchor="116.0">
-        <columns>
-          <TableColumn prefWidth="357.0" text="book information" />
-            <TableColumn prefWidth="281.0" text="date" />
-            <TableColumn prefWidth="291.0" text="quantity" />
-        </columns>
-      </TableView>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="21.0" prefWidth="309.0" text="book resperoty management " />
       <Label layoutX="226.0" layoutY="51.0" prefHeight="21.0" prefWidth="58.0" text="Date:" />
-      <TextField layoutX="284.0" layoutY="46.0" />
-      <Button layoutX="515.0" layoutY="46.0" mnemonicParsing="false" text="Search" />
-      <Pane layoutX="5.0" layoutY="319.0" prefHeight="403.0" prefWidth="943.0">
+      <TextField fx:id="data_text" layoutX="284.0" layoutY="46.0" />
+      <Button layoutX="515.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleSearchButtonAction" text="Search" />
+      <Pane fx:id="handleBackButtonAction" layoutX="5.0" layoutY="319.0" prefHeight="403.0" prefWidth="943.0">
          <children>
             <Label layoutX="71.0" layoutY="14.0" prefHeight="21.0" prefWidth="44.0" text="Date:" />
             <Label layoutX="592.0" layoutY="14.0" text="Quantity:  " />
@@ -31,18 +24,22 @@
               </columns>
             </TableView>
             <Label layoutX="20.0" layoutY="259.0" prefHeight="21.0" prefWidth="51.0" text="Book:  " />
-            <ChoiceBox layoutX="71.0" layoutY="254.0" prefWidth="150.0" />
             <Label layoutX="310.0" layoutY="259.0" text="Quantity：  " />
-            <TextField layoutX="400.0" layoutY="254.0" prefHeight="31.0" prefWidth="100.0" />
-            <Label layoutX="115.0" layoutY="14.0" prefHeight="21.0" prefWidth="219.0" text="Label" />
-            <Label layoutX="660.0" layoutY="14.0" prefHeight="21.0" prefWidth="170.0" text="Label" />
-            <Label layoutX="575.0" layoutY="259.0" prefHeight="21.0" prefWidth="73.0" text="repertory: " />
-            <Label layoutX="660.0" layoutY="259.0" prefHeight="21.0" prefWidth="65.0" text="Label" />
+            <TextField fx:id="amountL" layoutX="400.0" layoutY="254.0" prefHeight="31.0" prefWidth="100.0" />
+            <Label fx:id="DateL" layoutX="115.0" layoutY="14.0" prefHeight="21.0" prefWidth="219.0" text="-" />
+            <Label fx:id="QuantityL" layoutX="660.0" layoutY="14.0" prefHeight="21.0" prefWidth="170.0" text="0" />
+            <Label layoutX="546.0" layoutY="259.0" prefHeight="21.0" prefWidth="73.0" text="repertory: " />
+            <Label fx:id="repertory" layoutX="636.0" layoutY="259.0" prefHeight="21.0" prefWidth="65.0" text="Label" />
             <Button layoutX="745.0" layoutY="254.0" mnemonicParsing="false" text="Add" />
             <Button layoutX="830.0" layoutY="254.0" mnemonicParsing="false" text="Delete" />
-            <Button layoutX="278.0" layoutY="325.0" mnemonicParsing="false" text="confirm" />
-            <Button layoutX="579.0" layoutY="325.0" mnemonicParsing="false" text="cancel" />
+            <Button layoutX="648.0" layoutY="325.0" mnemonicParsing="false" text="confirm" />
+            <Button layoutX="738.0" layoutY="325.0" mnemonicParsing="false" text="cancel" />
+            <ComboBox fx:id="book" layoutX="71.0" layoutY="254.0" prefWidth="150.0" />
+            <Button layoutX="225.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSureButtonAction" text="sure?" />
+            <Label fx:id="bookName" layoutX="19.0" layoutY="330.0" prefHeight="21.0" prefWidth="195.0" text="book name here" />
          </children>
       </Pane>
+      <TextArea fx:id="textA" layoutX="7.0" layoutY="103.0" prefHeight="200.0" prefWidth="930.0" />
+      <Button layoutX="831.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="back" />
    </children>
 </AnchorPane>

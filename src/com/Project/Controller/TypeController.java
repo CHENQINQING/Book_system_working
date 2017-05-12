@@ -5,57 +5,72 @@
  */
 package com.Project.Controller;
 
-
-import book_database.Database_Connection_LS;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Liu
+ * @author liushuai
  */
 public class TypeController implements Initializable {
 
-//     @FXML
-//    private Label labelout;
     @FXML
-    private Button ButtonClear;
+    private Label label1;
     @FXML
-    private TextField typename,search;
+    private TextField search;
+    @FXML
+    private Button button1;
+    @FXML
+    private TableView<?> xxx;
+    @FXML
+    private TableColumn<?, ?> cxz;
+    @FXML
+    private TableColumn<?, ?> zxc;
+    @FXML
+    private TextField typename;
     @FXML
     private TextArea typeintroduction;
     @FXML
-    private TableColumn zxc,cxz;
-//    @FXML
-//    private Label label1;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
+    private Button ButtonClear;
 
-    }
-    @FXML
-    private void ButtonClear(ActionEvent event){
-        search.setText("");
-        typename.setText("");
-        typeintroduction.setText("");
-        
-    }
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-//        Database_Connection_LS test = new Database_Connection_LS();
-//        System.out.println(test.showtype());
-
- 
     }    
-    
+
+    @FXML
+    private void ButtonClear(ActionEvent event) {
+        typename.setText("");
+        typeintroduction.setText("");
+        search.setText("");
+    }
+    @FXML
+    private void ButtonMeun(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Menu");
+        stage.show();
+    }
 }
