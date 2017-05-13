@@ -34,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -66,7 +67,7 @@ public class BookManagingPageController implements Initializable {
     @FXML
     private ComboBox typeCombo;
     @FXML
-    private Button back;
+    private Button searchBt,deleteBt,saveBt,clearBt,logoutBt,homeBt;
     
     //ObservableList used for holding comboBox value.
     private ObservableList<String> publisherList = FXCollections.observableArrayList("one","two","three");
@@ -299,4 +300,64 @@ public class BookManagingPageController implements Initializable {
             }
         }
     }
+    
+    //Resize button when mouse move entered button.
+    @FXML
+    public void mouseEnteredSearch(MouseEvent e){
+        Help.resizeButton(searchBt);
+    }
+    
+    @FXML
+    public void mouseExitedSearch(MouseEvent e){
+        Help.reverseButtonSize(searchBt);
+    }
+    
+    @FXML
+    public void mouseEnteredDelete(MouseEvent e){
+        Help.resizeButton(deleteBt);
+    }
+    
+    @FXML
+    public void mouseExitedDelete(MouseEvent e){
+        Help.reverseButtonSize(deleteBt);
+    }
+    
+     @FXML
+    public void mouseEnteredSave(MouseEvent e){
+        Help.resizeButton(saveBt);
+    }
+    
+    @FXML
+    public void mouseExitedSave(MouseEvent e){
+        Help.reverseButtonSize(saveBt);
+    }
+     @FXML
+    public void mouseEnteredClear(MouseEvent e){
+        Help.resizeButton(clearBt);
+    }
+    
+    @FXML
+    public void mouseExitedClear(MouseEvent e){
+        Help.reverseButtonSize(clearBt);
+    }
+     @FXML
+    public void mouseEnteredLogout(MouseEvent e){
+        Help.resizeButton(logoutBt);
+    }
+    
+    @FXML
+    public void mouseExitedLogout(MouseEvent e){
+        Help.reverseButtonSize(logoutBt);
+    }
+     @FXML
+    public void mouseEnteredHome(MouseEvent e){
+        Help.resizeButton(homeBt);
+    }
+    
+    @FXML
+    public void mouseExitedHome(MouseEvent e){
+        Help.reverseButtonSize(homeBt);
+    }
+    
+    
 }
