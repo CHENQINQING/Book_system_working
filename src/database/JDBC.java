@@ -83,6 +83,22 @@ public class JDBC {
         return rs;
     }
     
+//    public static void showpub(){
+//        Connection conn = null;
+//        PreparedStatement prepStmt = null;
+//        ResultSet rs = null;
+//            try {
+//                String sql="select * from publisher";
+//                conn = establishConnection();
+//            prepStmt = conn.prepareStatement(sql);
+//            rs = prepStmt.executeQuery();
+//                while(rs.next()){
+//                    System.out.println(rs.getString("Publisher_name"));
+//                }
+//            } catch (Exception ex) {
+//                System.out.println("123");
+//            }
+//    }
     public static Connection establishConnection() {
         Connection conn;
 

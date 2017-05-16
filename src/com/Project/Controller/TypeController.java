@@ -5,6 +5,7 @@
  */
 package com.Project.Controller;
 
+import classes.Type;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,17 +38,15 @@ public class TypeController implements Initializable {
     @FXML
     private Button button1;
     @FXML
-    private TableView<?> xxx;
-    @FXML
-    private TableColumn<?, ?> cxz;
-    @FXML
-    private TableColumn<?, ?> zxc;
-    @FXML
-    private TextField typename;
+    private TableColumn<Type, String> typename;
     @FXML
     private TextArea typeintroduction;
     @FXML
     private Button ButtonClear;
+    @FXML
+    private TableView tt;
+    @FXML
+    private TableColumn<Type, String> introduction;
 
     /**
      * Initializes the controller class.

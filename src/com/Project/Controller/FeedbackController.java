@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -26,7 +27,9 @@ import javafx.stage.Stage;
 public class FeedbackController implements Initializable {
 
     @FXML
-    private TextArea text;
+    private TextArea body;
+    @FXML
+    private TextField title;
 
     /**
      * Initializes the controller class.
@@ -37,7 +40,8 @@ public class FeedbackController implements Initializable {
     }    
     @FXML
     private void ButtonClear(ActionEvent event) {
-        text.setText("");
+        title.setText("");
+        body.setText("");
     }
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {

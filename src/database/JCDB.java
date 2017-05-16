@@ -100,6 +100,24 @@ public class JCDB {
         return rs;
     }
     
+    public static ResultSet ManageRitrivePublisher(){
+        Connection conn=null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+           // String statement = "SELECT publisherName, address, phone, introduction FROM Publisher";
+            String statement = "SELECT Pub_name,Pub_tel,Pub_link_man,Pub_introduction FROM publisher";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any publisher information.");
+        }
+        return rs;
+    }
+    
     public static void ManagerDeleteBook(String bookName){
         Connection conn = null;
         PreparedStatement prepStmt = null;
@@ -132,6 +150,43 @@ public class JCDB {
             System.out.println("Not connected to database");
         }
         return null;
+    }
+    
+    public static void managerSavePublisher(String publisher,String address,int telephone,String introduction) throws SQLException {
+        try(Connection conn = establishConnection();){
+            String statement = "INSERT INTO publisher (Pub_name,Pub_tel,Pub_link_man,Pub_introduction) VALUES (?,?,?,?)";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            
+            // remove ++ from here, do it in last
+            //prepStmt.setInt(1, id);
+            prepStmt.setString(1, publisher);
+            prepStmt.setInt(2, telephone);
+            prepStmt.setString(3, address);
+            prepStmt.setString(4, introduction);
+            prepStmt.executeUpdate();
+            
+            System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public static ResultSet ManagerSearchPublisher(String name){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "SELECT * FROM Publisher WHERE Pub_name LIKE\"%" + name + "%\"";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any book.");
+        }
+        return rs;
     }
 }
     

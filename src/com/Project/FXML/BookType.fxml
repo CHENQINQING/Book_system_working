@@ -59,10 +59,10 @@
                   <Insets left="20.0" />
                </padding>
             </HBox>
-            <TableView nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="668.0" fx:id="xxx">
+            <TableView fx:id="tt" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="668.0">
               <columns>
-                <TableColumn fx:id="cxz" prefWidth="317.0" text="type name" />
-                <TableColumn fx:id="zxc" minWidth="0.0" prefWidth="382.0" text="introduction" />
+                <TableColumn fx:id="typename" prefWidth="317.0" text="type name" />
+                <TableColumn fx:id="introduction" minWidth="0.0" prefWidth="382.0" text="introduction" />
               </columns>
                <VBox.margin>
                   <Insets top="10.0" />
