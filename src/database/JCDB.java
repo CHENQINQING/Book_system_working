@@ -172,6 +172,23 @@ public class JCDB {
         }
     }
     
+    public static void ManagerDeletePublisher(String publisherName){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "DELETE FROM Publisher WHERE Pub_name = ?";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            prepStmt.setString(1, publisherName);
+            prepStmt.execute();
+            System.out.println("Success removed");
+            
+        } catch (Exception e) {
+            System.out.println("ERROR. Not delete.");
+        }
+    }
+    
     public static ResultSet ManagerSearchPublisher(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;

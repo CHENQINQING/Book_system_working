@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -94,7 +96,7 @@ public class PublisherController implements Initializable {
     private void ButtonMeun(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerMenu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Menu");
@@ -257,5 +259,33 @@ public class PublisherController implements Initializable {
         Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
         
         pb.setItems(searchData);
+    }
+     @FXML
+    private void handleDeleteAction(ActionEvent event){
+        ObservableList<Publisher> publisherSelect, allPublishers;
+        allPublishers = pb.getItems();
+        publisherSelect = pb.getSelectionModel().getSelectedItems();
+        
+        if(publisherSelect.isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Please select a publisher.");
+            alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Confirm Deletion");
+            alert.setContentText("Are you sure you want to delete this publisher?");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.OK){
+                JCDB.ManagerDeletePublisher(publisherSelect.get(0).getPublisher()); //remove publisher to database
+                publisherSelect.forEach(allPublishers::remove); //remove publisher to table view.
+            }
+            else{
+                alert.close();
+            }
+        }
     }
 }
