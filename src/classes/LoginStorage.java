@@ -18,7 +18,7 @@ public class LoginStorage {
     private static LoginStorage loginStorage;
     private final IntegerProperty id = new SimpleIntegerProperty();
     private final StringProperty username = new SimpleStringProperty();
-    private final StringProperty accountType = new SimpleStringProperty();
+    private final IntegerProperty accountType = new SimpleIntegerProperty();
     
     private LoginStorage() {
         
@@ -39,7 +39,7 @@ public class LoginStorage {
         username.set(un);
     }
     
-    public void setAccountType(String accType) {
+    public void setAccountType(int accType) {
         accountType.set(accType);
     }
     
@@ -51,7 +51,7 @@ public class LoginStorage {
         return username.get();
     }
     
-    public String getAccountType() {
+    public int getAccountType() {
         return accountType.get();
     }
     
