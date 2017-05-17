@@ -86,7 +86,7 @@ public class reperoty_management implements Initializable {
         if(data_text.getText().matches("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))|([1-2][0-9]{3})")){
             date = data_text.getText();
             System.out.println(date);
-            sql = "SELECT import.RECORD_DATE,import_has_book.IN_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
+            sql = "SELECT import.RECORD_DATE,import_has_book.INT_SUM,book.BOOK_NAME,book.price,book.REPERTORY_SIZE "
                 + "FROM import,import_has_book,book "
                 +"WHERE import.idImport = import_has_book.import_idImport and import_has_book.book_idBook = book.book_id"
                 +" and import.RECORD_DATE like" + "'" + date + "%'";  
