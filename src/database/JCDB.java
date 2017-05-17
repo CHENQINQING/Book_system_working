@@ -5,7 +5,6 @@
  */
 package database;
 
-import classes.Book;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -45,19 +44,19 @@ public class JCDB {
         }
     }*/
     
-    public static void managerAddNewBook(Book book) throws SQLException {
+    public static void managerAddNewBook(String bookName, String authors, double price, String pulisher, String type, String intro) throws SQLException {
         try(Connection conn = establishConnection();){
-            String statement = "INSERT INTO book (book_name, publisher_publisherName, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO book (book_name, publisher, author, price, introduction, type) VALUES (?,?,?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             // remove ++ from here, do it in last
             //prepStmt.setInt(1, id);
-            prepStmt.setString(1, book.getName());
-            prepStmt.setString(2, book.getPublisher());
-            prepStmt.setString(3, book.getAuthor());
-            prepStmt.setDouble(4, book.getPrice());
-            prepStmt.setString(5, book.getIntro());
-            prepStmt.setString(6, book.getType());
+            prepStmt.setString(1, bookName);
+            prepStmt.setString(2, pulisher);
+            prepStmt.setString(3, authors);
+            prepStmt.setDouble(4, price);
+            prepStmt.setString(5, intro);
+            prepStmt.setString(6, type);
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");
@@ -256,56 +255,6 @@ public class JCDB {
         } catch (Exception e) {
             System.out.println("ERROR. Not delete.");
         }
-    }
-    public static boolean verifyAccount(String username, String accountType) throws SQLException{
-        Connection conn = establishConnection();
-        String query = "";
-        if(accountType.equals("employee")) {
-            query = "SELECT count(*) FROM employee WHERE username = ?";
-        }
-        else if(accountType.equals("member")) {
-            query = "SELECT count(*) FROM member WHERE username = ?";
-        }
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(1, username);
-        ResultSet rs = statement.executeQuery();
-        int count = 0;
-        while(rs.next()) {
-            count = rs.getInt(1);
-        }
-        if(count==0) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    
-    public static int getId(String username, String pwd, String accountType) {
-        Connection conn = establishConnection();
-        String query = "";
-        if(accountType.equals("employee")) {
-            query = "SELECT employee_id FROM employee WHERE username = ? AND password = ?";
-        }
-        else if(accountType.equals("member")) {
-            query = "SELECT customer_id FROM member WHERE username = ? AND password = ?";
-        }
-        int id = 0;
-        try {
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, username);
-            statement.setString(2, pwd);
-            ResultSet rs = statement.executeQuery();
-            System.out.println(statement);
-            System.out.println(rs);
-            while(rs.next()) {
-                id = rs.getInt(1);
-            }
-        }
-        catch(SQLException e) {
-            
-        }
-        return id;
     }
 }
     

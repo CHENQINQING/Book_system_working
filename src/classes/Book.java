@@ -5,42 +5,40 @@
  */
 package classes;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 /**
  *
  * @author Xuantong
  */
 public class Book {
     private int id;
-    private SimpleStringProperty name;
-    private SimpleStringProperty publisher;
-    private SimpleStringProperty author;
-    private SimpleDoubleProperty price;
-    private SimpleStringProperty intro;
+    private String name;
+    private String publisher;
+    private String author;
+    private double price;
+    private String intro;
     //private int inventory;
-    private SimpleStringProperty type;
+    private String type;
     
     public Book(){
         
     }
     
     public Book(String name, String author, double price, String publisher, String type) {
-        this.name = new SimpleStringProperty(name);
-        this.publisher = new SimpleStringProperty(publisher);
-        this.author = new SimpleStringProperty(author);
-        this.price = new SimpleDoubleProperty(price);
-        this.type = new SimpleStringProperty(type);
+        this.name = name;
+        this.publisher = publisher;
+        this.author = author;
+        this.price = price;
+        this.type = type;
     }
     
     public Book(String name, String author, double price, String publisher, String type, String intro) {
-        this.name = new SimpleStringProperty(name);
-        this.publisher = new SimpleStringProperty(publisher);
-        this.author = new SimpleStringProperty(author);
-        this.price = new SimpleDoubleProperty(price);
-        this.type = new SimpleStringProperty(type);
-        this.intro = new SimpleStringProperty(intro);
+        //this.id = id;
+        this.name = name;
+        this.publisher = publisher;
+        this.author = author;
+        this.price = price;
+        this.type = type;
+        this.intro = intro;
     }
 
     /**
@@ -61,70 +59,70 @@ public class Book {
      * @return the name
      */
     public String getName() {
-        return name.get();
+        return name;
     }
 
     /**
      * @param name the name to set
      */
     public void setName(String name) {
-        this.name.set(name);
+        this.name = name;
     }
 
     /**
      * @return the publisher
      */
     public String getPublisher() {
-        return publisher.get();
+        return publisher;
     }
 
     /**
      * @param publiser the publisher to set
      */
     public void setPublisher(String publisher) {
-        this.publisher.set(publisher);
+        this.publisher = publisher;
     }
 
     /**
      * @return the author
      */
     public String getAuthor() {
-        return author.get();
+        return author;
     }
 
     /**
      * @param author the author to set
      */
     public void setAuthor(String author) {
-        this.author.set(author);
+        this.author = author;
     }
 
     /**
      * @return the price
      */
     public double getPrice() {
-        return price.get();
+        return price;
     }
 
     /**
      * @param price the price to set
      */
     public void setPrice(double price) {
-        this.price.set(price);
+        this.price = price;
     }
 
     /**
      * @return the intro
      */
     public String getIntro() {
-        return intro.get();
+        return intro;
     }
 
     /**
      * @param intro the intro to set
      */
     public void setIntro(String intro) {
-        this.intro.set(intro);
+        this.intro = intro;
     }
 
     /**
@@ -145,33 +143,18 @@ public class Book {
      * @return the type
      */
     public String getType() {
-        return type.get();
+        return type;
     }
 
     /**
      * @param type the type to set
      */
     public void setType(String type) {
-        this.type.set(type);
+        this.type = type;
+    }
+
+    public int getInventory() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    //property value
-    public SimpleStringProperty nameProperty(){
-        return name;
-    }
-    public SimpleStringProperty publisherProperty(){
-        return publisher;
-    }
-    public SimpleStringProperty authorProperty(){
-        return author;
-    }
-    public SimpleDoubleProperty priceProperty(){
-        return price;
-    }
-    public SimpleStringProperty introProperty(){
-        return intro;
-    }
-    public SimpleStringProperty typeProperty(){
-        return type;
-    }
 }
