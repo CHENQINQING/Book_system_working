@@ -44,7 +44,7 @@ import javafx.stage.Stage;
  * @author liushuai
  */
 public class TypeController implements Initializable {
-
+    JCDB jcdb =new JCDB();
     @FXML
     private TextField search;
     @FXML
@@ -111,7 +111,7 @@ public class TypeController implements Initializable {
             Type T = new Type(
                     TypeName.getText(),
                     TypeIntroduction.getText());
-            JCDB.managerSaveType(
+            jcdb.managerSaveType(
                     T.getType(),
                     T.getIntroduction());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -148,7 +148,7 @@ public class TypeController implements Initializable {
     
     private void gettypeData() {
        typeData=FXCollections.observableArrayList();
-       ResultSet rs = JCDB.ManageRitriveType();
+       ResultSet rs = jcdb.ManageRitriveType();
        Type t = null;
         try {
             while(rs.next()){
@@ -187,7 +187,7 @@ public class TypeController implements Initializable {
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-                JCDB.ManagerDeleteType(typeSelect.get(0).getType()); //remove publisher to database
+                jcdb.ManagerDeleteType(typeSelect.get(0).getType()); //remove publisher to database
                 typeSelect.forEach(allType::remove); //remove publisher to table view.
             }
             else{

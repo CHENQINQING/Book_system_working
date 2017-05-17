@@ -41,7 +41,8 @@ import javafx.stage.Stage;
  * @author liushuai
  */
 public class PublisherController implements Initializable {
-
+    JCDB jcdb =new JCDB();
+    
     @FXML
     private Button ButtonClear;
     @FXML
@@ -63,7 +64,7 @@ public class PublisherController implements Initializable {
     @FXML
     private TableColumn<Publisher, String> Address;
     @FXML
-    private TableColumn<Publisher, String> Telephone;
+    private TableColumn<Publisher, Integer> Telephone;
     @FXML
     private TableColumn<Publisher, String> Introduction;
 
@@ -134,7 +135,7 @@ public class PublisherController implements Initializable {
             int phoneNum = Integer.parseInt(tele);
             Publisher p = new Publisher(publishername.getText(), address.getText(), telephone.getAnchor(), publisherintroduction.getText());
             
-            JCDB.managerSavePublisher(p.getPublisher(), p.getAddress(), phoneNum, p.getIntroduction());
+            jcdb.managerSavePublisher(p.getPublisher(), p.getAddress(), phoneNum, p.getIntroduction());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
             alert.setContentText("The Data Has Been Saved");
@@ -184,7 +185,7 @@ public class PublisherController implements Initializable {
 
     private void getPublisherData() {
        publisherData=FXCollections.observableArrayList();
-       ResultSet rs = JCDB.ManageRitrivePublisher();
+       ResultSet rs = jcdb.ManageRitrivePublisher();
         try {
             while(rs.next()){
 //                String newTele = Integer.toString(rs.getInt("Pub_tel"));
@@ -205,7 +206,7 @@ public class PublisherController implements Initializable {
         }
         Publisher.setCellValueFactory(new PropertyValueFactory<Publisher,String>("publisher"));
         Address.setCellValueFactory(new PropertyValueFactory<Publisher,String>("address"));
-        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,String>("telephone number"));
+        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,Integer>("telephone number"));
         Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
         pb.setItems(publisherData);
     }
@@ -226,9 +227,8 @@ public class PublisherController implements Initializable {
             Address.getColumns().clear();
             Telephone.getColumns().clear();
             Introduction.getColumns().clear();
-            
             searchData = FXCollections.observableArrayList();
-            ResultSet rs = JCDB.ManagerSearchBook(search.getText());
+            ResultSet rs = jcdb.ManagerSearchBook(search.getText());
             
             String newTele = Integer.toString(rs.getInt("Pub_tel"));
             
@@ -244,7 +244,7 @@ public class PublisherController implements Initializable {
         
         Publisher.setCellValueFactory(new PropertyValueFactory<Publisher,String>("publisher"));
         Address.setCellValueFactory(new PropertyValueFactory<Publisher,String>("address"));
-        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,String>("telephone number"));
+        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,Integer>("telephone number"));
         Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
         
         pb.setItems(searchData);

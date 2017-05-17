@@ -5,12 +5,16 @@
  */
 package database;
 
+import classes.Book;
+import classes.BookStorage;
+import classes.LoginStorage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -44,19 +48,19 @@ public class JCDB {
         }
     }*/
     
-    public static void managerAddNewBook(String bookName, String authors, double price, String pulisher, String type, String intro) throws SQLException {
+    public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
-            String statement = "INSERT INTO book (book_name, publisher, author, price, introduction, type) VALUES (?,?,?,?,?,?)";
+            String statement = "INSERT INTO book (book_name, publisher_publisherName, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             // remove ++ from here, do it in last
             //prepStmt.setInt(1, id);
-            prepStmt.setString(1, bookName);
-            prepStmt.setString(2, pulisher);
-            prepStmt.setString(3, authors);
-            prepStmt.setDouble(4, price);
-            prepStmt.setString(5, intro);
-            prepStmt.setString(6, type);
+            prepStmt.setString(1, book.getName());
+            prepStmt.setString(2, book.getPublisher());
+            prepStmt.setString(3, book.getAuthor());
+            prepStmt.setDouble(4, book.getPrice());
+            prepStmt.setString(5, book.getIntro());
+            prepStmt.setString(6, book.getType());
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");
@@ -66,7 +70,7 @@ public class JCDB {
         }
     }
     
-    public static ResultSet ManagerSearchBook(String name){
+    public ResultSet ManagerSearchBook(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -83,7 +87,7 @@ public class JCDB {
         return rs;
     }
     
-    public static ResultSet ManagerRitriveBook(){
+    public ResultSet ManagerRitriveBook(){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -93,14 +97,14 @@ public class JCDB {
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
             System.out.println("Success");
-            
+            return rs;
         } catch (Exception e) {
             System.out.println("Cannot ritrive any book.");
+            return null;
         }
-        return rs;
     }
     
-    public static void ManagerDeleteBook(String bookName){
+    public void ManagerDeleteBook(String bookName){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -117,7 +121,27 @@ public class JCDB {
         }
     }
     
-    public static Connection establishConnection() {
+    public ResultSet customerSearchingBook(){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "SELECT book_name, publisher, author, price, type FROM Book WHERE book_name = ?";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            System.out.println("JCDB: "+BookStorage.getInstance().getName()); //using singleton to bind name of book.
+            prepStmt.setString(1, BookStorage.getInstance().getName());
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            return rs;
+            
+        } catch (Exception e) {
+            System.out.println("Customer cannot ritrive any book.");
+            return null;
+        }
+    }
+    
+    public Connection establishConnection() {
         Connection conn;
 
         //Get connection to database
@@ -134,7 +158,7 @@ public class JCDB {
         return null;
     }
     
-    public static void managerSavePublisher(String publisher,String address,int telephone,String introduction) throws SQLException {
+    public void managerSavePublisher(String publisher,String address,int telephone,String introduction) throws SQLException {
         try(Connection conn = establishConnection();){
             String SQL = "INSERT INTO publisher (Pub_name,Pub_tel,Pub_address,Pub_introduction) VALUES (?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
@@ -154,7 +178,7 @@ public class JCDB {
         }
     }
     
-    public static ResultSet ManageRitrivePublisher(){
+    public ResultSet ManageRitrivePublisher(){
         Connection conn=null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -189,7 +213,7 @@ public class JCDB {
 //        }
 //    }
     
-    public static ResultSet ManagerSearchPublisher(String name){
+    public ResultSet ManagerSearchPublisher(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -206,7 +230,7 @@ public class JCDB {
         return rs;
     }
     
-    public static void managerSaveType(String type,String introduction) throws SQLException {
+    public void managerSaveType(String type,String introduction) throws SQLException {
         try(Connection conn = establishConnection();){
             String SQL = "INSERT INTO type (Type_name,Type_introduction) VALUES (?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
@@ -222,7 +246,7 @@ public class JCDB {
         }
     }
     
-    public static ResultSet ManageRitriveType(){
+    public ResultSet ManageRitriveType(){
         Connection conn=null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -240,7 +264,7 @@ public class JCDB {
         return rs;
     }
     
-    public static void ManagerDeleteType(String typeName){
+    public void ManagerDeleteType(String typeName){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -255,6 +279,58 @@ public class JCDB {
         } catch (Exception e) {
             System.out.println("ERROR. Not delete.");
         }
+    }
+    public boolean verifyAccount(String uname, String accountType) throws SQLException{
+        Connection conn = establishConnection();
+        String query = "";
+        if(accountType.equals("Employee")) {
+            query = "SELECT count(*) FROM user WHERE username = ? AND level = 2";
+        }
+        else if(accountType.equals("Manager")) {
+            query = "SELECT count(*) FROM user WHERE username = ? AND level = 1";
+        }
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, uname);
+        //statement.setInt(2, LoginStorage.getInstance().getAccountType());
+        ResultSet rs = statement.executeQuery();
+        int count = 0;
+        while(rs.next()) {
+            System.out.println("count: "+rs.getInt(1));
+            count = rs.getInt(1);
+        }
+        if(count==0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    public int getId(String username, String pwd, String accountType) {
+        Connection conn = establishConnection();
+        String query = "";
+        if(accountType.equals("Employee")) {
+            query = "SELECT userId FROM user WHERE username = ? AND password = ? AND level = 2";
+        }
+        else if(accountType.equals("Manager")) {
+            query = "SELECT userId FROM user WHERE username = ? AND password = ? AND level = 1";
+        }
+        int id = 0;
+        try {
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, pwd);
+            ResultSet rs = statement.executeQuery();
+            System.out.println(statement);
+            System.out.println(rs);
+            while(rs.next()) {
+                id = rs.getInt(1);
+            }
+        }
+        catch(SQLException e) {
+            System.out.println("password wrong."+e);
+        }
+        return id;
     }
 }
     

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
@@ -8,19 +11,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.LoginPageController">
+<AnchorPane id="AnchorPane" prefHeight="534.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.LoginPageController">
    <children>
-      <TabPane fx:id="tabPane" prefHeight="500.0" prefWidth="700.0" style="-fx-background-radius: 10;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane fx:id="tabPane" prefHeight="534.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="searchTab" text="User Search">
+          <Tab fx:id="searchTab" text="Book Searching">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;">
+              <AnchorPane minHeight="0.0" minWidth="0.0" onMouseClicked="#handleMoveBack" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;">
                      <children>
-                        <VBox alignment="TOP_CENTER" prefHeight="455.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ImageView blendMode="OVERLAY" fitHeight="534.0" fitWidth="700.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../buttonIcon/background.jpg" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="TOP" prefHeight="77.0" prefWidth="455.0" text="Some Bookstore System" VBox.vgrow="ALWAYS">
+                              <Label fx:id="title" alignment="CENTER" contentDisplay="TOP" prefHeight="87.0" prefWidth="637.0" text="Here is not just a bookstore, it is home" textFill="#ae4b4b" VBox.vgrow="ALWAYS">
                                  <font>
-                                    <Font name="Calibri Bold Italic" size="39.0" />
+                                    <Font name="Curlz MT" size="40.0" />
                                  </font>
                                  <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -29,25 +37,62 @@
                                     <Insets top="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <HBox alignment="CENTER" prefHeight="223.0" prefWidth="700.0">
+                              <HBox alignment="CENTER" prefHeight="236.0" prefWidth="655.0" spacing="20.0">
                                  <children>
-                                    <TextField fx:id="textField" alignment="CENTER" prefHeight="39.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                                    <TextField fx:id="searchField" onMouseEntered="#mouseEnteredSearch" onMouseExited="#mouseExitedSearch" prefHeight="35.0" prefWidth="329.0" promptText="SEARCHING BOOK BY NAME" style="-fx-background-radius: 10;">
                                        <HBox.margin>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </HBox.margin>
+                                       <font>
+                                          <Font name="Curlz MT" size="20.0" />
+                                       </font>
                                     </TextField>
-                                    <ComboBox fx:id="combo" prefHeight="42.0" prefWidth="175.0" style="-fx-background-radius: 20;">
-                                       <HBox.margin>
-                                          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                       </HBox.margin>
-                                    </ComboBox>
+                                    <Button fx:id="searchBt" alignment="CENTER" mnemonicParsing="false" onAction="#searchBook" onMouseEntered="#mouseEnteredSearchBt" onMouseExited="#mouseExitedSearchBt" prefHeight="32.0" prefWidth="86.0" style="-fx-background-radius: 100;" text="Search">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../buttonIcon/find.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
                                  </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
                               </HBox>
-                              <Button fx:id="searchBt" alignment="CENTER" mnemonicParsing="false" onAction="#searchBook" style="-fx-background-radius: 100;" text="Search">
-                                 <font>
-                                    <Font name="System Bold" size="17.0" />
-                                 </font>
-                              </Button>
+                              <AnchorPane prefHeight="152.0" prefWidth="655.0">
+                                 <children>
+                                    <Button fx:id="comic" layoutX="38.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredComic" onMouseExited="#mouseExitedComic" style="-fx-background-radius: 100;" text="Comic">
+                                       <font>
+                                          <Font name="Bell MT Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="bio" layoutX="26.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredBio" onMouseExited="#mouseExitedBio" style="-fx-background-radius: 100;" text="Biography">
+                                       <font>
+                                          <Font name="Bell MT Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="leisure" layoutX="36.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredLeisure" onMouseExited="#mouseExitedLeisure" style="-fx-background-radius: 100;" text="Leisure">
+                                       <font>
+                                          <Font name="Bell MT Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="learning" layoutX="31.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredLearning" onMouseExited="#mouseExitedLearning" style="-fx-background-radius: 100;" text="Learning">
+                                       <font>
+                                          <Font name="Bell MT Bold" size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="main" layoutX="23.0" layoutY="41.0" mnemonicParsing="false" onMouseClicked="#handleMoreButton" onMouseEntered="#mouseEnteredType" onMouseExited="#mouseExitedType" style="-fx-background-radius: 100;" text="Category &gt;&gt;">
+                                       <font>
+                                          <Font name="Bell MT Bold" size="18.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </VBox>
                      </children>
@@ -58,34 +103,52 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;">
                      <children>
-                        <TextField fx:id="username" layoutX="105.0" layoutY="165.0" prefHeight="39.0" prefWidth="270.0" style="-fx-background-radius: 10;" />
-                        <TextField fx:id="password" layoutX="107.0" layoutY="263.0" prefHeight="39.0" prefWidth="267.0" style="-fx-background-radius: 10;" />
-                        <Label layoutX="493.0" layoutY="171.0" text="Username">
+                        <ImageView fitHeight="534.0" fitWidth="700.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../buttonIcon/background2.jpg" />
+                           </image>
+                        </ImageView>
+                        <TextField fx:id="username" layoutX="105.0" layoutY="165.0" onMouseEntered="#mouseEnteredUsername" onMouseExited="#mouseExitedUsername" prefHeight="39.0" prefWidth="270.0" style="-fx-background-radius: 10;" />
+                        <TextField fx:id="password" layoutX="107.0" layoutY="263.0" onMouseEntered="#mouseEnteredPassword" onMouseExited="#mouseExitedPassword" prefHeight="39.0" prefWidth="267.0" style="-fx-background-radius: 10;" />
+                        <Label layoutX="493.0" layoutY="171.0" text="Username" textFill="#e06f6f">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="493.0" layoutY="269.0" text="Password">
+                        <Label layoutX="493.0" layoutY="269.0" text="Password" textFill="#e06f6f">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="loginBt" layoutX="502.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleLogin" style="-fx-background-radius: 100;" text="Login">
+                        <Button fx:id="loginBt" layoutX="502.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleLogin" onMouseEntered="#mouseEnteredLoginBt" onMouseExited="#mouseExitedLoginBt" style="-fx-background-radius: 100;" text="Login">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="13.0" />
                            </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../buttonIcon/login.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
                         </Button>
-                        <Label contentDisplay="TOP" layoutX="148.0" layoutY="24.0" prefHeight="77.0" prefWidth="435.0" text="Some Bookstore System">
+                        <Label alignment="CENTER" contentDisplay="TOP" layoutX="128.0" layoutY="24.0" prefHeight="84.0" prefWidth="439.0" text="*Employee Only*" textFill="#ae4b4b">
                            <font>
                               <Font name="Calibri Bold Italic" size="39.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="loginCombo" layoutX="107.0" layoutY="362.0" prefWidth="150.0" promptText="LOGIN AS:" style="-fx-background-radius: 10;" />
+                        <ComboBox fx:id="loginCombo" layoutX="107.0" layoutY="362.0" onMouseEntered="#mouseEnteredLoginCombo" onMouseExited="#mouseExitedLoginCombo" prefWidth="150.0" promptText="LOGIN AS:" style="-fx-background-radius: 10;" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
         </tabs>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <SepiaTone level="0.03" />
+         </effect>
       </TabPane>
    </children>
 </AnchorPane>

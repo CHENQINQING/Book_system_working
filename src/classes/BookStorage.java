@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package classes;
-
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -15,7 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 
 
-public class Book {
+public class BookStorage {
     private int id;
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty publisher = new SimpleStringProperty();
@@ -25,7 +24,20 @@ public class Book {
     //private int inventory;
     private SimpleStringProperty type = new SimpleStringProperty();
     
-    public Book(){
+    private static BookStorage bookStorage;
+    
+    private BookStorage(){
+        
+    }
+    
+    public static BookStorage getInstance(){
+        if(bookStorage == null){
+            bookStorage = new BookStorage();
+        }
+        return bookStorage;
+    }
+    
+    /*public Book(){
         this.name = new SimpleStringProperty("");
         this.publisher = new SimpleStringProperty("");
         this.author = new SimpleStringProperty("");
@@ -49,7 +61,7 @@ public class Book {
         this.price = new SimpleDoubleProperty(price);
         this.type = new SimpleStringProperty(type);
         this.intro = new SimpleStringProperty(intro);
-    }
+    }*/
 
     /**
      * @return the id
