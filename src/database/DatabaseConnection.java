@@ -26,7 +26,7 @@ public class DatabaseConnection {
     String userName;
     String password;
     // String URL = "jdbc:mysql://127.0.0.1:3306/YOUR_DATABASE_NAME?user=YOUR_USER_NAME&password=YOUR_PASSWORD";
-    String url = "jdbc:mysql://127.0.0.1:3306/mydb?user=root&password=root";
+    String url = "jdbc:mysql://127.0.0.1:3306/book_system?user=root&password=root";
 
     //constructor will manage stablishing a connection to the database
     public DatabaseConnection()  {

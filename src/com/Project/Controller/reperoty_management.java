@@ -88,7 +88,7 @@ public class reperoty_management implements Initializable {
             System.out.println(date);
             sql = "SELECT import.RECORD_DATE,import_has_book.IN_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
                 + "FROM import,import_has_book,book "
-                +"WHERE import.idImport = import_has_book.import_idImport and import_has_book.book_idBook = book.idBook"
+                +"WHERE import.idImport = import_has_book.import_idImport and import_has_book.book_idBook = book.book_id"
                 +" and import.RECORD_DATE like" + "'" + date + "%'";  
         rs = connection.query(sql);
         if(rs.next()){

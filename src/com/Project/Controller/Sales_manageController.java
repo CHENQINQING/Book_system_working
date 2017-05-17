@@ -6,7 +6,6 @@
 package com.Project.Controller;
 
 import classes.Book;
-import classes.salesView;
 import database.DatabaseConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -84,8 +83,6 @@ public class Sales_manageController implements Initializable {
     private ObservableList<String> booklist = FXCollections.observableArrayList();
     //private ObservableList<String> tablelist = FXCollections.observableArrayList();
     DatabaseConnection connection = new DatabaseConnection();
-    private final ObservableList<salesView> data  
-            = FXCollections.observableArrayList();  
   
   
 //ObservableList<TableColumn> observableList = table.getColumns(); 
@@ -103,7 +100,7 @@ public class Sales_manageController implements Initializable {
             System.out.println(date);
             sql = "SELECT sales.RECORD_DATE,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
                 + "FROM sales,book_has_sales,book "
-                +"WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_idBook = book.idBook"
+                +"WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_idBook = book.book_id"
                 +" and sales.RECORD_DATE like" + "'" + date + "%'";  
         rs = connection.query(sql);
         if(rs.next()){
