@@ -136,7 +136,7 @@ public class JCDB {
     
     public static void managerSavePublisher(String publisher,String address,int telephone,String introduction) throws SQLException {
         try(Connection conn = establishConnection();){
-            String SQL = "INSERT INTO publisher (Pub_name,Pub_tel,Pub_link_man,Pub_introduction) VALUES (?,?,?,?)";
+            String SQL = "INSERT INTO publisher (Pub_name,Pub_tel,Pub_address,Pub_introduction) VALUES (?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
             
             // remove ++ from here, do it in last
@@ -160,7 +160,7 @@ public class JCDB {
         ResultSet rs = null;
         try {
            // String SQL = "SELECT publisherName, address, phone, introduction FROM Publisher";
-            String SQL = "SELECT Pub_name,Pub_tel,Pub_link_man,Pub_introduction FROM publisher";
+            String SQL = "SELECT Pub_name,Pub_tel,Pub_address,Pub_introduction FROM publisher";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             rs = prepStmt.executeQuery();
@@ -172,29 +172,29 @@ public class JCDB {
         return rs;
     }
     
-    public static void ManagerDeletePublisher(String publisherName){
-        Connection conn = null;
-        PreparedStatement prepStmt = null;
-        ResultSet rs = null;
-        try {
-            String SQL = "DELETE FROM Publisher WHERE Pub_name = ?";
-            conn = establishConnection();
-            prepStmt = conn.prepareStatement(SQL);
-            prepStmt.setString(1, publisherName);
-            prepStmt.execute();
-            System.out.println("Success removed");
-            
-        } catch (Exception e) {
-            System.out.println("ERROR. Not delete.");
-        }
-    }
+//    public static void ManagerDeletePublisher(String publisherName){
+//        Connection conn = null;
+//        PreparedStatement prepStmt = null;
+//        ResultSet rs = null;
+//        try {
+//            String SQL = "DELETE FROM Publisher WHERE Pub_name = ?";
+//            conn = establishConnection();
+//            prepStmt = conn.prepareStatement(SQL);
+//            prepStmt.setString(1, publisherName);
+//            prepStmt.execute();
+//            System.out.println("Success removed");
+//            
+//        } catch (Exception e) {
+//            System.out.println("ERROR. Not delete.");
+//        }
+//    }
     
     public static ResultSet ManagerSearchPublisher(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String SQL = "SELECT Pub_name,Pub_link_man,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name LIKE\"%" + name + "%\"";
+            String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             rs = prepStmt.executeQuery();

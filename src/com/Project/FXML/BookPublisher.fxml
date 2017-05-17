@@ -35,9 +35,9 @@
             <TableColumn fx:id="Introduction" minWidth="9.0" prefWidth="255.0" text="Introduction" />
         </columns>
       </TableView>
-      <Button layoutX="121.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleSaveAction" prefHeight="29.0" prefWidth="62.0" text="Save" />
-      <Button fx:id="ButtonClear" layoutX="394.0" layoutY="449.0" mnemonicParsing="false" onAction="#ButtonClear" prefHeight="29.0" prefWidth="62.0" text="Clear" />
-      <Button fx:id="ButtonMeun" layoutX="523.0" layoutY="449.0" mnemonicParsing="false" onAction="#ButtonMeun" prefHeight="29.0" prefWidth="62.0" text="Meun" />
+      <Button layoutX="132.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleSaveAction" prefHeight="29.0" prefWidth="62.0" text="Save" />
+      <Button fx:id="ButtonClear" layoutX="320.0" layoutY="449.0" mnemonicParsing="false" onAction="#ButtonClear" prefHeight="29.0" prefWidth="62.0" text="Clear" />
+      <Button fx:id="ButtonMeun" layoutX="493.0" layoutY="449.0" mnemonicParsing="false" onAction="#ButtonMeun" prefHeight="29.0" prefWidth="62.0" text="Meun" />
       <AnchorPane layoutX="7.0" layoutY="272.0" prefHeight="165.0" prefWidth="688.0" style="-fx-background-color: white;">
          <children>
             <Label alignment="CENTER" layoutX="6.0" layoutY="3.0" prefHeight="26.0" prefWidth="112.0" text="publisher name:">
@@ -66,6 +66,5 @@
             <TextArea fx:id="publisherintroduction" layoutX="129.0" layoutY="103.0" prefHeight="47.0" prefWidth="531.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="ButtonDelete" layoutX="257.0" layoutY="449.0" mnemonicParsing="false" onAction="#handleDeleteAction" prefHeight="29.0" prefWidth="62.0" text="Delete" />
    </children>
 </AnchorPane>

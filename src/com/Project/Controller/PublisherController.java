@@ -132,7 +132,7 @@ public class PublisherController implements Initializable {
         else{
             String tele = telephone.getText();
             int phoneNum = Integer.parseInt(tele);
-            Publisher p = new Publisher(publishername.getText(), address.getText(), tele, publisherintroduction.getText());
+            Publisher p = new Publisher(publishername.getText(), address.getText(), telephone.getAnchor(), publisherintroduction.getText());
             
             JCDB.managerSavePublisher(p.getPublisher(), p.getAddress(), phoneNum, p.getIntroduction());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -170,7 +170,7 @@ public class PublisherController implements Initializable {
         }
         else{
             String tele = telephone.getText();
-            Publisher p = new Publisher(publishername.getText(), address.getText(), tele, publisherintroduction.getText());
+            Publisher p = new Publisher(publishername.getText(), address.getText(), telephone.getAnchor(), publisherintroduction.getText());
         
             pb.getItems().add(p);
         
@@ -187,17 +187,17 @@ public class PublisherController implements Initializable {
        ResultSet rs = JCDB.ManageRitrivePublisher();
         try {
             while(rs.next()){
-                String newTele = Integer.toString(rs.getInt("Pub_tel"));
+//                String newTele = Integer.toString(rs.getInt("Pub_tel"));
                 System.out.println(rs.getString("Pub_name"));
-                System.out.println(rs.getString("Pub_link_man"));
-                //System.out.println(rs.getInt("Pub_tel"));
-                System.out.println(newTele);
+                System.out.println(rs.getString("Pub_address"));
+                System.out.println(rs.getInt("Pub_tel"));
+                //System.out.println(newTele);
                 System.out.println(rs.getString("Pub_introduction")); 
                 
                 publisherData.add(new Publisher(
                         rs.getString("Pub_name"), 
-                        rs.getString("Pub_link_man"), 
-                        newTele, 
+                        rs.getString("Pub_address"), 
+                        rs.getInt("Pub_tel"),
                         rs.getString("Pub_introduction")));
             }
         } catch (SQLException ex) {
@@ -235,7 +235,7 @@ public class PublisherController implements Initializable {
             while(rs.next()){
                 searchData.add((new Publisher(rs.getString("Pub_name"), 
                         rs.getString("Pub_link_man"), 
-                        newTele, 
+                        rs.getInt("Pub_tele"), 
                         rs.getString("Pub_introduction"))));
             }
         } catch (Exception e) {
@@ -249,32 +249,32 @@ public class PublisherController implements Initializable {
         
         pb.setItems(searchData);
     }
-     @FXML
-    private void handleDeleteAction(ActionEvent event){
-        ObservableList<Publisher> publisherSelect, allPublishers;
-        allPublishers = pb.getItems();
-        publisherSelect = pb.getSelectionModel().getSelectedItems();
-        
-        if(publisherSelect.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText("ERROR");
-            alert.setContentText("Please select a publisher.");
-            alert.showAndWait();
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Confirm Deletion");
-            alert.setContentText("Are you sure you want to delete this publisher?");
-            
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.OK){
-                JCDB.ManagerDeletePublisher(publisherSelect.get(0).getPublisher()); //remove publisher to database
-                publisherSelect.forEach(allPublishers::remove); //remove publisher to table view.
-            }
-            else{
-                alert.close();
-            }
-        }
-    }
+//    @FXML
+//    private void handleDeleteAction(ActionEvent event){
+//        ObservableList<Publisher> publisherSelect, allPublishers;
+//        allPublishers = pb.getItems();
+//        publisherSelect = pb.getSelectionModel().getSelectedItems();
+//        
+//        if(publisherSelect.isEmpty()){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error Message");
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("Please select a publisher.");
+//            alert.showAndWait();
+//        }
+//        else{
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setHeaderText("Confirm Deletion");
+//            alert.setContentText("Are you sure you want to delete this publisher?");
+//            
+//            Optional<ButtonType> result = alert.showAndWait();
+//            if(result.get() == ButtonType.OK){
+//                JCDB.ManagerDeletePublisher(publisherSelect.get(0).getPublisher()); //remove publisher to database
+//                publisherSelect.forEach(allPublishers::remove); //remove publisher to table view.
+//            }
+//            else{
+//                alert.close();
+//            }
+//        }
+//    }
 }
