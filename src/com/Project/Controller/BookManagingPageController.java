@@ -69,6 +69,8 @@ public class BookManagingPageController implements Initializable {
     @FXML
     private Button searchBt,deleteBt,saveBt,clearBt,logoutBt,homeBt;
     
+    private JCDB db = new JCDB();
+    
     //ObservableList used for holding comboBox value.
     private ObservableList<String> publisherList = FXCollections.observableArrayList("one","two","three");
     private ObservableList<String> typeList = FXCollections.observableArrayList("aaa","bbb","ccc");
@@ -100,7 +102,7 @@ public class BookManagingPageController implements Initializable {
     private void getBookData(){
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = JCDB.ManagerRitriveBook();
+            ResultSet rs = db.ManagerRitriveBook();
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
@@ -191,8 +193,8 @@ public class BookManagingPageController implements Initializable {
                     typeCombo.getSelectionModel().getSelectedItem().toString(), 
                     introArea.getText());
             
-            JCDB.managerAddNewBook(book);
-            showNewBook();
+            db.managerAddNewBook(book);
+            refresh();
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
@@ -201,8 +203,10 @@ public class BookManagingPageController implements Initializable {
         }
     }
     
-    private void showNewBook(){
-        Book book = new Book(
+    private void refresh(){
+        bookData.clear();
+        getBookData();
+        /*Book book = new Book(
                 bookNameTf2.getText(), 
                 authorBt.getText(), 
                 Integer.parseInt(priceBt.getText()), 
@@ -218,7 +222,7 @@ public class BookManagingPageController implements Initializable {
         priceBt.clear();
         introArea.clear();
         publisherCombo.setValue("publisher");
-        typeCombo.setValue("type");
+        typeCombo.setValue("type");*/
     }
     
     @FXML
@@ -250,7 +254,7 @@ public class BookManagingPageController implements Initializable {
             TYPE.getColumns().clear();
             
             searchData = FXCollections.observableArrayList();
-            ResultSet rs = JCDB.ManagerSearchBook(bookNameTf1.getText());
+            ResultSet rs = db.ManagerSearchBook(bookNameTf1.getText());
             while(rs.next()){
                 searchData.add(new Book(
                         rs.getString("book_name"), 
@@ -292,7 +296,7 @@ public class BookManagingPageController implements Initializable {
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-                JCDB.ManagerDeleteBook(bookSelect.get(0).getName()); //remove book to database
+                db.ManagerDeleteBook(bookSelect.get(0).getName()); //remove book to database
                 bookSelect.forEach(allBooks::remove); //remove book to table view.
             }
             else{

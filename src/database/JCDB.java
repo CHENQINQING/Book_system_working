@@ -6,12 +6,15 @@
 package database;
 
 import classes.Book;
+import classes.BookStorage;
+import classes.LoginStorage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -45,7 +48,7 @@ public class JCDB {
         }
     }*/
     
-    public static void managerAddNewBook(Book book) throws SQLException {
+    public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
             String statement = "INSERT INTO book (book_name, publisher_publisherName, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
@@ -67,7 +70,7 @@ public class JCDB {
         }
     }
     
-    public static ResultSet ManagerSearchBook(String name){
+    public ResultSet ManagerSearchBook(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -84,7 +87,7 @@ public class JCDB {
         return rs;
     }
     
-    public static ResultSet ManagerRitriveBook(){
+    public ResultSet ManagerRitriveBook(){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -94,14 +97,14 @@ public class JCDB {
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
             System.out.println("Success");
-            
+            return rs;
         } catch (Exception e) {
             System.out.println("Cannot ritrive any book.");
+            return null;
         }
-        return rs;
     }
     
-    public static void ManagerDeleteBook(String bookName){
+    public void ManagerDeleteBook(String bookName){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -118,7 +121,27 @@ public class JCDB {
         }
     }
     
-    public static Connection establishConnection() {
+    public ResultSet customerSearchingBook(){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "SELECT book_name, publisher, author, price, type FROM Book WHERE book_name = ?";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            System.out.println("JCDB: "+BookStorage.getInstance().getName()); //using singleton to bind name of book.
+            prepStmt.setString(1, BookStorage.getInstance().getName());
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            return rs;
+            
+        } catch (Exception e) {
+            System.out.println("Customer cannot ritrive any book.");
+            return null;
+        }
+    }
+    
+    public Connection establishConnection() {
         Connection conn;
 
         //Get connection to database
@@ -135,20 +158,22 @@ public class JCDB {
         return null;
     }
     
-    public static boolean verifyAccount(String username, String accountType) throws SQLException{
+    public boolean verifyAccount(String uname, String accountType) throws SQLException{
         Connection conn = establishConnection();
         String query = "";
-        if(accountType.equals("employee")) {
-            query = "SELECT count(*) FROM employee WHERE username = ?";
+        if(accountType.equals("Employee")) {
+            query = "SELECT count(*) FROM user WHERE username = ? AND level = 2";
         }
-        else if(accountType.equals("member")) {
-            query = "SELECT count(*) FROM member WHERE username = ?";
+        else if(accountType.equals("Manager")) {
+            query = "SELECT count(*) FROM user WHERE username = ? AND level = 1";
         }
         PreparedStatement statement = conn.prepareStatement(query);
-        statement.setString(1, username);
+        statement.setString(1, uname);
+        //statement.setInt(2, LoginStorage.getInstance().getAccountType());
         ResultSet rs = statement.executeQuery();
         int count = 0;
         while(rs.next()) {
+            System.out.println("count: "+rs.getInt(1));
             count = rs.getInt(1);
         }
         if(count==0) {
@@ -159,14 +184,14 @@ public class JCDB {
         }
     }
     
-    public static int getId(String username, String pwd, String accountType) {
+    public int getId(String username, String pwd, String accountType) {
         Connection conn = establishConnection();
         String query = "";
-        if(accountType.equals("employee")) {
-            query = "SELECT employee_id FROM employee WHERE username = ? AND password = ?";
+        if(accountType.equals("Employee")) {
+            query = "SELECT userId FROM user WHERE username = ? AND password = ? AND level = 2";
         }
-        else if(accountType.equals("member")) {
-            query = "SELECT customer_id FROM member WHERE username = ? AND password = ?";
+        else if(accountType.equals("Manager")) {
+            query = "SELECT userId FROM user WHERE username = ? AND password = ? AND level = 1";
         }
         int id = 0;
         try {
@@ -181,7 +206,7 @@ public class JCDB {
             }
         }
         catch(SQLException e) {
-            
+            System.out.println("password wrong."+e);
         }
         return id;
     }
