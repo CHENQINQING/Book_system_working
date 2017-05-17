@@ -5,17 +5,21 @@
  */
 package classes;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author liushuai
  */
 public class Type {
     private int id;
-    private String typeName;
-    private String introduction;
+    private SimpleStringProperty type = new SimpleStringProperty();
+    private SimpleStringProperty introduction = new SimpleStringProperty();
+    
+    
     public Type(String typeName, String introduction){
-        this.typeName=typeName;
-        this.introduction=introduction;
+        setTypeName(typeName);
+        setIntroduction(introduction);
     }
 
     /**
@@ -33,30 +37,37 @@ public class Type {
     }
 
     /**
-     * @return the typeName
+     * @return the type
      */
     public String getTypeName() {
-        return typeName;
+        return type.get();
     }
 
     /**
-     * @param typeName the typeName to set
+     * @param typeName the type to set
      */
     public void setTypeName(String typeName) {
-        this.typeName = typeName;
+        this.type.set(typeName);
     }
 
     /**
      * @return the introduction
      */
     public String getIntroduction() {
-        return introduction;
+        return introduction.get();
     }
 
     /**
      * @param introduction the introduction to set
      */
     public void setIntroduction(String introduction) {
-        this.introduction = introduction;
+        this.introduction.set(introduction);
+    }
+    
+    public SimpleStringProperty nameProperty(){
+        return type;
+    }
+    public SimpleStringProperty introductionProperty(){
+        return introduction;
     }
 }

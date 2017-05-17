@@ -51,7 +51,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="contact" layoutX="130.0" layoutY="38.0" prefHeight="25.0" prefWidth="441.0" />
+            <TextField fx:id="address" layoutX="130.0" layoutY="38.0" prefHeight="25.0" prefWidth="441.0" />
             <Label layoutX="6.0" layoutY="70.0" prefHeight="25.0" prefWidth="118.0" text="telephone number:">
                <font>
                   <Font size="14.0" />

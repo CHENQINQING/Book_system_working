@@ -45,7 +45,7 @@ public class PublisherController implements Initializable {
     @FXML
     private Button ButtonClear;
     @FXML
-    private TextField contact;
+    private TextField address;
     @FXML
     private TextField telephone;
     @FXML
@@ -77,18 +77,12 @@ public class PublisherController implements Initializable {
         // TODO
         getPublisherData();
     }    
-
-     @FXML
-    private void handleSaveAction(ActionEvent event) throws SQLException{
-         SaveToDatabase();
-         showNewPublisher();
-    }
     
     @FXML
     private void ButtonClear(ActionEvent event) {
         publishername.setText("");
         publisherintroduction.setText("");
-        contact.setText("");
+        address.setText("");
         telephone.setText("");
         search.setText("");
     }
@@ -101,6 +95,11 @@ public class PublisherController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Menu");
         stage.show();
+    }
+     @FXML
+    private void handleSaveAction(ActionEvent event) throws SQLException{
+         SaveToDatabase();
+         showNewPublisher();
     }
     
     private void SaveToDatabase() throws SQLException, NumberFormatException {
@@ -118,7 +117,7 @@ public class PublisherController implements Initializable {
             alert.setContentText("INVALID PUBLISHER NAME.");
             alert.show();
         }
-        else if(contact.getText().isEmpty()){
+        else if(address.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("ERROR");
             alert.setContentText("INVALID ADDRESS.");
@@ -133,7 +132,7 @@ public class PublisherController implements Initializable {
         else{
             String tele = telephone.getText();
             int phoneNum = Integer.parseInt(tele);
-            Publisher p = new Publisher(publishername.getText(), contact.getText(), tele, publisherintroduction.getText());
+            Publisher p = new Publisher(publishername.getText(), address.getText(), tele, publisherintroduction.getText());
             
             JCDB.managerSavePublisher(p.getPublisher(), p.getAddress(), phoneNum, p.getIntroduction());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -141,44 +140,6 @@ public class PublisherController implements Initializable {
             alert.setContentText("The Data Has Been Saved");
             alert.show();
         }
-    }
-
-    private void getPublisherData() {
-       publisherData=FXCollections.observableArrayList();
-       ResultSet rs = JCDB.ManageRitrivePublisher();
-        try {
-            while(rs.next()){
-//                System.out.println(rs.getString("publisherName"));
-//                System.out.println(rs.getString("address"));
-//                System.out.println(rs.getInt("phone"));
-//                System.out.println(rs.getString("introduction"));
-
-                String newTele = Integer.toString(rs.getInt("Pub_tel"));
-                
-                System.out.println(rs.getString("Pub_name"));
-                System.out.println(rs.getString("Pub_link_man"));
-                //System.out.println(rs.getInt("Pub_tel"));
-                System.out.println(newTele);
-                System.out.println(rs.getString("Pub_introduction"));  
-                publisherData.add(new Publisher(
-                        rs.getString("Pub_name"), 
-                        rs.getString("Pub_link_man"), 
-                        newTele, 
-                        rs.getString("Pub_introduction")));
-//                publisherData.add(new Publisher(
-//                        rs.getString("publisherName"), 
-//                        rs.getString("address"), 
-//                        rs.getInt("phone"), 
-//                        rs.getString("introduction")));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PublisherController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Publisher.setCellValueFactory(new PropertyValueFactory<Publisher,String>("publisher"));
-        Address.setCellValueFactory(new PropertyValueFactory<Publisher,String>("address"));
-        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,String>("telephone number"));
-        Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
-        pb.setItems(publisherData);
     }
     
     private void showNewPublisher(){
@@ -195,7 +156,7 @@ public class PublisherController implements Initializable {
             alert.setContentText("INVALID PUBLISHER NAME.");
             alert.show();
         }
-        else if(contact.getText().isEmpty()){
+        else if(address.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("ERROR");
             alert.setContentText("INVALID ADDRESS.");
@@ -209,16 +170,44 @@ public class PublisherController implements Initializable {
         }
         else{
             String tele = telephone.getText();
-            Publisher p = new Publisher(publishername.getText(), contact.getText(), tele, publisherintroduction.getText());
+            Publisher p = new Publisher(publishername.getText(), address.getText(), tele, publisherintroduction.getText());
         
             pb.getItems().add(p);
         
             //Clear text field.
             publishername.clear();
-            contact.clear();
+            address.clear();
             telephone.clear();
             publisherintroduction.clear();
         }
+    }
+
+    private void getPublisherData() {
+       publisherData=FXCollections.observableArrayList();
+       ResultSet rs = JCDB.ManageRitrivePublisher();
+        try {
+            while(rs.next()){
+                String newTele = Integer.toString(rs.getInt("Pub_tel"));
+                System.out.println(rs.getString("Pub_name"));
+                System.out.println(rs.getString("Pub_link_man"));
+                //System.out.println(rs.getInt("Pub_tel"));
+                System.out.println(newTele);
+                System.out.println(rs.getString("Pub_introduction")); 
+                
+                publisherData.add(new Publisher(
+                        rs.getString("Pub_name"), 
+                        rs.getString("Pub_link_man"), 
+                        newTele, 
+                        rs.getString("Pub_introduction")));
+            }
+        } catch (SQLException ex) {
+           System.out.println("Error "+ ex);
+        }
+        Publisher.setCellValueFactory(new PropertyValueFactory<Publisher,String>("publisher"));
+        Address.setCellValueFactory(new PropertyValueFactory<Publisher,String>("address"));
+        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,String>("telephone number"));
+        Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
+        pb.setItems(publisherData);
     }
     
     @FXML
