@@ -19,17 +19,17 @@ public class Publisher {
     private final IntegerProperty id = new SimpleIntegerProperty(this, "id");
     private final StringProperty publisher = new SimpleStringProperty(this, "publisher");
     private final StringProperty address = new SimpleStringProperty(this, "address");
-    private final IntegerProperty phone = new SimpleIntegerProperty(this, "phone");
+    private final IntegerProperty telephone = new SimpleIntegerProperty(this, "telephone");
     private final StringProperty introduction = new SimpleStringProperty(this, "introduction");
   
     public Publisher(String publisher,String address,int telephone,String introduction){
 //        this.publisherName=publisher;
 //        this.address=address;
-//        this.phone=telephone;
+//        this.telephone=telephone;
 //        this.introduction=introduction;
         this.publisher.set(publisher);
         this.address.set(address);
-        this.phone.set(telephone);
+        this.telephone.set(telephone);
         this.introduction.set(introduction);
     }
     
@@ -68,16 +68,16 @@ public class Publisher {
     public final void setAddress(final java.lang.String address) {
         this.addressProperty().set(address);
     }
-    public final IntegerProperty phoneProperty() {
-        return this.phone;
+    public final IntegerProperty telephoneProperty() {
+        return this.telephone;
     }
 
-    public final int getPhone() {
-        return this.phoneProperty().get();
+    public final int getTelephone() {
+        return this.telephoneProperty().get();
     }
 
-    public final void setPhone(final int phone) {
-        this.phoneProperty().set(phone);
+    public final void setTelehone(final int telephone) {
+        this.telephoneProperty().set(telephone);
     }
 
     public final StringProperty introductionProperty() {
@@ -135,17 +135,17 @@ public class Publisher {
 //    }
 //
 //    /**
-//     * @return the phone
+//     * @return the telephone
 //     */
 //    public String getTelephone() {
-//        return phone;
+//        return telephone;
 //    }
 //
 //    /**
-//     * @param telephone the phone to set
+//     * @param telephone the telephone to set
 //     */
 //    public void setTelephone(String telephone) {
-//        this.phone = telephone;
+//        this.telephone = telephone;
 //    }
 //
 //    /**

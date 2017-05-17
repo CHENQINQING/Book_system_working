@@ -5,69 +5,56 @@
  */
 package classes;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author liushuai
  */
 public class Type {
-    private int id;
-    private SimpleStringProperty type = new SimpleStringProperty();
-    private SimpleStringProperty introduction = new SimpleStringProperty();
+    private final IntegerProperty id = new SimpleIntegerProperty(this, "id");
+    private final StringProperty type = new SimpleStringProperty(this, "type");
+    private final StringProperty introduction = new SimpleStringProperty(this, "introduction");
     
-    
-    public Type(String typeName, String introduction){
-        setTypeName(typeName);
-        setIntroduction(introduction);
-    }
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the type
-     */
-    public String getTypeName() {
-        return type.get();
-    }
-
-    /**
-     * @param typeName the type to set
-     */
-    public void setTypeName(String typeName) {
-        this.type.set(typeName);
-    }
-
-    /**
-     * @return the introduction
-     */
-    public String getIntroduction() {
-        return introduction.get();
-    }
-
-    /**
-     * @param introduction the introduction to set
-     */
-    public void setIntroduction(String introduction) {
+    public Type(String type, String introduction){
+        this.type.set(type);
         this.introduction.set(introduction);
     }
-    
-    public SimpleStringProperty nameProperty(){
-        return type;
+
+    public final IntegerProperty idProperty() {
+        return this.id;
     }
-    public SimpleStringProperty introductionProperty(){
-        return introduction;
+
+    public final int getId() {
+        return this.idProperty().get();
+    }
+
+    public final void setId(final int id) {
+        this.idProperty().set(id);
+    }
+    public final StringProperty typeProperty() {
+        return this.type;
+    }
+
+    public final java.lang.String getType() {
+        return this.typeProperty().get();
+    }
+
+    public final void setType(final java.lang.String type) {
+        this.typeProperty().set(type);
+    }
+    public final StringProperty introductionProperty() {
+        return this.introduction;
+    }
+
+    public final java.lang.String getIntroduction() {
+        return this.introductionProperty().get();
+    }
+
+    public final void setintroduction(final java.lang.String introduction) {
+        this.introductionProperty().set(introduction);
     }
 }

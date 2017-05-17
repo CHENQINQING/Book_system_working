@@ -112,7 +112,7 @@ public class TypeController implements Initializable {
                     TypeName.getText(),
                     TypeIntroduction.getText());
             JCDB.managerSaveType(
-                    T.getTypeName(),
+                    T.getType(),
                     T.getIntroduction());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
@@ -159,11 +159,7 @@ public class TypeController implements Initializable {
             }
         } catch (SQLException ex) {
             System.out.println("Error "+ ex);
-        }
-        System.out.println("111");
-        
-        System.out.println(t.getTypeName());
-        System.out.println("222");
+        };
         
         TYPE.setCellValueFactory(new PropertyValueFactory<Type,String>("type"));
         INTRODUCTION.setCellValueFactory(new PropertyValueFactory<Type,String>("introduction"));
@@ -191,7 +187,7 @@ public class TypeController implements Initializable {
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-                JCDB.ManagerDeleteType(typeSelect.get(0).getTypeName()); //remove publisher to database
+                JCDB.ManagerDeleteType(typeSelect.get(0).getType()); //remove publisher to database
                 typeSelect.forEach(allType::remove); //remove publisher to table view.
             }
             else{

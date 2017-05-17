@@ -210,8 +210,6 @@ public class JCDB {
         try(Connection conn = establishConnection();){
             String SQL = "INSERT INTO type (Type_name,Type_introduction) VALUES (?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
-            // remove ++ from here, do it in last
-            //prepStmt.setInt(1, id);
             
             prepStmt.setString(1, type);
             prepStmt.setString(2, introduction);
