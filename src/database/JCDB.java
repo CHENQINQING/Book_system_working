@@ -33,9 +33,9 @@ public class JCDB {
         ResultSet rs = null;
         PreparedStatement prepStmt = null;
         try {
-            String statement = "SELECT * FROM book";
+            String SQL = "SELECT * FROM book";
             conn = establishConnection();
-            prepStmt = conn.prepareStatement(statement);
+            prepStmt = conn.prepareStatement(SQL);
             rs=prepStmt.executeQuery();
             
             
@@ -158,6 +158,128 @@ public class JCDB {
         return null;
     }
     
+    public void managerSavePublisher(String publisher,String address,int telephone,String introduction) throws SQLException {
+        try(Connection conn = establishConnection();){
+            String SQL = "INSERT INTO publisher (Pub_name,Pub_tel,Pub_address,Pub_introduction) VALUES (?,?,?,?)";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
+            
+            // remove ++ from here, do it in last
+            //prepStmt.setInt(1, id);
+            prepStmt.setString(1, publisher);
+            prepStmt.setInt(2, telephone);
+            prepStmt.setString(3, address);
+            prepStmt.setString(4, introduction);
+            prepStmt.executeUpdate();
+            
+            System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public ResultSet ManageRitrivePublisher(){
+        Connection conn=null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+           // String SQL = "SELECT publisherName, address, phone, introduction FROM Publisher";
+            String SQL = "SELECT Pub_name,Pub_tel,Pub_address,Pub_introduction FROM publisher";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(SQL);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any publisher information.");
+        }
+        return rs;
+    }
+    
+//    public static void ManagerDeletePublisher(String publisherName){
+//        Connection conn = null;
+//        PreparedStatement prepStmt = null;
+//        ResultSet rs = null;
+//        try {
+//            String SQL = "DELETE FROM Publisher WHERE Pub_name = ?";
+//            conn = establishConnection();
+//            prepStmt = conn.prepareStatement(SQL);
+//            prepStmt.setString(1, publisherName);
+//            prepStmt.execute();
+//            System.out.println("Success removed");
+//            
+//        } catch (Exception e) {
+//            System.out.println("ERROR. Not delete.");
+//        }
+//    }
+    
+    public ResultSet ManagerSearchPublisher(String name){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name LIKE\"%" + name + "%\"";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(SQL);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any publisher.");
+        }
+        return rs;
+    }
+    
+    public void managerSaveType(String type,String introduction) throws SQLException {
+        try(Connection conn = establishConnection();){
+            String SQL = "INSERT INTO type (Type_name,Type_introduction) VALUES (?,?)";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
+            
+            prepStmt.setString(1, type);
+            prepStmt.setString(2, introduction);
+            prepStmt.executeUpdate();
+            
+            System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public ResultSet ManageRitriveType(){
+        Connection conn=null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+           // String SQL = "SELECT publisherName, address, phone, introduction FROM Publisher";
+            String SQL = "SELECT Type_name,Type_introduction FROM type";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(SQL);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any publisher information.");
+        }
+        return rs;
+    }
+    
+    public void ManagerDeleteType(String typeName){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "DELETE FROM type WHERE Type_name = ?";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(SQL);
+            prepStmt.setString(1, typeName);
+            prepStmt.execute();
+            System.out.println("Success removed");
+            
+        } catch (Exception e) {
+            System.out.println("ERROR. Not delete.");
+        }
+    }
     public boolean verifyAccount(String uname, String accountType) throws SQLException{
         Connection conn = establishConnection();
         String query = "";

@@ -133,7 +133,7 @@ public class LoginPageController implements Initializable {
     private void visitEmployee(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerMenu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Menu");

@@ -6,7 +6,6 @@
 package com.Project.Controller;
 
 import classes.Book;
-import classes.salesView;
 import database.DatabaseConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -84,8 +83,6 @@ public class Sales_manageController implements Initializable {
     private ObservableList<String> booklist = FXCollections.observableArrayList();
     //private ObservableList<String> tablelist = FXCollections.observableArrayList();
     DatabaseConnection connection = new DatabaseConnection();
-    private final ObservableList<salesView> data  
-            = FXCollections.observableArrayList();  
   
   
 //ObservableList<TableColumn> observableList = table.getColumns(); 
@@ -101,9 +98,9 @@ public class Sales_manageController implements Initializable {
         if(data_text.getText().matches("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))|([1-2][0-9]{3})")){
             date = data_text.getText();
             System.out.println(date);
-            sql = "SELECT sales.RECORD_DATE,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.BOOK_PRICE,book.REPERTORY_SIZE "
+            sql = "SELECT sales.RECORD_DATE,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.price,book.REPERTORY_SIZE "
                 + "FROM sales,book_has_sales,book "
-                +"WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_idBook = book.idBook"
+                +"WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_book_id = book.book_id"
                 +" and sales.RECORD_DATE like" + "'" + date + "%'";  
         rs = connection.query(sql);
         if(rs.next()){
