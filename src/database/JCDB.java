@@ -50,17 +50,20 @@ public class JCDB {
     
     public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
-            String statement = "INSERT INTO book (book_name, publisher_publisherName, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO book SET book_name=?, author=?, price=?, introduction=?, type=?, REPERTORY_SIZE=?, publisher_Pub_id=(SELECT Pub_id FROM publisher WHERE Pub_name = ?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             // remove ++ from here, do it in last
             //prepStmt.setInt(1, id);
             prepStmt.setString(1, book.getName());
-            prepStmt.setString(2, book.getPublisher());
-            prepStmt.setString(3, book.getAuthor());
-            prepStmt.setDouble(4, book.getPrice());
-            prepStmt.setString(5, book.getIntro());
-            prepStmt.setString(6, book.getType());
+            prepStmt.setString(2, book.getAuthor());
+            prepStmt.setDouble(3, book.getPrice());
+            prepStmt.setString(4, book.getIntroduction());
+            prepStmt.setString(5, book.getType());
+            prepStmt.setInt(6, book.getQuantity());
+            prepStmt.setString(7, book.getPublisher());
+            
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");
@@ -75,7 +78,7 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT * FROM Book WHERE book_name LIKE\"%" + name + "%\"";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
@@ -92,7 +95,7 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT book_name, publisher, author, price, type FROM Book";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
@@ -121,16 +124,17 @@ public class JCDB {
         }
     }
     
-    public ResultSet customerSearchingBook(){
+    public ResultSet customerSearchingBook(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT book_name, publisher, author, price, type FROM Book WHERE book_name = ?";
+            //String statement = "SELECT book_name, publisher_Pub_id, author, price, type, REPERTORY_SIZE FROM Book WHERE book_name = ?";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             System.out.println("JCDB: "+BookStorage.getInstance().getName()); //using singleton to bind name of book.
-            prepStmt.setString(1, BookStorage.getInstance().getName());
+            //prepStmt.setString(1, BookStorage.getInstance().getName());
             rs = prepStmt.executeQuery();
             System.out.println("Success");
             return rs;
@@ -140,6 +144,38 @@ public class JCDB {
             return null;
         }
     }
+    
+    public void fillPublisherCombo(ObservableList option){
+         Connection conn = null;
+         try {
+             String query = "SELECT Pub_name FROM publisher ORDER BY Pub_name DESC";
+             conn = establishConnection();
+             PreparedStatement prepStmt = conn.prepareStatement(query);
+             ResultSet rs = prepStmt.executeQuery();
+             while(rs.next()){
+                 System.out.println("Pub_name: "+rs.getString("Pub_name"));
+                 option.add(rs.getString("Pub_name"));
+             }
+         } catch (Exception e) {
+             System.out.println("fill combox error: "+ e);
+         }
+     }
+    
+    public void fillTypeCombo(ObservableList option){
+         Connection conn = null;
+         try {
+             String query = "SELECT type_name FROM type ORDER BY type_name DESC";
+             conn = establishConnection();
+             PreparedStatement prepStmt = conn.prepareStatement(query);
+             ResultSet rs = prepStmt.executeQuery();
+             while(rs.next()){
+                 System.out.println("type_name: "+rs.getString("type_name"));
+                 option.add(rs.getString("type_name"));
+             }
+         } catch (Exception e) {
+             System.out.println("fill combox error: "+ e);
+         }
+     }
     
     public Connection establishConnection() {
         Connection conn;
