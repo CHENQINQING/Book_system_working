@@ -31,19 +31,19 @@
                               </Label>
                               <HBox alignment="CENTER" prefHeight="223.0" prefWidth="700.0">
                                  <children>
-                                    <TextField fx:id="textField" alignment="CENTER" prefHeight="39.0" prefWidth="329.0" style="-fx-background-radius: 10;">
+                                    <TextField fx:id="searchField" alignment="CENTER" onMouseEntered="#mouseEnteredSearch" onMouseExited="#mouseExitedSearch" prefHeight="39.0" prefWidth="329.0" style="-fx-background-radius: 10;">
                                        <HBox.margin>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <ComboBox fx:id="combo" prefHeight="42.0" prefWidth="175.0" style="-fx-background-radius: 20;">
+                                    <ComboBox fx:id="combo" onMouseEntered="#mouseEnteredCombo" onMouseExited="#mouseExitedCombo" prefHeight="42.0" prefWidth="175.0" style="-fx-background-radius: 20;">
                                        <HBox.margin>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </HBox.margin>
                                     </ComboBox>
                                  </children>
                               </HBox>
-                              <Button fx:id="searchBt" alignment="CENTER" mnemonicParsing="false" onAction="#searchBook" style="-fx-background-radius: 100;" text="Search">
+                              <Button fx:id="searchBt" alignment="CENTER" mnemonicParsing="false" onAction="#searchBook" onMouseEntered="#mouseEnteredSearchBt" onMouseExited="#mouseExitedSearchBt" style="-fx-background-radius: 100;" text="Search">
                                  <font>
                                     <Font name="System Bold" size="17.0" />
                                  </font>
@@ -58,8 +58,8 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: gray;">
                      <children>
-                        <TextField fx:id="username" layoutX="105.0" layoutY="165.0" prefHeight="39.0" prefWidth="270.0" style="-fx-background-radius: 10;" />
-                        <TextField fx:id="password" layoutX="107.0" layoutY="263.0" prefHeight="39.0" prefWidth="267.0" style="-fx-background-radius: 10;" />
+                        <TextField fx:id="username" layoutX="105.0" layoutY="165.0" onMouseEntered="#mouseEnteredUsername" onMouseExited="#mouseExitedUsername" prefHeight="39.0" prefWidth="270.0" style="-fx-background-radius: 10;" />
+                        <TextField fx:id="password" layoutX="107.0" layoutY="263.0" onMouseEntered="#mouseEnteredPassword" onMouseExited="#mouseExitedPassword" prefHeight="39.0" prefWidth="267.0" style="-fx-background-radius: 10;" />
                         <Label layoutX="493.0" layoutY="171.0" text="Username">
                            <font>
                               <Font name="System Bold" size="20.0" />
@@ -70,7 +70,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="loginBt" layoutX="502.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleLogin" style="-fx-background-radius: 100;" text="Login">
+                        <Button fx:id="loginBt" layoutX="502.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleLogin" onMouseEntered="#mouseEnteredLoginBt" onMouseExited="#mouseExitedLoginBt" style="-fx-background-radius: 100;" text="Login">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
@@ -80,7 +80,7 @@
                               <Font name="Calibri Bold Italic" size="39.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="loginCombo" layoutX="107.0" layoutY="362.0" prefWidth="150.0" promptText="LOGIN AS:" style="-fx-background-radius: 10;" />
+                        <ComboBox fx:id="loginCombo" layoutX="107.0" layoutY="362.0" onMouseEntered="#mouseEnteredLoginCombo" onMouseExited="#mouseExitedLoginCombo" prefWidth="150.0" promptText="LOGIN AS:" style="-fx-background-radius: 10;" />
                      </children>
                   </AnchorPane>
             </content>

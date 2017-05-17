@@ -5,9 +5,14 @@
  */
 package com.Project.Controller;
 
+import classes.Help;
+import classes.LoginStorage;
+import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.animation.ScaleTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +28,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -34,11 +41,11 @@ public class LoginPageController implements Initializable {
     @FXML private TabPane tabPane;
     @FXML private Button searchBt, loginBt;
     @FXML private ComboBox combo,loginCombo;
-    @FXML private TextField username, password;
+    @FXML private TextField username, password,searchField;
     
     //ObservableList used for holding comboBox value.
     private ObservableList<String> list = FXCollections.observableArrayList("Name","Author","Publisher");
-    private ObservableList<String> loginList = FXCollections.observableArrayList("Manager","Member");
+    private ObservableList<String> loginList = FXCollections.observableArrayList("employee","member");
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,21 +61,48 @@ public class LoginPageController implements Initializable {
     }
     
     @FXML
-    private void handleLogin(ActionEvent event) throws IOException {
+    private void handleLogin(ActionEvent event) throws IOException, SQLException {
         String uname = username.getText();
-        String pwd = password.getText();
+        String pword = password.getText();
         
-        //Check if username and password belongs to admin or members
-        if(uname.equals("a") && pwd.equals("a")) {
-            visitManager(event);
+        if(!uname.isEmpty()&&!pword.isEmpty()&&loginCombo.getSelectionModel().getSelectedItem()!=null){
+            String loginType = loginCombo.getSelectionModel().getSelectedItem().toString();
+            int id;
+            boolean validUsername = JCDB.verifyAccount(uname, loginType);
+            if(!validUsername){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("ERROR");
+                alert.setContentText("Account does not exists");
+                alert.showAndWait();
+            }else{
+                id = JCDB.getId(uname, pword, loginType);
+                if(id == 0){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("ERROR");
+                    alert.setContentText("Wrong Password");
+                    alert.showAndWait();
+                }else{
+                    if(loginType.equals("employee")){
+                        LoginStorage.getInstance().setUsername(uname);
+                        LoginStorage.getInstance().setId(id);
+                        LoginStorage.getInstance().setAccountType("employee");
+                        visitEmployee(event);
+                    }
+                    else if(loginType.equals("member")){
+                        LoginStorage.getInstance().setUsername(uname);
+                        LoginStorage.getInstance().setId(id);
+                        LoginStorage.getInstance().setAccountType("member");
+                        visitCustomer(event);
+                    }
+                }
+            }
+            
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Username, password or login type cannot be empty");
+            alert.showAndWait();
         }
-        else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Customer scene has not been created. Please enter 'a','a' to log in as manager.");
-            alert.show();
-            //visitCustomer(event);
-        }
-        
     }
     
     @FXML
@@ -82,7 +116,7 @@ public class LoginPageController implements Initializable {
     }
     
     //go to manager page.
-    private void visitManager(ActionEvent event) throws IOException{
+    private void visitEmployee(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerMenu.fxml"));
@@ -101,5 +135,79 @@ public class LoginPageController implements Initializable {
         stage.show();
     }
     
+    
+    //Resize button when mouse move entered button.
+    //user search page
+    @FXML
+    public void mouseEnteredSearch(MouseEvent e){
+        Help.resizeButton(searchField);
+    }
+    
+    @FXML
+    public void mouseExitedSearch(MouseEvent e){
+        Help.reverseButtonSize(searchField);
+    }
+    
+    @FXML
+    public void mouseEnteredCombo(MouseEvent e){
+        Help.resizeButton(combo);
+    }
+    
+    @FXML
+    public void mouseExitedCombo(MouseEvent e){
+        Help.reverseButtonSize(combo);
+    }
+    
+    @FXML
+    public void mouseEnteredSearchBt(MouseEvent e){
+        Help.resizeButton(searchBt);
+    }
+    
+    @FXML
+    public void mouseExitedSearchBt(MouseEvent e){
+        Help.reverseButtonSize(searchBt);
+    }
+    
+    //Resize button when mouse move entered button.
+    //loging page
+    @FXML
+    public void mouseEnteredUsername(MouseEvent e){
+        Help.resizeButton(username);
+    }
+    
+    @FXML
+    public void mouseExitedUsername(MouseEvent e){
+        Help.reverseButtonSize(username);
+    }
+    
+    @FXML
+    public void mouseEnteredPassword(MouseEvent e){
+        Help.resizeButton(password);
+    }
+    
+    @FXML
+    public void mouseExitedPassword(MouseEvent e){
+        Help.reverseButtonSize(password);
+    }
+    
+    @FXML
+    public void mouseEnteredLoginCombo(MouseEvent e){
+        Help.resizeButton(loginCombo);
+    }
+    
+    @FXML
+    public void mouseExitedLoginCombo(MouseEvent e){
+        Help.reverseButtonSize(loginCombo);
+    }
+    
+    @FXML
+    public void mouseEnteredLoginBt(MouseEvent e){
+        Help.resizeButton(loginBt);
+    }
+    
+    @FXML
+    public void mouseExitedLoginBt(MouseEvent e){
+        Help.reverseButtonSize(loginBt);
+    }
     
 }
