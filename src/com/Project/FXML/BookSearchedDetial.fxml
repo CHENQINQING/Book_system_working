@@ -11,6 +11,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.BookSearchedDetialController">
    <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../buttonIcon/background3.jpg" />
+         </image>
+      </ImageView>
       <VBox layoutX="114.0" layoutY="50.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="75.0" prefWidth="700.0">
@@ -49,7 +54,7 @@
                   </Button>
                </children>
             </HBox>
-            <TableView fx:id="tv" prefHeight="375.0" prefWidth="780.0" style="-fx-background-radius: 10;">
+            <TableView fx:id="tv" blendMode="LIGHTEN" prefHeight="375.0" prefWidth="780.0" style="-fx-background-radius: 10;">
               <columns>
                 <TableColumn fx:id="NAME" prefWidth="104.0" text="NAME" />
                 <TableColumn fx:id="AUTHOR" prefWidth="116.0" text="AUTHORS" />
