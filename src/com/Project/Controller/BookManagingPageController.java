@@ -8,7 +8,6 @@ package com.Project.Controller;
 import classes.Book;
 import classes.Help;
 import database.JCDB;
-import database.JDBC;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -33,6 +32,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -64,6 +66,8 @@ public class BookManagingPageController implements Initializable {
     private ComboBox publisherCombo;
     @FXML
     private ComboBox typeCombo;
+    @FXML
+    private Button searchBt,deleteBt,saveBt,clearBt,logoutBt,homeBt;
     
     //ObservableList used for holding comboBox value.
     private ObservableList<String> publisherList = FXCollections.observableArrayList("one","two","three");
@@ -86,10 +90,10 @@ public class BookManagingPageController implements Initializable {
     
     private void getComboBoxValue(){
         //set comboBox value.
-        publisherCombo.setValue("one");
+        publisherCombo.setValue("publisher");
         publisherCombo.setItems(publisherList);
         
-        typeCombo.setValue("aaa");
+        typeCombo.setValue("type");
         typeCombo.setItems(typeList);
     }
 
@@ -100,7 +104,7 @@ public class BookManagingPageController implements Initializable {
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
-                System.out.println(rs.getString("publisher"));
+                System.out.println(rs.getString("publisher_publisherName"));
                 System.out.println(rs.getString("author"));
                 System.out.println(rs.getDouble("price"));
                 System.out.println(rs.getString("type"));
@@ -109,7 +113,7 @@ public class BookManagingPageController implements Initializable {
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher"), 
+                        rs.getString("publisher_publisherName"), 
                         rs.getString("type")));
             }
         } catch (Exception e) {
@@ -148,7 +152,6 @@ public class BookManagingPageController implements Initializable {
     @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException {
         SaveToDatabase();
-        showNewBook();
     }
 
     private void SaveToDatabase() throws SQLException, NumberFormatException {
@@ -180,7 +183,7 @@ public class BookManagingPageController implements Initializable {
         }
         else{
             double price = Double.valueOf(priceBt.getText());
-            Book b = new Book(
+            Book book = new Book(
                     bookNameTf2.getText(),
                     authorBt.getText(),
                     price,
@@ -188,15 +191,9 @@ public class BookManagingPageController implements Initializable {
                     typeCombo.getSelectionModel().getSelectedItem().toString(), 
                     introArea.getText());
             
-            JDBC.managerAddNewBook(
-                    b.getId(),
-                    b.getInventory(), 
-                    b.getName(), 
-                    b.getAuthor(),
-                    b.getPrice(),
-                    b.getPublisher(), 
-                    b.getType(),
-                    b.getIntro());
+            JCDB.managerAddNewBook(book);
+            showNewBook();
+            
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
             alert.setContentText("The Data Has Been Saved");
@@ -205,50 +202,23 @@ public class BookManagingPageController implements Initializable {
     }
     
     private void showNewBook(){
-        boolean isPrice = Help.isInteger(priceBt.getText());
-        if(!isPrice){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("PRICE IS INVALID");
-            alert.show();
-        }
-        else if(bookNameTf2.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID BOOK NAME.");
-            alert.show();
-        }
-        else if(authorBt.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID AUTHOR.");
-            alert.show();
-        }
-        else if(introArea.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID INTRODUCTION.");
-            alert.show();
-        }
-        else{
-            Book book = new Book(
-                    bookNameTf2.getText(), 
-                    authorBt.getText(), 
-                    Integer.parseInt(priceBt.getText()), 
-                    publisherCombo.getSelectionModel().getSelectedItem().toString(), 
-                    typeCombo.getSelectionModel().getSelectedItem().toString(), 
-                    introArea.getText());
+        Book book = new Book(
+                bookNameTf2.getText(), 
+                authorBt.getText(), 
+                Integer.parseInt(priceBt.getText()), 
+                publisherCombo.getSelectionModel().getSelectedItem().toString(), 
+                typeCombo.getSelectionModel().getSelectedItem().toString(), 
+                introArea.getText());
         
-            tv.getItems().add(book);
+        tv.getItems().add(book);
         
-            //Clear text field.
-            bookNameTf2.clear();
-            authorBt.clear();
-            priceBt.clear();
-            introArea.clear();
-            publisherCombo.setPromptText("PUBLISHER");
-            typeCombo.setPromptText("TYPE");
-        }
+        //Clear text field.
+        bookNameTf2.clear();
+        authorBt.clear();
+        priceBt.clear();
+        introArea.clear();
+        publisherCombo.setValue("publisher");
+        typeCombo.setValue("type");
     }
     
     @FXML
@@ -257,8 +227,8 @@ public class BookManagingPageController implements Initializable {
         authorBt.setText("");
         priceBt.setText("");
         introArea.setText("");
-        publisherCombo.setPromptText("PUBLISHER");
-        typeCombo.setPromptText("TYPE");
+        publisherCombo.setValue("publisher");
+        typeCombo.setValue("type");
     }
     
     @FXML
@@ -286,7 +256,7 @@ public class BookManagingPageController implements Initializable {
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher"), 
+                        rs.getString("publisher_publisherName"), 
                         rs.getString("type")));
             }
         } catch (Exception e) {
@@ -330,4 +300,64 @@ public class BookManagingPageController implements Initializable {
             }
         }
     }
+    
+    //Resize button when mouse move entered button.
+    @FXML
+    public void mouseEnteredSearch(MouseEvent e){
+        Help.resizeButton(searchBt);
+    }
+    
+    @FXML
+    public void mouseExitedSearch(MouseEvent e){
+        Help.reverseButtonSize(searchBt);
+    }
+    
+    @FXML
+    public void mouseEnteredDelete(MouseEvent e){
+        Help.resizeButton(deleteBt);
+    }
+    
+    @FXML
+    public void mouseExitedDelete(MouseEvent e){
+        Help.reverseButtonSize(deleteBt);
+    }
+    
+     @FXML
+    public void mouseEnteredSave(MouseEvent e){
+        Help.resizeButton(saveBt);
+    }
+    
+    @FXML
+    public void mouseExitedSave(MouseEvent e){
+        Help.reverseButtonSize(saveBt);
+    }
+     @FXML
+    public void mouseEnteredClear(MouseEvent e){
+        Help.resizeButton(clearBt);
+    }
+    
+    @FXML
+    public void mouseExitedClear(MouseEvent e){
+        Help.reverseButtonSize(clearBt);
+    }
+     @FXML
+    public void mouseEnteredLogout(MouseEvent e){
+        Help.resizeButton(logoutBt);
+    }
+    
+    @FXML
+    public void mouseExitedLogout(MouseEvent e){
+        Help.reverseButtonSize(logoutBt);
+    }
+     @FXML
+    public void mouseEnteredHome(MouseEvent e){
+        Help.resizeButton(homeBt);
+    }
+    
+    @FXML
+    public void mouseExitedHome(MouseEvent e){
+        Help.reverseButtonSize(homeBt);
+    }
+    
+    
 }

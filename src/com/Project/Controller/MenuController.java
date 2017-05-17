@@ -103,6 +103,15 @@ public class MenuController implements Initializable {
         stage.setTitle("Book resperoty management");
         stage.show();
     }
+    
+    @FXML
+    public void logoutAction(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/LoginPage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+    }
         @FXML    
     public void calculator(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
