@@ -66,22 +66,22 @@
                               </HBox>
                               <AnchorPane prefHeight="152.0" prefWidth="655.0">
                                  <children>
-                                    <Button fx:id="comic" layoutX="38.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredComic" onMouseExited="#mouseExitedComic" style="-fx-background-radius: 100;" text="Comic">
+                                    <Button fx:id="comic" layoutX="38.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleComicSearch" onMouseEntered="#mouseEnteredComic" onMouseExited="#mouseExitedComic" style="-fx-background-radius: 100;" text="Comic">
                                        <font>
                                           <Font name="Bell MT Bold" size="15.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="bio" layoutX="26.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredBio" onMouseExited="#mouseExitedBio" style="-fx-background-radius: 100;" text="Biography">
+                                    <Button fx:id="bio" layoutX="26.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleBioSearch" onMouseEntered="#mouseEnteredBio" onMouseExited="#mouseExitedBio" style="-fx-background-radius: 100;" text="Biography">
                                        <font>
                                           <Font name="Bell MT Bold" size="15.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="leisure" layoutX="36.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredLeisure" onMouseExited="#mouseExitedLeisure" style="-fx-background-radius: 100;" text="Leisure">
+                                    <Button fx:id="leisure" layoutX="36.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleLeisureSearch" onMouseEntered="#mouseEnteredLeisure" onMouseExited="#mouseExitedLeisure" style="-fx-background-radius: 100;" text="Leisure">
                                        <font>
                                           <Font name="Bell MT Bold" size="15.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="learning" layoutX="31.0" layoutY="44.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredLearning" onMouseExited="#mouseExitedLearning" style="-fx-background-radius: 100;" text="Learning">
+                                    <Button fx:id="learning" layoutX="31.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleLearningSearch" onMouseEntered="#mouseEnteredLearning" onMouseExited="#mouseExitedLearning" style="-fx-background-radius: 100;" text="Learning">
                                        <font>
                                           <Font name="Bell MT Bold" size="15.0" />
                                        </font>

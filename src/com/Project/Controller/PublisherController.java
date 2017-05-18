@@ -228,7 +228,7 @@ public class PublisherController implements Initializable {
             Telephone.getColumns().clear();
             Introduction.getColumns().clear();
             searchData = FXCollections.observableArrayList();
-            ResultSet rs = jcdb.ManagerSearchBook(search.getText());
+            ResultSet rs = jcdb.searchingAllBook(search.getText());
             
             String newTele = Integer.toString(rs.getInt("Pub_tel"));
             
