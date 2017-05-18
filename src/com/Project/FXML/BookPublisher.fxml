@@ -31,7 +31,7 @@
         <columns>
           <TableColumn fx:id="Publisher" prefWidth="118.0" text="Publisher" />
           <TableColumn fx:id="Address" prefWidth="195.0" text="Address" />
-            <TableColumn fx:id="Telephone" prefWidth="140.0" text="Telephone number" />
+            <TableColumn fx:id="Telephone" prefWidth="140.0" text="Telephone" />
             <TableColumn fx:id="Introduction" minWidth="9.0" prefWidth="255.0" text="Introduction" />
         </columns>
       </TableView>
@@ -52,7 +52,7 @@
                </font>
             </Label>
             <TextField fx:id="address" layoutX="130.0" layoutY="38.0" prefHeight="25.0" prefWidth="441.0" />
-            <Label layoutX="6.0" layoutY="70.0" prefHeight="25.0" prefWidth="118.0" text="telephone number:">
+            <Label layoutX="6.0" layoutY="70.0" prefHeight="25.0" prefWidth="118.0" text="telephoner:">
                <font>
                   <Font size="14.0" />
                </font>
@@ -63,7 +63,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="publisherintroduction" layoutX="129.0" layoutY="103.0" prefHeight="47.0" prefWidth="531.0" />
+            <TextArea fx:id="publisherintroduction" layoutX="129.0" layoutY="103.0" prefHeight="47.0" prefWidth="531.0" wrapText="true" />
          </children>
       </AnchorPane>
    </children>

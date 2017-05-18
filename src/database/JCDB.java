@@ -8,6 +8,7 @@ package database;
 import classes.Book;
 import classes.BookStorage;
 import classes.LoginStorage;
+import classes.Publisher;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -50,17 +51,20 @@ public class JCDB {
     
     public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
-            String statement = "INSERT INTO book (book_name, publisher_publisherName, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO book SET book_name=?, author=?, price=?, introduction=?, type=?, REPERTORY_SIZE=?, publisher_Pub_id=(SELECT Pub_id FROM publisher WHERE Pub_name = ?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             // remove ++ from here, do it in last
             //prepStmt.setInt(1, id);
             prepStmt.setString(1, book.getName());
-            prepStmt.setString(2, book.getPublisher());
-            prepStmt.setString(3, book.getAuthor());
-            prepStmt.setDouble(4, book.getPrice());
-            prepStmt.setString(5, book.getIntro());
-            prepStmt.setString(6, book.getType());
+            prepStmt.setString(2, book.getAuthor());
+            prepStmt.setDouble(3, book.getPrice());
+            prepStmt.setString(4, book.getIntroduction());
+            prepStmt.setString(5, book.getType());
+            prepStmt.setInt(6, book.getQuantity());
+            prepStmt.setString(7, book.getPublisher());
+            
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");
@@ -75,7 +79,7 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT * FROM Book WHERE book_name LIKE\"%" + name + "%\"";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
@@ -92,7 +96,7 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT book_name, publisher, author, price, type FROM Book";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
@@ -121,16 +125,17 @@ public class JCDB {
         }
     }
     
-    public ResultSet customerSearchingBook(){
+    public ResultSet customerSearchingBook(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT book_name, publisher, author, price, type FROM Book WHERE book_name = ?";
+            //String statement = "SELECT book_name, publisher_Pub_id, author, price, type, REPERTORY_SIZE FROM Book WHERE book_name = ?";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             System.out.println("JCDB: "+BookStorage.getInstance().getName()); //using singleton to bind name of book.
-            prepStmt.setString(1, BookStorage.getInstance().getName());
+            //prepStmt.setString(1, BookStorage.getInstance().getName());
             rs = prepStmt.executeQuery();
             System.out.println("Success");
             return rs;
@@ -140,6 +145,38 @@ public class JCDB {
             return null;
         }
     }
+    
+    public void fillPublisherCombo(ObservableList option){
+         Connection conn = null;
+         try {
+             String query = "SELECT Pub_name FROM publisher ORDER BY Pub_name DESC";
+             conn = establishConnection();
+             PreparedStatement prepStmt = conn.prepareStatement(query);
+             ResultSet rs = prepStmt.executeQuery();
+             while(rs.next()){
+                 System.out.println("Pub_name: "+rs.getString("Pub_name"));
+                 option.add(rs.getString("Pub_name"));
+             }
+         } catch (Exception e) {
+             System.out.println("fill combox error: "+ e);
+         }
+     }
+    
+    public void fillTypeCombo(ObservableList option){
+         Connection conn = null;
+         try {
+             String query = "SELECT type_name FROM type ORDER BY type_name DESC";
+             conn = establishConnection();
+             PreparedStatement prepStmt = conn.prepareStatement(query);
+             ResultSet rs = prepStmt.executeQuery();
+             while(rs.next()){
+                 System.out.println("type_name: "+rs.getString("type_name"));
+                 option.add(rs.getString("type_name"));
+             }
+         } catch (Exception e) {
+             System.out.println("fill combox error: "+ e);
+         }
+     }
     
     public Connection establishConnection() {
         Connection conn;
@@ -158,17 +195,17 @@ public class JCDB {
         return null;
     }
     
-    public void managerSavePublisher(String publisher,String address,int telephone,String introduction) throws SQLException {
+    public void managerSavePublisher(Publisher p) throws SQLException {
         try(Connection conn = establishConnection();){
             String SQL = "INSERT INTO publisher (Pub_name,Pub_tel,Pub_address,Pub_introduction) VALUES (?,?,?,?)";
+//            String SQL = "INSERT INTO publisher SET Pub_name=?, Pub_address=?, Pub_tel=?, Pub_introduction=?";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
             
-            // remove ++ from here, do it in last
-            //prepStmt.setInt(1, id);
-            prepStmt.setString(1, publisher);
-            prepStmt.setInt(2, telephone);
-            prepStmt.setString(3, address);
-            prepStmt.setString(4, introduction);
+            prepStmt.setString(1, p.getPublisher());
+            prepStmt.setInt(2, p.getTelephone());
+            prepStmt.setString(3, p.getAddress());
+            prepStmt.setString(4, p.getIntroduction());
+            
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");
@@ -183,7 +220,6 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-           // String SQL = "SELECT publisherName, address, phone, introduction FROM Publisher";
             String SQL = "SELECT Pub_name,Pub_tel,Pub_address,Pub_introduction FROM publisher";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
@@ -218,7 +254,8 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name LIKE\"%" + name + "%\"";
+           // String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name=?";
+            String SQL = "SELECT Pub_name, Pub_address, Pub_tel, Pub_introduction FROM publisher WHERE Pub_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             rs = prepStmt.executeQuery();
@@ -280,6 +317,25 @@ public class JCDB {
             System.out.println("ERROR. Not delete.");
         }
     }
+    
+    public ResultSet ManagerSearchType(String name) {
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+           // String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name=?";
+            String SQL = "SELECT type_name, type_introduction FROM type WHERE type_name LIKE\"%" + name + "%\"";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(SQL);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any publisher.");
+        }
+        return rs;
+    }
+    
     public boolean verifyAccount(String uname, String accountType) throws SQLException{
         Connection conn = establishConnection();
         String query = "";

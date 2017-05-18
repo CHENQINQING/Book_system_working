@@ -6,6 +6,7 @@
 package classes;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -18,37 +19,54 @@ import javafx.beans.property.SimpleStringProperty;
 public class Book {
     private int id;
     private SimpleStringProperty name = new SimpleStringProperty();
+    private SimpleIntegerProperty publisherId = new SimpleIntegerProperty();
     private SimpleStringProperty publisher = new SimpleStringProperty();
     private SimpleStringProperty author = new SimpleStringProperty();
     private SimpleDoubleProperty price = new SimpleDoubleProperty();
-    private SimpleStringProperty intro = new SimpleStringProperty();
+    private SimpleStringProperty introduction = new SimpleStringProperty();
     //private int inventory;
     private SimpleStringProperty type = new SimpleStringProperty();
+    private SimpleIntegerProperty quantity = new SimpleIntegerProperty();
     
     public Book(){
-        this.name = new SimpleStringProperty("");
-        this.publisher = new SimpleStringProperty("");
-        this.author = new SimpleStringProperty("");
-        this.price = new SimpleDoubleProperty(0);
-        this.type = new SimpleStringProperty("");
-        this.intro = new SimpleStringProperty("");
+        this.name = new SimpleStringProperty();
+        this.publisherId = new SimpleIntegerProperty();
+        this.author = new SimpleStringProperty();
+        this.price = new SimpleDoubleProperty();
+        this.type = new SimpleStringProperty();
+        this.introduction = new SimpleStringProperty();
+        this.publisher = new SimpleStringProperty();
+        this.quantity = new SimpleIntegerProperty();
     }
     
-    public Book(String name, String author, double price, String publisher, String type) {
+    public Book(String name, String author, double price,String publisher, String type,int quantity,String intro) {
         this.name = new SimpleStringProperty(name);
-        this.publisher = new SimpleStringProperty(publisher);
         this.author = new SimpleStringProperty(author);
         this.price = new SimpleDoubleProperty(price);
         this.type = new SimpleStringProperty(type);
+        this.publisher = new SimpleStringProperty(publisher);
+        this.quantity = new SimpleIntegerProperty(quantity);
+        this.introduction = new SimpleStringProperty(intro);
     }
     
-    public Book(String name, String author, double price, String publisher, String type, String intro) {
+    public Book(String name, String author, double price,String publisher, String type, String intro, int quantity) {
         this.name = new SimpleStringProperty(name);
-        this.publisher = new SimpleStringProperty(publisher);
         this.author = new SimpleStringProperty(author);
         this.price = new SimpleDoubleProperty(price);
         this.type = new SimpleStringProperty(type);
-        this.intro = new SimpleStringProperty(intro);
+        this.introduction = new SimpleStringProperty(intro);
+        this.publisher = new SimpleStringProperty(publisher);
+        this.quantity = new SimpleIntegerProperty(quantity);
+    }
+    
+    public Book(String name, String author, double price, int publisherId, String type, String intro,String publisher) {
+        this.name = new SimpleStringProperty(name);
+        this.publisherId = new SimpleIntegerProperty(publisherId);
+        this.author = new SimpleStringProperty(author);
+        this.price = new SimpleDoubleProperty(price);
+        this.type = new SimpleStringProperty(type);
+        this.introduction = new SimpleStringProperty(intro);
+        this.publisher = new SimpleStringProperty(publisher);
     }
 
     /**
@@ -65,6 +83,13 @@ public class Book {
         this.id = id;
     }
 
+    public int getQuantity(){
+        return quantity.get();
+    }
+    
+    public void setQuantity(int quantity){
+        this.quantity.set(quantity);
+    }
     /**
      * @return the name
      */
@@ -82,6 +107,17 @@ public class Book {
     /**
      * @return the publisher
      */
+    public int getPublisherId() {
+        return publisherId.get();
+    }
+
+    /**
+     * @param publiser the publisher to set
+     */
+    public void setPublisherId(int publisherId) {
+        this.publisherId.set(publisherId);
+    }
+    
     public String getPublisher() {
         return publisher.get();
     }
@@ -124,15 +160,15 @@ public class Book {
     /**
      * @return the intro
      */
-    public String getIntro() {
-        return intro.get();
+    public String getIntroduction() {
+        return introduction.get();
     }
 
     /**
      * @param intro the intro to set
      */
     public void setIntro(String intro) {
-        this.intro.set(intro);
+        this.introduction.set(intro);
     }
 
     /**
@@ -167,9 +203,14 @@ public class Book {
     public SimpleStringProperty nameProperty(){
         return name;
     }
-    public SimpleStringProperty publisherProperty(){
+    public SimpleIntegerProperty publisherIdProperty(){
+        return publisherId;
+    }
+    
+     public SimpleStringProperty publisherProperty(){
         return publisher;
     }
+    
     public SimpleStringProperty authorProperty(){
         return author;
     }
@@ -177,9 +218,13 @@ public class Book {
         return price;
     }
     public SimpleStringProperty introProperty(){
-        return intro;
+        return introduction;
     }
     public SimpleStringProperty typeProperty(){
         return type;
+    }
+    
+    public SimpleIntegerProperty quantityProperty(){
+        return quantity;
     }
 }

@@ -55,6 +55,10 @@ public class BookSearchedDetialController implements Initializable {
     private TableColumn<Book, Double> PRICE;
     @FXML
     private TableColumn<Book, String> TYPE;
+    @FXML
+    private TableColumn<Book,Integer> quantityId;
+    @FXML
+    private TableColumn<Book,String> introduction;
    
     @FXML
     private Button searchBt,resetBt,saveBt,homeBt;
@@ -67,37 +71,40 @@ public class BookSearchedDetialController implements Initializable {
     //ObservableList used for showNewBook method.
     private ObservableList<Book> show;
 
-    private Book book;
+    private Book intro;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(BookStorage.getInstance().getName());
-        bookNameTf1.textProperty().bind(BookStorage.getInstance().nameProperty());
+        //bookNameTf1.textProperty().bind(BookStorage.getInstance().nameProperty());
         
         getBookData();
     }
-
-    private void getBookData(){
-        
+    
+    private void refresh(){
+        bookData.clear();
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.customerSearchingBook();
+            ResultSet rs = db.ManagerRitriveBook();
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
-                System.out.println(rs.getString("publisher_publisherName"));
+                System.out.println(rs.getString("Pub_name"));
                 System.out.println(rs.getString("author"));
                 System.out.println(rs.getDouble("price"));
                 System.out.println(rs.getString("type"));
+                System.out.println(rs.getInt("REPERTORY_SIZE"));
                 
                 bookData.add(new Book(
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher_publisherName"), 
-                        rs.getString("type")));
+                        rs.getString("Pub_name"), 
+                        rs.getString("type"), 
+                        rs.getInt("REPERTORY_SIZE"),
+                        rs.getString("introduction")));
             }
         } catch (Exception e) {
             System.out.println("Error "+ e);
@@ -108,6 +115,45 @@ public class BookSearchedDetialController implements Initializable {
         PUBLISHER.setCellValueFactory(new PropertyValueFactory<Book,String>("publisher"));
         PRICE.setCellValueFactory(new PropertyValueFactory<Book,Double>("price"));
         TYPE.setCellValueFactory(new PropertyValueFactory<Book,String>("type"));
+        quantityId.setCellValueFactory(new PropertyValueFactory<Book,Integer>("quantity"));
+        introduction.setCellValueFactory(new PropertyValueFactory<Book,String>("introduction"));
+        
+        tv.setItems(bookData);
+    }
+    
+    private void getBookData(){
+        
+        try {
+            bookData = FXCollections.observableArrayList();
+            ResultSet rs = db.customerSearchingBook(BookStorage.getInstance().getName());
+            
+            while(rs.next()){
+                System.out.println(rs.getString("book_name"));
+                System.out.println(rs.getString("Pub_name"));
+                System.out.println(rs.getString("author"));
+                System.out.println(rs.getDouble("price"));
+                System.out.println(rs.getString("type"));
+                
+                bookData.add(new Book(
+                        rs.getString("book_name"), 
+                        rs.getString("author"), 
+                        rs.getDouble("price"), 
+                        rs.getString("Pub_name"), 
+                        rs.getString("type"), 
+                        rs.getInt("REPERTORY_SIZE"),
+                        rs.getString("introduction")));
+            }
+        } catch (Exception e) {
+            System.out.println("Error "+ e);
+        }
+        
+        NAME.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
+        AUTHOR.setCellValueFactory(new PropertyValueFactory<Book,String>("author"));
+        PUBLISHER.setCellValueFactory(new PropertyValueFactory<Book,String>("publisher"));
+        PRICE.setCellValueFactory(new PropertyValueFactory<Book,Double>("price"));
+        TYPE.setCellValueFactory(new PropertyValueFactory<Book,String>("type"));
+        quantityId.setCellValueFactory(new PropertyValueFactory<Book,Integer>("quantity"));
+        introduction.setCellValueFactory(new PropertyValueFactory<Book,String>("introduction"));
         
         tv.setItems(bookData);
     }
@@ -125,13 +171,13 @@ public class BookSearchedDetialController implements Initializable {
     @FXML
     private void handleResetAction(ActionEvent event){
         bookData.clear();
-        getBookData();
+        refresh();
     }
     
     @FXML
     private void handleSearchAction(ActionEvent event){
         if(bookNameTf1.getText().isEmpty()){
-            getBookData();
+            refresh();
         }
         else{
             getSearched();
@@ -145,6 +191,7 @@ public class BookSearchedDetialController implements Initializable {
             PUBLISHER.getColumns().clear();
             PRICE.getColumns().clear();
             TYPE.getColumns().clear();
+            quantityId.getColumns().clear();
             
             searchData = FXCollections.observableArrayList();
             ResultSet rs = db.ManagerSearchBook(bookNameTf1.getText());
@@ -153,8 +200,10 @@ public class BookSearchedDetialController implements Initializable {
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher_publisherName"), 
-                        rs.getString("type")));
+                        rs.getString("Pub_name"), 
+                        rs.getString("type"), 
+                        rs.getInt("REPERTORY_SIZE"),
+                        rs.getString("introduction")));
             }
         } catch (Exception e) {
             System.out.println("ERROR"+e);
@@ -165,6 +214,8 @@ public class BookSearchedDetialController implements Initializable {
         PUBLISHER.setCellValueFactory(new PropertyValueFactory<Book,String>("publisher"));
         PRICE.setCellValueFactory(new PropertyValueFactory<Book,Double>("price"));
         TYPE.setCellValueFactory(new PropertyValueFactory<Book,String>("type"));
+        quantityId.setCellValueFactory(new PropertyValueFactory<Book,Integer>("quantity"));
+        introduction.setCellValueFactory(new PropertyValueFactory<Book,String>("introduction"));
         
         tv.setItems(searchData);
     }
