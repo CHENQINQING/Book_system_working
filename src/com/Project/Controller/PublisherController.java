@@ -27,7 +27,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -206,7 +205,7 @@ public class PublisherController implements Initializable {
         }
         Publisher.setCellValueFactory(new PropertyValueFactory<Publisher,String>("publisher"));
         Address.setCellValueFactory(new PropertyValueFactory<Publisher,String>("address"));
-        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,Integer>("telephone number"));
+        Telephone.setCellValueFactory(new PropertyValueFactory<>("telephone number"));
         Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
         pb.setItems(publisherData);
     }
