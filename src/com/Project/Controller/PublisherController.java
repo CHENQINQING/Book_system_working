@@ -98,8 +98,15 @@ public class PublisherController implements Initializable {
     }
      @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException{
-         SaveToDatabase();
-         showNewPublisher();
+        SaveToDatabase();
+         //showNewPublisher();
+        publisherData.clear();
+        getPublisherData();
+        publishername.setText("");
+        publisherintroduction.setText("");
+        address.setText("");
+        telephone.setText("");
+        search.setText("");
     }
     
     private void SaveToDatabase() throws SQLException, NumberFormatException {

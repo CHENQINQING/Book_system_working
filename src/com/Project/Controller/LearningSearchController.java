@@ -36,7 +36,7 @@ import javafx.stage.Stage;
  *
  * @author Xuantong
  */
-public class BookSearchedDetialController implements Initializable {
+public class LearningSearchController implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -72,6 +72,7 @@ public class BookSearchedDetialController implements Initializable {
     private ObservableList<Book> show;
 
     private Book intro;
+    private final String typeName = "Learning";
     /**
      * Initializes the controller class.
      */
@@ -87,7 +88,7 @@ public class BookSearchedDetialController implements Initializable {
         bookData.clear();
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.ritriveAllBook();
+            ResultSet rs = db.customerRitriveBookByType(typeName);
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
@@ -125,7 +126,7 @@ public class BookSearchedDetialController implements Initializable {
         
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.searchingAllBook(BookStorage.getInstance().getName());
+            ResultSet rs = db.customerRitriveBookByType(typeName);
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
@@ -194,7 +195,7 @@ public class BookSearchedDetialController implements Initializable {
             quantityId.getColumns().clear();
             
             searchData = FXCollections.observableArrayList();
-            ResultSet rs = db.searchingAllBook(bookNameTf1.getText());
+            ResultSet rs = db.customerSearchingBook(bookNameTf1.getText(),typeName);
             while(rs.next()){
                 searchData.add(new Book(
                         rs.getString("book_name"), 
@@ -261,3 +262,4 @@ public class BookSearchedDetialController implements Initializable {
         Help.reverseButtonSize(bookNameTf1);
     }
 }
+

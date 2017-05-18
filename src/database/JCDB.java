@@ -74,7 +74,7 @@ public class JCDB {
         }
     }
     
-    public ResultSet ManagerSearchBook(String name){
+    public ResultSet searchingAllBook(String name){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -91,7 +91,7 @@ public class JCDB {
         return rs;
     }
     
-    public ResultSet ManagerRitriveBook(){
+    public ResultSet ritriveAllBook(){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -125,13 +125,53 @@ public class JCDB {
         }
     }
     
-    public ResultSet customerSearchingBook(String name){
+    public ResultSet customerSearchingBook(String name,String typeName){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
             //String statement = "SELECT book_name, publisher_Pub_id, author, price, type, REPERTORY_SIZE FROM Book WHERE book_name = ?";
-            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND type = ? AND book_name LIKE\"%" + name + "%\"";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            prepStmt.setString(1, typeName);
+            System.out.println("JCDB: "+BookStorage.getInstance().getName()); //using singleton to bind name of book.
+            //prepStmt.setString(1, BookStorage.getInstance().getName());
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            return rs;
+            
+        } catch (Exception e) {
+            System.out.println("Customer cannot ritrive any book.");
+            return null;
+        }
+    }
+    
+    public ResultSet customerRitriveBookByType(String typeName){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND type = ?";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            prepStmt.setString(1, typeName);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            return rs;
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any book.");
+            return null;
+        }
+    }
+    
+    public ResultSet typeSearching(String name){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            //String statement = "SELECT book_name, publisher_Pub_id, author, price, type, REPERTORY_SIZE FROM Book WHERE book_name = ?";
+            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND type = Comic AND book_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             System.out.println("JCDB: "+BookStorage.getInstance().getName()); //using singleton to bind name of book.

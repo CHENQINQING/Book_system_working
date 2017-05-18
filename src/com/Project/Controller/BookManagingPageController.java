@@ -109,7 +109,7 @@ public class BookManagingPageController implements Initializable {
     private void getBookData(){
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.ManagerRitriveBook();
+            ResultSet rs = db.ritriveAllBook();
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
@@ -276,7 +276,7 @@ public class BookManagingPageController implements Initializable {
             quantityId.getColumns().clear();
             
             searchData = FXCollections.observableArrayList();
-            ResultSet rs = db.ManagerSearchBook(bookNameTf1.getText());
+            ResultSet rs = db.searchingAllBook(bookNameTf1.getText());
             while(rs.next()){
                 searchData.add(new Book(
                         rs.getString("book_name"), 
