@@ -7,6 +7,7 @@ package classes;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -15,6 +16,7 @@ import org.apache.commons.lang3.ArrayUtils;
  * @author chenq
  */
 public class salesObject {
+    private ArrayList<salesInf> sales; 
     private salesInf[] salesInf;
     private int nElems;
     
