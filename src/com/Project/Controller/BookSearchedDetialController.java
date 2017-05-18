@@ -74,7 +74,7 @@ public class BookSearchedDetialController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(BookStorage.getInstance().getName());
-        bookNameTf1.textProperty().bind(BookStorage.getInstance().nameProperty());
+        //bookNameTf1.textProperty().bind(BookStorage.getInstance().nameProperty());
         
         getBookData();
     }

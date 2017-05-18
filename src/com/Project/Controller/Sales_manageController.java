@@ -6,6 +6,7 @@
 package com.Project.Controller;
 
 import classes.Book;
+import classes.salesObject;
 import database.DatabaseConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -48,10 +49,12 @@ public class Sales_manageController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @FXML 
+    @FXML
     private TextField data_text;
     @FXML
     private TextField amountL;
+    @FXML
+    private TextField delete;
     @FXML
     private TextArea textA;
     @FXML
@@ -62,75 +65,70 @@ public class Sales_manageController implements Initializable {
     private Label QuantityL;
     @FXML
     private ComboBox book;
-    @FXML 
+    @FXML
     private Label repertory;
     @FXML
     private Label bookName;
     @FXML
-    private TableView table;
+    private TextArea text2;
 
-    
-    
-    String date,totalp;
+    String date, totalp;
+    String time;
     String sql;
     ResultSet rs;
-    Double price=0.0;
-    int quantity=0;
+    Double price = 0.0;
+    int quantity = 0;
     int reperint;
     String rep;
-    String totalq="";
-    String text1="";
+    String totalq = "";
+    String text1 = "";
     private ObservableList<String> booklist = FXCollections.observableArrayList();
     //private ObservableList<String> tablelist = FXCollections.observableArrayList();
     DatabaseConnection connection = new DatabaseConnection();
-  
-  
+    salesObject sales = new salesObject(20);
+
 //ObservableList<TableColumn> observableList = table.getColumns(); 
-    
-    
     @FXML
-    private void handleSearchButtonAction(ActionEvent event) throws SQLException{
+    private void handleSearchButtonAction(ActionEvent event) throws SQLException {
         //yyy-mm-dd
         textA.setText("");
-        text1="";
-        price=0.0;
-        quantity=0;
-        if(data_text.getText().matches("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))|([1-2][0-9]{3})")){
+        text1 = "";
+        price = 0.0;
+        quantity = 0;
+        if (data_text.getText().matches("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))|([1-2][0-9]{3})")) {
             date = data_text.getText();
             System.out.println(date);
             sql = "SELECT sales.RECORD_DATE,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.price,book.REPERTORY_SIZE "
-                + "FROM sales,book_has_sales,book "
-                +"WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_book_id = book.book_id"
-                +" and sales.RECORD_DATE like" + "'" + date + "%'";  
-        rs = connection.query(sql);
-        if(rs.next()){
+                    + "FROM sales,book_has_sales,book "
+                    + "WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_book_id = book.book_id"
+                    + " and sales.RECORD_DATE like" + "'" + date + "%'";
             rs = connection.query(sql);
-        while(rs.next()){
-            text1=text1+"book: "+rs.getString("BOOK_NAME")+"  price: "+rs.getDouble("BOOK_PRICE")+"  date: "+rs.getString("RECORD_DATE")+"  quantity:"+rs.getInt("TRADE_SUM")+"\r\n";
-            price= price+rs.getDouble("BOOK_PRICE")*rs.getInt("TRADE_SUM");
-            quantity= quantity+rs.getInt("TRADE_SUM");
-        }
-        totalp = price.toString();
-        textA.appendText(text1);
-        totalprice.setText(totalp);
-        DateL.setText(date);
-        totalq=String.valueOf(quantity);
-        QuantityL.setText(totalq);
-        }
-        else{
-            textA.setText("No data.");
-        }
-        }
-        else{
+            if (rs.next()) {
+                rs = connection.query(sql);
+                while (rs.next()) {
+                    text1 = text1 + "book: " + rs.getString("BOOK_NAME") + "  price: " + rs.getDouble("BOOK_PRICE") + "  date: " + rs.getString("RECORD_DATE") + "  quantity:" + rs.getInt("TRADE_SUM") + "\r\n";
+                    price = price + rs.getDouble("BOOK_PRICE") * rs.getInt("TRADE_SUM");
+                    quantity = quantity + rs.getInt("TRADE_SUM");
+                }
+                totalp = price.toString();
+                textA.appendText(text1);
+                totalprice.setText(totalp);
+                DateL.setText(date);
+                totalq = String.valueOf(quantity);
+                QuantityL.setText(totalq);
+            } else {
+                textA.setText("No data.");
+            }
+        } else {
             System.out.println("Please follow the format: yyyy-mm-dd");
             JOptionPane.showMessageDialog(null, "Time ：follow the time format", "ERROR", JOptionPane.ERROR_MESSAGE);
-            
-        }    
- 
+
+        }
+
     }
-    
+
     @FXML
-    private void handleBackButtonAction(ActionEvent event) throws IOException{
+    private void handleBackButtonAction(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
@@ -139,41 +137,74 @@ public class Sales_manageController implements Initializable {
         stage.setTitle("Menu");
         stage.show();
     }
-    
+
     @FXML
-    private void handleSureButtonAction(ActionEvent event) throws SQLException{
+    private void handleSureButtonAction(ActionEvent event) throws SQLException {
         System.out.println(book.getValue());
-        sql = "select* from book where BOOK_NAME = "+"'"+book.getValue()+"'";
+        sql = "select* from book where BOOK_NAME = " + "'" + book.getValue() + "'";
         rs = connection.query(sql);
-        while(rs.next()){
-        reperint=rs.getInt("REPERTORY_SIZE");
+        while (rs.next()) {
+            reperint = rs.getInt("REPERTORY_SIZE");
         }
-        rep=String.valueOf(reperint);
+        rep = String.valueOf(reperint);
         repertory.setText(rep);
         bookName.setText((String) book.getValue());
     }
 
-    public void tableView(){
-        
+    @FXML
+    private void handleAddButton(ActionEvent event) {
+        getTime();
+        int amount = 0;
+        if (amountL.getText().trim().length() < 1) {
+            JOptionPane.showMessageDialog(null, "Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (book.getValue() == "choose") {
+                JOptionPane.showMessageDialog(null, "Please choose a book", "ERROR", JOptionPane.ERROR_MESSAGE);
+            } else {
+                amount = Integer.parseInt(amountL.getText());
+                //String text=("book name: "+book.getValue()+"  ***date: "+time+"  ***amount: "+amount+"\r\n");
+                //text2.appendText(text);
+                sales.insert((String) book.getValue(), time, amount);
+                text2.appendText(sales.display());
+            }
+        }
+
     }
-    
-    public void getTime(){
-        Date date=new Date();
-        DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-        String time=format.format(date);
+
+    @FXML
+    private void handleDeleteButton(ActionEvent event) {
+        int i = 0;
+        if (delete.getLength() != 0) {
+            i = Integer.parseInt(delete.getText());
+            System.out.println(i+"tset");
+            if (text2.getLength() != 0) {
+                sales.delete(i);
+                text2.setText("");
+                text2.appendText(sales.display());
+            } else {
+                JOptionPane.showMessageDialog(null, "Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please type line", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    public void getbooklist() throws SQLException{
+
+    public void getTime() {
+        Date date = new Date();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        time = format.format(date);
+    }
+
+    public void getbooklist() throws SQLException {
         sql = "select BOOK_NAME from book";
         rs = connection.query(sql);
-        while(rs.next()){
+        while (rs.next()) {
             booklist.add(rs.getString("BOOK_NAME"));
         }
         book.setValue("choose");
         book.setItems(booklist);
     }
-    
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -183,7 +214,6 @@ public class Sales_manageController implements Initializable {
             Logger.getLogger(Sales_manageController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }    
-    
-}
+    }
 
+}
