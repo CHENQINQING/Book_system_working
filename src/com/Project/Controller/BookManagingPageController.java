@@ -61,7 +61,12 @@ public class BookManagingPageController implements Initializable {
     @FXML
     private TableColumn<Book, String> TYPE;
     @FXML
-    private TextField bookNameTf2, authorBt, priceBt;
+    private TableColumn<Book,Integer> quantityId;
+    @FXML
+    private TableColumn<Book,String> introduction;
+    
+    @FXML
+    private TextField bookNameTf2, authorBt, priceBt,quantityBt;
     @FXML
     private ComboBox publisherCombo;
     @FXML
@@ -72,8 +77,8 @@ public class BookManagingPageController implements Initializable {
     private JCDB db = new JCDB();
     
     //ObservableList used for holding comboBox value.
-    private ObservableList<String> publisherList = FXCollections.observableArrayList("one","two","three");
-    private ObservableList<String> typeList = FXCollections.observableArrayList("aaa","bbb","ccc");
+    private ObservableList<String> publisherList = FXCollections.observableArrayList();
+    private ObservableList<String> typeList = FXCollections.observableArrayList();
     
     //ObservableList used for holding Book values.
     private ObservableList<Book> bookData;
@@ -91,32 +96,37 @@ public class BookManagingPageController implements Initializable {
     }
     
     private void getComboBoxValue(){
+        db.fillPublisherCombo(publisherList);
         //set comboBox value.
-        publisherCombo.setValue("publisher");
+        publisherCombo.setValue("PUBLISHER");
         publisherCombo.setItems(publisherList);
         
-        typeCombo.setValue("type");
+        db.fillTypeCombo(typeList);
+        typeCombo.setValue("TYPE");
         typeCombo.setItems(typeList);
     }
 
     private void getBookData(){
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.ManagerRitriveBook();
+            ResultSet rs = db.ritriveAllBook();
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
-                System.out.println(rs.getString("publisher_publisherName"));
+                System.out.println(rs.getString("Pub_name"));
                 System.out.println(rs.getString("author"));
                 System.out.println(rs.getDouble("price"));
                 System.out.println(rs.getString("type"));
+                System.out.println(rs.getInt("REPERTORY_SIZE"));
                 
                 bookData.add(new Book(
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher_publisherName"), 
-                        rs.getString("type")));
+                        rs.getString("Pub_name"), 
+                        rs.getString("type"), 
+                        rs.getInt("REPERTORY_SIZE"),
+                        rs.getString("introduction")));
             }
         } catch (Exception e) {
             System.out.println("Error "+ e);
@@ -127,6 +137,8 @@ public class BookManagingPageController implements Initializable {
         PUBLISHER.setCellValueFactory(new PropertyValueFactory<Book,String>("publisher"));
         PRICE.setCellValueFactory(new PropertyValueFactory<Book,Double>("price"));
         TYPE.setCellValueFactory(new PropertyValueFactory<Book,String>("type"));
+        quantityId.setCellValueFactory(new PropertyValueFactory<Book,Integer>("quantity"));
+        introduction.setCellValueFactory(new PropertyValueFactory<Book,String>("introduction"));
         
         tv.setItems(bookData);
     }
@@ -158,11 +170,18 @@ public class BookManagingPageController implements Initializable {
 
     private void SaveToDatabase() throws SQLException, NumberFormatException {
         boolean isPrice = Help.isInteger(priceBt.getText());
+        boolean isQuantity = Help.isInteger(quantityBt.getText());
         
         if(!isPrice){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("ERROR");
             alert.setContentText("PRICE IS INVALID");
+            alert.show();
+        }
+        else if(!isQuantity){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("ERROR");
+            alert.setContentText("QUANTITY IS INVALID");
             alert.show();
         }
         else if(bookNameTf2.getText().isEmpty()){
@@ -185,13 +204,15 @@ public class BookManagingPageController implements Initializable {
         }
         else{
             double price = Double.valueOf(priceBt.getText());
+            int quantity = Integer.valueOf(quantityBt.getText());
             Book book = new Book(
                     bookNameTf2.getText(),
                     authorBt.getText(),
                     price,
                     publisherCombo.getSelectionModel().getSelectedItem().toString(),
                     typeCombo.getSelectionModel().getSelectedItem().toString(), 
-                    introArea.getText());
+                    introArea.getText(),
+                    quantity);
             
             db.managerAddNewBook(book);
             refresh();
@@ -252,16 +273,19 @@ public class BookManagingPageController implements Initializable {
             PUBLISHER.getColumns().clear();
             PRICE.getColumns().clear();
             TYPE.getColumns().clear();
+            quantityId.getColumns().clear();
             
             searchData = FXCollections.observableArrayList();
-            ResultSet rs = db.ManagerSearchBook(bookNameTf1.getText());
+            ResultSet rs = db.searchingAllBook(bookNameTf1.getText());
             while(rs.next()){
                 searchData.add(new Book(
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
-                        rs.getString("publisher_publisherName"), 
-                        rs.getString("type")));
+                        rs.getString("Pub_name"), 
+                        rs.getString("type"), 
+                        rs.getInt("REPERTORY_SIZE"),
+                        rs.getString("introduction")));
             }
         } catch (Exception e) {
             System.out.println("ERROR"+e);
@@ -272,6 +296,8 @@ public class BookManagingPageController implements Initializable {
         PUBLISHER.setCellValueFactory(new PropertyValueFactory<Book,String>("publisher"));
         PRICE.setCellValueFactory(new PropertyValueFactory<Book,Double>("price"));
         TYPE.setCellValueFactory(new PropertyValueFactory<Book,String>("type"));
+        quantityId.setCellValueFactory(new PropertyValueFactory<Book,Integer>("quantity"));
+        introduction.setCellValueFactory(new PropertyValueFactory<Book,String>("introduction"));
         
         tv.setItems(searchData);
     }

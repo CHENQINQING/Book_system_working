@@ -15,14 +15,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.TypeController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="386.0" layoutY="161.0" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: gray;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="label1" alignment="CENTER" prefHeight="10.0" prefWidth="700.0" text="book tpye management" textFill="#00ffea">
+            <Label alignment="CENTER" prefHeight="10.0" prefWidth="700.0" text="Book Tpye Management" textFill="#00ffea">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="32.0" prefWidth="700.0">
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="700.0">
                <children>
                   <Label alignment="CENTER" prefHeight="32.0" prefWidth="70.0" text="Name:" textFill="#00ffee">
                      <font>
@@ -46,7 +46,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </TextField>
-                  <Button fx:id="button1" mnemonicParsing="false" prefHeight="32.0" prefWidth="75.0" text="Search">
+                  <Button mnemonicParsing="false" onAction="#handleSearchAction" prefHeight="32.0" prefWidth="75.0" text="Search">
                      <HBox.margin>
                         <Insets left="30.0" />
                      </HBox.margin>
@@ -59,10 +59,10 @@
                   <Insets left="20.0" />
                </padding>
             </HBox>
-            <TableView nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="668.0" fx:id="xxx">
+            <TableView fx:id="tt" nodeOrientation="LEFT_TO_RIGHT" prefHeight="185.0" prefWidth="700.0">
               <columns>
-                <TableColumn fx:id="cxz" prefWidth="317.0" text="type name" />
-                <TableColumn fx:id="zxc" minWidth="0.0" prefWidth="382.0" text="introduction" />
+                <TableColumn fx:id="TYPE" prefWidth="217.0" text="Type" />
+                <TableColumn fx:id="INTRODUCTION" minWidth="0.0" prefWidth="482.0" text="Introduction" />
               </columns>
                <VBox.margin>
                   <Insets top="10.0" />
@@ -74,7 +74,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <VBox prefHeight="207.0" prefWidth="700.0" style="-fx-background-color: white;">
+            <VBox prefHeight="185.0" prefWidth="700.0" style="-fx-background-color: white;">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -84,8 +84,8 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="26.0" prefWidth="668.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="113.0" text="type name:" />
-                        <TextField fx:id="typename" prefHeight="26.0" prefWidth="538.0" />
+                        <Label alignment="CENTER" prefHeight="26.0" prefWidth="113.0" text="Type:" />
+                        <TextField fx:id="TypeName" prefHeight="26.0" prefWidth="538.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -99,23 +99,28 @@
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </padding>
                      <children>
-                        <Label prefHeight="17.0" prefWidth="112.0" text="type introduction:" />
-                        <TextArea fx:id="typeintroduction" prefHeight="68.0" prefWidth="537.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="112.0" text="Introduction:" />
+                        <TextArea fx:id="TypeIntroduction" prefHeight="68.0" prefWidth="537.0" wrapText="true" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="59.0" prefWidth="690.0">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="689.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Save">
+                        <Button mnemonicParsing="false" onAction="#handleSaveAction" prefHeight="29.0" prefWidth="62.0" text="Save">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="ButtonClear" mnemonicParsing="false" onAction="#ButtonClear" text="Clear">
+                        <Button mnemonicParsing="false" onAction="#handleDeleteAction" prefHeight="29.0" prefWidth="62.0" text="Delete">
                            <HBox.margin>
                               <Insets left="30.0" right="30.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#ButtonMeun" text="Meun">
+                        <Button mnemonicParsing="false" onAction="#ButtonClear" prefHeight="29.0" prefWidth="62.0" text="Clear">
+                           <HBox.margin>
+                              <Insets left="30.0" right="30.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#ButtonMeun" prefHeight="29.0" prefWidth="62.0" text="Meun">
                            <HBox.margin>
                               <Insets left="30.0" />
                            </HBox.margin>
