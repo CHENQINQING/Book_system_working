@@ -27,7 +27,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -99,8 +98,15 @@ public class PublisherController implements Initializable {
     }
      @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException{
-         SaveToDatabase();
-         showNewPublisher();
+        SaveToDatabase();
+         //showNewPublisher();
+        publisherData.clear();
+        getPublisherData();
+        publishername.setText("");
+        publisherintroduction.setText("");
+        address.setText("");
+        telephone.setText("");
+        search.setText("");
     }
     
     private void SaveToDatabase() throws SQLException, NumberFormatException {
@@ -131,11 +137,14 @@ public class PublisherController implements Initializable {
             alert.show();
         }
         else{
-            String tele = telephone.getText();
-            int phoneNum = Integer.parseInt(tele);
-            Publisher p = new Publisher(publishername.getText(), address.getText(), telephone.getAnchor(), publisherintroduction.getText());
+            int tele =Integer.valueOf( telephone.getText());;
+            Publisher p = new Publisher(
+                    publishername.getText(), 
+                    address.getText(), 
+                    tele, 
+                    publisherintroduction.getText());
             
-            jcdb.managerSavePublisher(p.getPublisher(), p.getAddress(), phoneNum, p.getIntroduction());
+            jcdb.managerSavePublisher(p);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
             alert.setContentText("The Data Has Been Saved");
@@ -206,7 +215,7 @@ public class PublisherController implements Initializable {
         }
         Publisher.setCellValueFactory(new PropertyValueFactory<Publisher,String>("publisher"));
         Address.setCellValueFactory(new PropertyValueFactory<Publisher,String>("address"));
-        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,Integer>("telephone number"));
+        Telephone.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
         pb.setItems(publisherData);
     }
@@ -227,15 +236,14 @@ public class PublisherController implements Initializable {
             Address.getColumns().clear();
             Telephone.getColumns().clear();
             Introduction.getColumns().clear();
+            
             searchData = FXCollections.observableArrayList();
-            ResultSet rs = jcdb.searchingAllBook(search.getText());
-            
-            String newTele = Integer.toString(rs.getInt("Pub_tel"));
-            
+            ResultSet rs = jcdb.ManagerSearchPublisher(search.getText());
+                      
             while(rs.next()){
                 searchData.add((new Publisher(rs.getString("Pub_name"), 
-                        rs.getString("Pub_link_man"), 
-                        rs.getInt("Pub_tele"), 
+                        rs.getString("Pub_address"), 
+                        rs.getInt("Pub_tel"), 
                         rs.getString("Pub_introduction"))));
             }
         } catch (Exception e) {
@@ -244,7 +252,7 @@ public class PublisherController implements Initializable {
         
         Publisher.setCellValueFactory(new PropertyValueFactory<Publisher,String>("publisher"));
         Address.setCellValueFactory(new PropertyValueFactory<Publisher,String>("address"));
-        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,Integer>("telephone number"));
+        Telephone.setCellValueFactory(new PropertyValueFactory<Publisher,Integer>("telephone"));
         Introduction.setCellValueFactory(new PropertyValueFactory<Publisher,String>("introduction"));
         
         pb.setItems(searchData);

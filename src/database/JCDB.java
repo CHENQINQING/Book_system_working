@@ -8,6 +8,7 @@ package database;
 import classes.Book;
 import classes.BookStorage;
 import classes.LoginStorage;
+import classes.Publisher;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -234,17 +235,17 @@ public class JCDB {
         return null;
     }
     
-    public void managerSavePublisher(String publisher,String address,int telephone,String introduction) throws SQLException {
+    public void managerSavePublisher(Publisher p) throws SQLException {
         try(Connection conn = establishConnection();){
             String SQL = "INSERT INTO publisher (Pub_name,Pub_tel,Pub_address,Pub_introduction) VALUES (?,?,?,?)";
+//            String SQL = "INSERT INTO publisher SET Pub_name=?, Pub_address=?, Pub_tel=?, Pub_introduction=?";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
             
-            // remove ++ from here, do it in last
-            //prepStmt.setInt(1, id);
-            prepStmt.setString(1, publisher);
-            prepStmt.setInt(2, telephone);
-            prepStmt.setString(3, address);
-            prepStmt.setString(4, introduction);
+            prepStmt.setString(1, p.getPublisher());
+            prepStmt.setInt(2, p.getTelephone());
+            prepStmt.setString(3, p.getAddress());
+            prepStmt.setString(4, p.getIntroduction());
+            
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");
@@ -259,7 +260,6 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-           // String SQL = "SELECT publisherName, address, phone, introduction FROM Publisher";
             String SQL = "SELECT Pub_name,Pub_tel,Pub_address,Pub_introduction FROM publisher";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
@@ -294,7 +294,8 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name LIKE\"%" + name + "%\"";
+           // String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name=?";
+            String SQL = "SELECT Pub_name, Pub_address, Pub_tel, Pub_introduction FROM publisher WHERE Pub_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             rs = prepStmt.executeQuery();
@@ -356,6 +357,25 @@ public class JCDB {
             System.out.println("ERROR. Not delete.");
         }
     }
+    
+    public ResultSet ManagerSearchType(String name) {
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+           // String SQL = "SELECT Pub_name,Pub_address,Pub_tel,Pub_introduction FROM Publisher WHERE Pub_name=?";
+            String SQL = "SELECT type_name, type_introduction FROM type WHERE type_name LIKE\"%" + name + "%\"";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(SQL);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any publisher.");
+        }
+        return rs;
+    }
+    
     public boolean verifyAccount(String uname, String accountType) throws SQLException{
         Connection conn = establishConnection();
         String query = "";

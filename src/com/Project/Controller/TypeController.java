@@ -5,8 +5,6 @@
  */
 package com.Project.Controller;
 
-import classes.Help;
-import classes.Publisher;
 import classes.Type;
 import database.JCDB;
 import java.io.IOException;
@@ -90,7 +88,8 @@ public class TypeController implements Initializable {
     @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException {
         SaveToDatabase();
-        showNewType();
+        typeData.clear();
+        gettypeData();
     }
     
     private void SaveToDatabase() throws SQLException, NumberFormatException {
@@ -121,30 +120,30 @@ public class TypeController implements Initializable {
         }
     }
     
-    private void showNewType(){
-        
-        if(TYPE.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID TYPE NAME.");
-            alert.show();
-        }
-        else if(INTRODUCTION.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID INTRODUCTION.");
-            alert.show();
-        }
-        else{
-            Type T = new Type(TypeName.getText(),TypeIntroduction.getText());
-        
-            tt.getItems().add(T);
-        
-            //Clear text field.
-            TypeName.clear();
-            TypeIntroduction.clear();
-        }
-    }
+//    private void showNewType(){
+//        
+//        if(TYPE.getText().isEmpty()){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("INVALID TYPE NAME.");
+//            alert.show();
+//        }
+//        else if(INTRODUCTION.getText().isEmpty()){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("INVALID INTRODUCTION.");
+//            alert.show();
+//        }
+//        else{
+//            Type T = new Type(TypeName.getText(),TypeIntroduction.getText());
+//        
+//            tt.getItems().add(T);
+//        
+//            //Clear text field.
+//            TypeName.clear();
+//            TypeIntroduction.clear();
+//        }
+//    }
     
     private void gettypeData() {
        typeData=FXCollections.observableArrayList();
@@ -194,5 +193,38 @@ public class TypeController implements Initializable {
                 alert.close();
             }
         }
+    }
+    
+    @FXML
+    private void handleSearchAction(ActionEvent event){
+        if(search.getText().isEmpty()){
+            gettypeData();
+        }
+        else{
+            getSearched();
+        }
+    }
+    
+    private void getSearched(){
+        try {
+            TYPE.getColumns().clear();
+            INTRODUCTION.getColumns().clear();
+            
+            searchData = FXCollections.observableArrayList();
+            ResultSet rs = jcdb.ManagerSearchType(search.getText());
+            
+            
+            while(rs.next()){
+                searchData.add((new Type(rs.getString("type_name"),  
+                        rs.getString("type_introduction"))));
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR"+e);
+        }
+        
+        TYPE.setCellValueFactory(new PropertyValueFactory<Type,String>("type"));
+        INTRODUCTION.setCellValueFactory(new PropertyValueFactory<Type,String>("introduction"));
+        
+        tt.setItems(searchData);
     }
 }
