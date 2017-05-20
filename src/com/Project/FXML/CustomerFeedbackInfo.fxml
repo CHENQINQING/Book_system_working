@@ -35,7 +35,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                      <children>
-                        <Label prefHeight="22.0" prefWidth="213.0" text="Please Enter Your Name:" textFill="#e0b3b3">
+                        <Label prefHeight="52.0" prefWidth="212.0" text="Please Enter A Real Name Or A Nickname:" textFill="#e0b3b3" wrapText="true">
                            <font>
                               <Font name="Bell MT Bold" size="18.0" />
                            </font>
@@ -48,6 +48,23 @@
                   </HBox>
                   <HBox alignment="BOTTOM_RIGHT" prefHeight="68.0" prefWidth="459.0" spacing="15.0">
                      <children>
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="68.0" prefWidth="261.0" spacing="10.0">
+                           <children>
+                              <RadioButton fx:id="nameless" disable="true" mnemonicParsing="false" onAction="#handleNamelessAction" selected="true" text="Anonymous" textFill="#e0b3b3">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="nameLess" />
+                                 </toggleGroup>
+                                 <font>
+                                    <Font name="Bell MT Bold" size="18.0" />
+                                 </font>
+                              </RadioButton>
+                              <RadioButton fx:id="sighName" disable="true" mnemonicParsing="false" onAction="#handleSighNameAction" text="Sign Name" textFill="#e0b3b3" toggleGroup="$nameLess">
+                                 <font>
+                                    <Font name="Bell MT Bold" size="18.0" />
+                                 </font>
+                              </RadioButton>
+                           </children>
+                        </HBox>
                         <Button fx:id="ok" mnemonicParsing="false" onAction="#handleOkAction" onMouseEntered="#mouseEnteredOk" onMouseExited="#mouseExitedOk" style="-fx-background-radius: 100;" text="OK">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

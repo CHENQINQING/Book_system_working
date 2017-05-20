@@ -12,22 +12,27 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author Xuantong
  */
-public class User {
+public class UserStorage {
+    
     private SimpleIntegerProperty id = new SimpleIntegerProperty();
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty username = new SimpleStringProperty();
     private SimpleStringProperty password = new SimpleStringProperty();
     private SimpleIntegerProperty level = new SimpleIntegerProperty();
     
+    private static UserStorage userStorage;
     /**
      * @return the id
      */
-    public User(){
-    SimpleIntegerProperty id = new SimpleIntegerProperty();
-    SimpleStringProperty name = new SimpleStringProperty();
-    SimpleStringProperty username = new SimpleStringProperty();
-    SimpleStringProperty password = new SimpleStringProperty();
-    SimpleIntegerProperty level = new SimpleIntegerProperty();
+    private UserStorage(){
+        
+    }
+    
+    public static UserStorage getInstance() {
+        if (userStorage == null) {
+            userStorage = new UserStorage();
+        }
+        return userStorage;
     }
     
     public int getId() {

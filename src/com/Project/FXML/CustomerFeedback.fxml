@@ -51,7 +51,7 @@
                <children>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="80.0" prefWidth="453.0" spacing="20.0">
                      <children>
-                        <Button fx:id="sad" mnemonicParsing="false" onMouseEntered="#mouseEnteredSad" onMouseExited="#mouseExitedSad" prefHeight="47.0" prefWidth="61.0" style="-fx-background-radius: 1000;">
+                        <Button fx:id="sad" mnemonicParsing="false" onAction="#handleSadAction" onMouseEntered="#mouseEnteredSad" onMouseExited="#mouseExitedSad" prefHeight="47.0" prefWidth="61.0" style="-fx-background-radius: 1000;">
                            <graphic>
                               <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -63,7 +63,7 @@
                               <Font size="7.0" />
                            </font>
                         </Button>
-                        <Button fx:id="normal" mnemonicParsing="false" onMouseEntered="#mouseEnteredNormal" onMouseExited="#mouseExitedNormal" style="-fx-background-radius: 1000;">
+                        <Button fx:id="normal" mnemonicParsing="false" onAction="#handleNormalAction" onMouseEntered="#mouseEnteredNormal" onMouseExited="#mouseExitedNormal" style="-fx-background-radius: 1000;">
                            <graphic>
                               <ImageView fitHeight="72.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -75,7 +75,7 @@
                               <Font size="1.0" />
                            </font>
                         </Button>
-                        <Button fx:id="good" mnemonicParsing="false" onMouseEntered="#mouseEnteredGood" onMouseExited="#mouseExitedGood" style="-fx-background-radius: 1000;">
+                        <Button fx:id="good" mnemonicParsing="false" onAction="#handleGoodAction" onMouseEntered="#mouseEnteredGood" onMouseExited="#mouseExitedGood" style="-fx-background-radius: 1000;">
                            <graphic>
                               <ImageView fitHeight="74.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -91,7 +91,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="save" mnemonicParsing="false" onMouseEntered="#mouseEnteredSave" onMouseExited="#mouseExitedSave" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Save">
+                  <Button fx:id="save" mnemonicParsing="false" onAction="#handleSaveAction" onMouseEntered="#mouseEnteredSave" onMouseExited="#mouseExitedSave" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Save">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>

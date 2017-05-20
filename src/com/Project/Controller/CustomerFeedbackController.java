@@ -6,11 +6,16 @@
 package com.Project.Controller;
 
 import classes.Book;
+import classes.Feedback;
 import classes.Help;
 import classes.User;
+import classes.UserStorage;
+import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -41,12 +47,16 @@ public class CustomerFeedbackController implements Initializable {
     private Button sad,normal,good,save,clear,home;
     
     private User user = new User();
-
+    private Help help = new Help();
+    private Feedback feedback = new Feedback();
+    private JCDB db = new JCDB();
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("user storage: " + UserStorage.getInstance().nameProperty());
     }    
     @FXML
     private void ButtonClear(ActionEvent event) {
@@ -55,6 +65,10 @@ public class CustomerFeedbackController implements Initializable {
     }
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {
+        BackToHome(event);
+    }
+
+    private void BackToHome(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/LoginPage.fxml"));
@@ -65,86 +79,156 @@ public class CustomerFeedbackController implements Initializable {
     }
     
     @FXML
-    private void handleSaveAction(ActionEvent event) throws SQLException{
-        SaveToDatabase();
+    private void handleSaveAction(ActionEvent event) throws SQLException, NumberFormatException, IOException{
+        SaveToDatabase(event);
     }
     
-    private void SaveToDatabase() throws SQLException, NumberFormatException {
+    private void SaveToDatabase(ActionEvent event) throws SQLException, NumberFormatException, IOException {
+        if(!title.getText().isEmpty() && !body.getText().isEmpty()){
+            if(title.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("ERROR");
+                alert.setContentText("Please enter a title");
+                alert.showAndWait();
+            }
+            else if(body.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("ERROR");
+                alert.setContentText("Please enter contents");
+                alert.showAndWait();
+            }
+            else{
+                feedback.setTitle(title.getText());
+                feedback.setBody(body.getText());
+                feedback.setDatetime(currentDate());
+                
+                db.customerFeedback(feedback);
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("FEEDBACK RECEIVED");
+                alert.setContentText("Thanks For Your Suggestion, We Have Received Your Feedback");
+                alert.showAndWait();
+                
+                title.setText("");
+                body.setText("");
+                BackToHome(event);
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Please enter your feedback");
+            alert.showAndWait();
+        }
+    }
+    
+    @FXML
+    private void handleSadAction(ActionEvent event){
+        feedback.setStatus("Not happy with our service");
         
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("FEEDBACK RECEIVED");
+        alert.setContentText("Thanks For Your Suggestion, We Will Improve Our Service");
+        alert.showAndWait();
     }
     
+    @FXML
+    private void handleNormalAction(ActionEvent event){
+        feedback.setStatus("It is okay with our service");
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("FEEDBACK RECEIVED");
+        alert.setContentText("Thanks For Your Suggestion, We Will Improve Our Service");
+        alert.showAndWait();
+    }
+    
+    @FXML
+    private void handleGoodAction(ActionEvent event){
+        feedback.setStatus("Very satisfied with our service");
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("FEEDBACK RECEIVED");
+        alert.setContentText("Thanks For Your Suggestion, Enjoy Your Time");
+        alert.showAndWait();
+    }
+    
+    private LocalDate currentDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDate localDate = LocalDate.now();
+        return localDate;
+    }
     
     
     //Resize button when mouse move entered button.
     //user search page
     @FXML
     public void mouseEnteredTitle(MouseEvent e){
-        Help.resizeButton(title);
+        help.resizeButton(title);
     }
     
     @FXML
     public void mouseExitedTitle(MouseEvent e){
-        Help.reverseButtonSize(title);
+        help.reverseButtonSize(title);
     }
     
     @FXML
     public void mouseEnteredSad(MouseEvent e){
-        Help.resizeButton(sad);
+        help.resizeButton(sad);
     }
     
     @FXML
     public void mouseExitedSad(MouseEvent e){
-        Help.reverseButtonSize(sad);
+        help.reverseButtonSize(sad);
     }
     
     @FXML
     public void mouseEnteredNormal(MouseEvent e){
-        Help.resizeButton(normal);
+        help.resizeButton(normal);
     }
     
     @FXML
     public void mouseExitedNormal(MouseEvent e){
-        Help.reverseButtonSize(normal);
+        help.reverseButtonSize(normal);
     }
 
     @FXML
     public void mouseEnteredGood(MouseEvent e){
-        Help.resizeButton(good);
+        help.resizeButton(good);
     }
   
     @FXML
     public void mouseExitedGood(MouseEvent e){
-        Help.reverseButtonSize(good);
+        help.reverseButtonSize(good);
     }
     
     @FXML
     public void mouseEnteredSave(MouseEvent e){
-        Help.resizeButton(save);
+        help.resizeButton(save);
     }
     
     @FXML
     public void mouseExitedSave(MouseEvent e){
-        Help.reverseButtonSize(save);
+        help.reverseButtonSize(save);
     }
     
     @FXML
     public void mouseEnteredClear(MouseEvent e){
-        Help.resizeButton(clear);
+        help.resizeButton(clear);
     }
     
     @FXML
     public void mouseExitedClear(MouseEvent e){
-        Help.reverseButtonSize(clear);
+        help.reverseButtonSize(clear);
     }
     
     @FXML
     public void mouseEnteredHome(MouseEvent e){
-        Help.resizeButton(home);
+        help.resizeButton(home);
     }
     
     @FXML
     public void mouseExitedHome(MouseEvent e){
-        Help.reverseButtonSize(home);
+        help.reverseButtonSize(home);
     }
     
     /*@FXML

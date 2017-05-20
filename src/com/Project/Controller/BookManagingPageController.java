@@ -75,6 +75,7 @@ public class BookManagingPageController implements Initializable {
     private Button searchBt,deleteBt,saveBt,clearBt,logoutBt,homeBt;
     
     private JCDB db = new JCDB();
+    private Help help  = new Help();
     
     //ObservableList used for holding comboBox value.
     private ObservableList<String> publisherList = FXCollections.observableArrayList();
@@ -169,8 +170,8 @@ public class BookManagingPageController implements Initializable {
     }
 
     private void SaveToDatabase() throws SQLException, NumberFormatException {
-        boolean isPrice = Help.isInteger(priceBt.getText());
-        boolean isQuantity = Help.isInteger(quantityBt.getText());
+        boolean isPrice = help.isInteger(priceBt.getText());
+        boolean isQuantity = help.isInteger(quantityBt.getText());
         
         if(!isPrice){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -216,6 +217,13 @@ public class BookManagingPageController implements Initializable {
             
             db.managerAddNewBook(book);
             refresh();
+            
+            bookNameTf2.setText("");
+            authorBt.setText("");
+            priceBt.setText("");
+            introArea.setText("");
+            publisherCombo.setValue("publisher");
+            typeCombo.setValue("type");
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
@@ -317,59 +325,59 @@ public class BookManagingPageController implements Initializable {
     //Resize button when mouse move entered button.
     @FXML
     public void mouseEnteredSearch(MouseEvent e){
-        Help.resizeButton(searchBt);
+        help.resizeButton(searchBt);
     }
     
     @FXML
     public void mouseExitedSearch(MouseEvent e){
-        Help.reverseButtonSize(searchBt);
+        help.reverseButtonSize(searchBt);
     }
     
     @FXML
     public void mouseEnteredDelete(MouseEvent e){
-        Help.resizeButton(deleteBt);
+        help.resizeButton(deleteBt);
     }
     
     @FXML
     public void mouseExitedDelete(MouseEvent e){
-        Help.reverseButtonSize(deleteBt);
+        help.reverseButtonSize(deleteBt);
     }
     
      @FXML
     public void mouseEnteredSave(MouseEvent e){
-        Help.resizeButton(saveBt);
+        help.resizeButton(saveBt);
     }
     
     @FXML
     public void mouseExitedSave(MouseEvent e){
-        Help.reverseButtonSize(saveBt);
+        help.reverseButtonSize(saveBt);
     }
      @FXML
     public void mouseEnteredClear(MouseEvent e){
-        Help.resizeButton(clearBt);
+        help.resizeButton(clearBt);
     }
     
     @FXML
     public void mouseExitedClear(MouseEvent e){
-        Help.reverseButtonSize(clearBt);
+        help.reverseButtonSize(clearBt);
     }
      @FXML
     public void mouseEnteredLogout(MouseEvent e){
-        Help.resizeButton(logoutBt);
+        help.resizeButton(logoutBt);
     }
     
     @FXML
     public void mouseExitedLogout(MouseEvent e){
-        Help.reverseButtonSize(logoutBt);
+        help.reverseButtonSize(logoutBt);
     }
      @FXML
     public void mouseEnteredHome(MouseEvent e){
-        Help.resizeButton(homeBt);
+        help.resizeButton(homeBt);
     }
     
     @FXML
     public void mouseExitedHome(MouseEvent e){
-        Help.reverseButtonSize(homeBt);
+        help.reverseButtonSize(homeBt);
     }
     
     
