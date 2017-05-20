@@ -12,26 +12,22 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author Xuantong
  */
-public class Person {
+public class User {
     private SimpleIntegerProperty id = new SimpleIntegerProperty();
     private SimpleStringProperty name = new SimpleStringProperty();
     private SimpleStringProperty username = new SimpleStringProperty();
     private SimpleStringProperty password = new SimpleStringProperty();
     private SimpleIntegerProperty level = new SimpleIntegerProperty();
-
-    private static Person personStoage;
+    
     /**
      * @return the id
      */
-    private Person(){
-        
-    }
-    
-    public static Person getInstance(){
-        if(personStoage == null){
-            personStoage = new Person();
-        }
-        return personStoage;
+    public User(){
+    SimpleIntegerProperty id = new SimpleIntegerProperty();
+    SimpleStringProperty name = new SimpleStringProperty();
+    SimpleStringProperty username = new SimpleStringProperty();
+    SimpleStringProperty password = new SimpleStringProperty();
+    SimpleIntegerProperty level = new SimpleIntegerProperty();
     }
     
     public int getId() {

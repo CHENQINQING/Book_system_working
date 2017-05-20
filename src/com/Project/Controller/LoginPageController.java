@@ -8,10 +8,12 @@ package com.Project.Controller;
 import classes.BookStorage;
 import classes.Help;
 import classes.LoginStorage;
+import classes.User;
 import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -27,9 +29,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -41,12 +45,14 @@ import javafx.util.Duration;
 public class LoginPageController implements Initializable {
     @FXML private Tab searchTab, loginTab;
     @FXML private TabPane tabPane;
-    @FXML private Button searchBt, loginBt,main,comic,learning,leisure,bio;
+    @FXML private Button searchBt, loginBt,main,comic,learning,leisure,bio,feedback;
     @FXML private ComboBox combo,loginCombo;
-    @FXML private TextField username, password,searchField;
+    @FXML private TextField username,searchField;
+    @FXML private PasswordField password;
     @FXML private Label title;
     
     private JCDB db = new JCDB();
+    private User user = new User();
     
     //ObservableList used for holding comboBox value.
     //private ObservableList<String> list = FXCollections.observableArrayList("Name","Author","Publisher");
@@ -189,6 +195,15 @@ public class LoginPageController implements Initializable {
         stage.show();
     }
     
+    @FXML
+    private void handleFeedback(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/CustomerFeedbackInfo.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     //Resize button when mouse move entered button.
     //user search page
@@ -312,6 +327,16 @@ public class LoginPageController implements Initializable {
     @FXML
     public void mouseExitedComic(MouseEvent e){
         Help.reverseButtonSize(comic);
+    }
+    
+    @FXML
+    public void mouseEnteredFeedback(MouseEvent e){
+        Help.resizeButton(feedback);
+    }
+    
+    @FXML
+    public void mouseExitedFeedback(MouseEvent e){
+        Help.reverseButtonSize(feedback);
     }
     
     

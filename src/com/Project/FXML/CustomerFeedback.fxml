@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -12,32 +13,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.FeedbackController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.CustomerFeedbackController">
    <children>
+      <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../buttonIcon/feedback.jpg" />
+         </image>
+      </ImageView>
       <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" prefHeight="58.0" prefWidth="168.0" text="Feedback" textFill="#06eaee">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="570.0" text="Tell Us What You Think" textFill="#d02a2a">
                <font>
-                  <Font name="System Bold" size="29.0" />
+                  <Font name="Bell MT Bold" size="40.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="570.0" text="Welcome to feedback, if you have some suggestions, please tell us.">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="810.0">
+            <HBox alignment="CENTER" prefHeight="106.0" prefWidth="800.0">
                <children>
-                  <TextField fx:id="title" prefHeight="25.0" prefWidth="540.0" promptText="TITLE" style="-fx-background-radius: 10;">
+                  <TextField fx:id="title" blendMode="LIGHTEN" onMouseEntered="#mouseEnteredTitle" onMouseExited="#mouseExitedTitle" prefHeight="25.0" prefWidth="540.0" promptText="TITLE" style="-fx-background-radius: 10;">
                      <font>
                         <Font name="Bell MT Bold" size="18.0" />
                      </font>
                   </TextField>
                </children>
             </HBox>
-            <TextArea fx:id="body" prefHeight="236.0" prefWidth="540.0" promptText="CONTENTS" style="-fx-background-radius: 10;">
+            <TextArea fx:id="body" blendMode="LIGHTEN" prefHeight="236.0" prefWidth="540.0" promptText="CONTENTS" style="-fx-background-radius: 10;" wrapText="true">
                <font>
-                  <Font name="Bell MT" size="20.0" />
+                  <Font name="Bell MT" size="27.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -45,17 +49,59 @@
             </TextArea>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Save">
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="80.0" prefWidth="453.0" spacing="20.0">
+                     <children>
+                        <Button fx:id="sad" mnemonicParsing="false" onMouseEntered="#mouseEnteredSad" onMouseExited="#mouseExitedSad" prefHeight="47.0" prefWidth="61.0" style="-fx-background-radius: 1000;">
+                           <graphic>
+                              <ImageView fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../buttonIcon/emoji3.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="7.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="normal" mnemonicParsing="false" onMouseEntered="#mouseEnteredNormal" onMouseExited="#mouseExitedNormal" style="-fx-background-radius: 1000;">
+                           <graphic>
+                              <ImageView fitHeight="72.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../buttonIcon/emoji1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="1.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="good" mnemonicParsing="false" onMouseEntered="#mouseEnteredGood" onMouseExited="#mouseExitedGood" style="-fx-background-radius: 1000;">
+                           <graphic>
+                              <ImageView fitHeight="74.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../buttonIcon/emoji2.png" />
+                                 </image></ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="1.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Button fx:id="save" mnemonicParsing="false" onMouseEntered="#mouseEnteredSave" onMouseExited="#mouseExitedSave" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Save">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#ButtonClear" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Clear">
+                  <Button fx:id="clear" mnemonicParsing="false" onAction="#ButtonClear" onMouseEntered="#mouseEnteredClear" onMouseExited="#mouseExitedClear" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Clear">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#ButtonMeun" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Menu">
+                  <Button fx:id="home" mnemonicParsing="false" onAction="#ButtonMeun" onMouseEntered="#mouseEnteredHome" onMouseExited="#mouseExitedHome" prefHeight="36.0" prefWidth="82.0" style="-fx-background-radius: 100;" text="Menu">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>

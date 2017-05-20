@@ -9,6 +9,7 @@ import classes.Book;
 import classes.BookStorage;
 import classes.LoginStorage;
 import classes.Publisher;
+import classes.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -217,6 +219,71 @@ public class JCDB {
              System.out.println("fill combox error: "+ e);
          }
      }
+    
+    /*public void customerFeedback(Feedback feedback, User user){
+        try(Connection conn = establishConnection();){
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, dateTime=?, status=?, user_userId=(SELECT userId FROM user WHERE name=?)";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            
+            // remove ++ from here, do it in last
+            //prepStmt.setInt(1, id);
+            prepStmt.setString(1, feedback.getId());
+            prepStmt.setString(2, feedback.getTitle());
+            prepStmt.setString(3, feedback.getBody());
+            prepStmt.setDate(4, feedback.getIDatetime());
+            prepStmt.setString(5, feedback.getStatus());
+            prepStmt.setString(6, user.getName());
+            
+            prepStmt.executeUpdate();
+            
+            System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            System.out.println("Customer Feedback: "+e);
+        }
+    }*/
+    
+    public void createCustomerID(User user){
+        try(Connection conn = establishConnection();){
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            
+            // remove ++ from here, do it in last
+            //prepStmt.setInt(1, id);
+            prepStmt.setString(1, user.getName());
+            prepStmt.setString(2, user.getUsername());
+            prepStmt.setString(3, user.getPassword());
+            prepStmt.setInt(4, user.getLevel());
+            
+            prepStmt.executeUpdate();
+            
+            System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            System.out.println("Create Customer ID: "+e);
+        }
+    }
+    
+    public boolean verifyCustomer(String name) throws SQLException{
+        Connection conn = establishConnection();
+        String query = "SELECT count(*) FROM user WHERE name = ? AND level = 3";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, name);
+        ResultSet rs = statement.executeQuery();
+        int count = 0;
+        while(rs.next()) {
+            System.out.println("count: "+rs.getInt(1));
+            count = rs.getInt(1);
+        }
+        if(count==0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     
     public Connection establishConnection() {
         Connection conn;

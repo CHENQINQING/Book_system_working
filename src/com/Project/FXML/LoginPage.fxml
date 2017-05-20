@@ -39,7 +39,7 @@
                               </Label>
                               <HBox alignment="CENTER" prefHeight="236.0" prefWidth="655.0" spacing="20.0">
                                  <children>
-                                    <TextField fx:id="searchField" onMouseEntered="#mouseEnteredSearch" onMouseExited="#mouseExitedSearch" prefHeight="35.0" prefWidth="329.0" promptText="SEARCHING BOOK BY NAME" style="-fx-background-radius: 10;">
+                                    <TextField fx:id="searchField" blendMode="SCREEN" onMouseEntered="#mouseEnteredSearch" onMouseExited="#mouseExitedSearch" prefHeight="35.0" prefWidth="329.0" promptText="SEARCHING BOOK BY NAME" style="-fx-background-radius: 10;">
                                        <HBox.margin>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                        </HBox.margin>
@@ -91,6 +91,11 @@
                                           <Font name="Bell MT Bold" size="18.0" />
                                        </font>
                                     </Button>
+                                    <Button fx:id="feedback" layoutX="548.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleFeedback" onMouseEntered="#mouseEnteredFeedback" onMouseExited="#mouseExitedFeedback" style="-fx-background-radius: 100;" text="Feedback">
+                                       <font>
+                                          <Font name="Bell MT Bold" size="18.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -109,7 +114,7 @@
                            </image>
                         </ImageView>
                         <TextField fx:id="username" layoutX="105.0" layoutY="165.0" onMouseEntered="#mouseEnteredUsername" onMouseExited="#mouseExitedUsername" prefHeight="39.0" prefWidth="270.0" style="-fx-background-radius: 10;" />
-                        <TextField fx:id="password" layoutX="107.0" layoutY="263.0" onMouseEntered="#mouseEnteredPassword" onMouseExited="#mouseExitedPassword" prefHeight="39.0" prefWidth="267.0" style="-fx-background-radius: 10;" />
+                        <PasswordField fx:id="password" layoutX="107.0" layoutY="263.0" onMouseEntered="#mouseEnteredPassword" onMouseExited="#mouseExitedPassword" prefHeight="39.0" prefWidth="267.0" style="-fx-background-radius: 10;" />
                         <Label layoutX="493.0" layoutY="171.0" text="Username" textFill="#e06f6f">
                            <font>
                               <Font name="System Bold" size="20.0" />

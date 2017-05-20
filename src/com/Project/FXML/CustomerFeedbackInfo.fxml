@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.CustomerFeedbackInfoController">
+   <children>
+      <ImageView fitHeight="295.0" fitWidth="479.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../buttonIcon/Login-Screen-Background.jpg" />
+         </image>
+      </ImageView>
+      <BorderPane prefHeight="295.0" prefWidth="479.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Label alignment="CENTER" prefHeight="48.0" prefWidth="522.0" text="Feedback Information" textFill="#e0b3b3" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Bell MT Bold" size="25.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </Label>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="109.0" prefWidth="459.0" spacing="25.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label prefHeight="22.0" prefWidth="213.0" text="Please Enter Your Name:" textFill="#e0b3b3">
+                           <font>
+                              <Font name="Bell MT Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="name" onMouseEntered="#mouseEnteredName" onMouseExited="#mouseExitedName" promptText="ex: James">
+                           <font>
+                              <Font name="Bell MT" size="18.0" />
+                           </font></TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="BOTTOM_RIGHT" prefHeight="68.0" prefWidth="459.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="ok" mnemonicParsing="false" onAction="#handleOkAction" onMouseEntered="#mouseEnteredOk" onMouseExited="#mouseExitedOk" style="-fx-background-radius: 100;" text="OK">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Bell MT Bold" size="17.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="cancel" mnemonicParsing="false" onAction="#handleCancelAction" onMouseEntered="#mouseEnteredCanel" onMouseExited="#mouseExitedCanel" style="-fx-background-radius: 100;" text="Cancel">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Bell MT Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
