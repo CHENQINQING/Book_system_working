@@ -88,7 +88,7 @@ public class BookSearchedDetialController implements Initializable {
         bookData.clear();
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.ritriveAllBook();
+            ResultSet rs = db.retrieveAllBook();
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));

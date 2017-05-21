@@ -9,7 +9,6 @@ import classes.Book;
 import classes.BookStorage;
 import classes.Feedback;
 import classes.Help;
-import classes.LoginStorage;
 import classes.Publisher;
 import classes.User;
 import classes.UserStorage;
@@ -18,9 +17,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Scanner;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TextField;
 
 /**
  *
@@ -54,6 +52,35 @@ public class JCDB {
             System.out.println("something went wrong when executing query");
         }
     }*/
+    
+    /**
+    *
+    * Create a default login account()
+    */
+    public void createDefaultEmployee(){
+        try(Connection conn = establishConnection();){
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?, email=?";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            
+            prepStmt.setString(1, "John");
+            
+            prepStmt.setString(2, "John");
+            
+            prepStmt.setString(3, "admin1");
+            
+            prepStmt.setInt(4, 2);
+            
+            prepStmt.setString(5, "john@gmail.com");
+            
+            prepStmt.executeUpdate();
+            
+            System.out.println("default login account has been created and saved");
+        }
+        catch(Exception e){
+            System.out.println("Default login account: "+e);
+        }
+    }
     
     public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
@@ -95,7 +122,7 @@ public class JCDB {
         return rs;
     }
     
-    public ResultSet ritriveAllBook(){
+    public ResultSet retrieveAllBook(){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -247,13 +274,14 @@ public class JCDB {
     public void createCustomerID(User user){
         try(Connection conn = establishConnection();){
             //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
-            String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?";
+            String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?,email=?";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             prepStmt.setString(1, user.getName());
             prepStmt.setString(2, user.getUsername());
             prepStmt.setString(3, user.getPassword());
             prepStmt.setInt(4, user.getLevel());
+            prepStmt.setString(5, user.getEmail());
             
             prepStmt.executeUpdate();
             

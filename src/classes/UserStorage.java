@@ -19,6 +19,7 @@ public class UserStorage {
     private SimpleStringProperty username = new SimpleStringProperty();
     private SimpleStringProperty password = new SimpleStringProperty();
     private SimpleIntegerProperty level = new SimpleIntegerProperty();
+    private SimpleStringProperty email = new SimpleStringProperty();
     
     private static UserStorage userStorage;
     /**
@@ -96,6 +97,13 @@ public class UserStorage {
         return level.get();
     }
     
+    public void setEmail(String email){
+        this.emailProperty().set(email);
+    }
+    public String getEmail(){
+        return email.get();
+    }
+    
     //
     public SimpleIntegerProperty idProperty(){
         return id;
@@ -111,5 +119,9 @@ public class UserStorage {
     }
     public SimpleIntegerProperty levelProperty(){
         return level;
+    }
+
+    private SimpleStringProperty emailProperty() {
+        return email;
     }
 }

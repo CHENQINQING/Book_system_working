@@ -110,7 +110,7 @@ public class BookManagingPageController implements Initializable {
     private void getBookData(){
         try {
             bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.ritriveAllBook();
+            ResultSet rs = db.retrieveAllBook();
             
             while(rs.next()){
                 System.out.println(rs.getString("book_name"));
@@ -218,10 +218,11 @@ public class BookManagingPageController implements Initializable {
             db.managerAddNewBook(book);
             refresh();
             
-            bookNameTf2.setText("");
-            authorBt.setText("");
-            priceBt.setText("");
-            introArea.setText("");
+            bookNameTf2.clear();
+            authorBt.clear();
+            priceBt.clear();
+            introArea.clear();
+            quantityBt.clear();
             publisherCombo.setValue("publisher");
             typeCombo.setValue("type");
             
@@ -239,10 +240,11 @@ public class BookManagingPageController implements Initializable {
     
     @FXML
     private void handleClearAction(ActionEvent event) {
-        bookNameTf2.setText("");
-        authorBt.setText("");
-        priceBt.setText("");
+        bookNameTf2.clear();
+        authorBt.clear();
+        priceBt.clear();
         introArea.setText("");
+        quantityBt.clear();
         publisherCombo.setValue("publisher");
         typeCombo.setValue("type");
     }

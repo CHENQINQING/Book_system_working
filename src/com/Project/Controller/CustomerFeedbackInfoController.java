@@ -37,7 +37,7 @@ import javafx.stage.Stage;
  */
 public class CustomerFeedbackInfoController implements Initializable {
 
-    @FXML private TextField name;
+    @FXML private TextField name,emailTf;
     @FXML private Button ok,cancel;
     @FXML private RadioButton nameless,sighName;
     
@@ -54,70 +54,14 @@ public class CustomerFeedbackInfoController implements Initializable {
     
     @FXML
     private void handleOkAction(ActionEvent event) throws IOException, SQLException{
-        if(!name.getText().isEmpty() /*nameless.isSelected() || sighName.isSelected()*/){
-            /*if(nameless.isSelected()){
-                    UserStorage.getInstance().setName("an");
-                
-                    user.setName("an");
-                    user.setLevel(3);
-                    user.setUsername(" ");
-                    user.setPassword(" ");
-                    db.createCustomerID(user);
-                    System.out.println("customer id success");
-                
-                    Node node = (Node) event.getSource();
-                    Stage stage = (Stage) node.getScene().getWindow();
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/CustomerFeedback.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.show();
-            }
-            else{
-                if(name.getText().isEmpty()){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("ERROR");
-                    alert.setContentText("Please enter your name");
-                    alert.showAndWait();
-                }
-                else{
-                    if(db.verifyCustomer(name.getText())){
-                        System.out.println("This customer is already in database.");
-                
-                        UserStorage.getInstance().setName(name.getText());
-                
-                        Node node = (Node) event.getSource();
-                        Stage stage = (Stage) node.getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/CustomerFeedback.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
-                    }
-                    else{
-                        UserStorage.getInstance().setName(name.getText());
-                
-                        user.setName(name.getText());
-                        user.setLevel(3);
-                        user.setUsername(" ");
-                        user.setPassword(" ");
-                        db.createCustomerID(user);
-                
-                        Node node = (Node) event.getSource();
-                        Stage stage = (Stage) node.getScene().getWindow();
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/CustomerFeedback.fxml"));
-                        Scene scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
-                    }
-                }
-            }*/
-            
+        if(!name.getText().isEmpty()){
             if(db.verifyCustomer(name.getText())){
                 System.out.println("This customer is already in database.");
                 
                 Alert alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation");
                 alert.setHeaderText("Name Repeat");
-                alert.setContentText("Your name has been used. Have you ever used this name?");
+                alert.setContentText("Your name has been used. Have you ever created this name before?");
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK){
@@ -135,8 +79,6 @@ public class CustomerFeedbackInfoController implements Initializable {
                     alert2.setContentText("Please change your name");
                     alert2.showAndWait();
                 }
-                
-                
             }
             else{
                 UserStorage.getInstance().setName(name.getText());
@@ -145,6 +87,7 @@ public class CustomerFeedbackInfoController implements Initializable {
                 user.setLevel(3);
                 user.setUsername(" ");
                 user.setPassword(" ");
+                user.setEmail(emailTf.getText());
                 db.createCustomerID(user);
                 
                 Node node = (Node) event.getSource();
@@ -216,4 +159,13 @@ public class CustomerFeedbackInfoController implements Initializable {
         help.reverseButtonSize(cancel);
     }
     
+    @FXML
+    public void mouseEnteredEmail(MouseEvent e){
+        help.resizeButton(emailTf);
+    }
+    
+    @FXML
+    public void mouseExitedEmail(MouseEvent e){
+        help.reverseButtonSize(emailTf);
+    }
 }

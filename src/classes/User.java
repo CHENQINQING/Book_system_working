@@ -18,16 +18,18 @@ public class User {
     private SimpleStringProperty username = new SimpleStringProperty();
     private SimpleStringProperty password = new SimpleStringProperty();
     private SimpleIntegerProperty level = new SimpleIntegerProperty();
+    private SimpleStringProperty email = new SimpleStringProperty();
     
     /**
      * @return the id
      */
     public User(){
-    SimpleIntegerProperty id = new SimpleIntegerProperty();
-    SimpleStringProperty name = new SimpleStringProperty();
-    SimpleStringProperty username = new SimpleStringProperty();
-    SimpleStringProperty password = new SimpleStringProperty();
-    SimpleIntegerProperty level = new SimpleIntegerProperty();
+    this.id = new SimpleIntegerProperty();
+    this.name = new SimpleStringProperty();
+    this.username = new SimpleStringProperty();
+    this.password = new SimpleStringProperty();
+    this.level = new SimpleIntegerProperty();
+    this.email = new SimpleStringProperty();
     }
     
     public int getId() {
@@ -91,6 +93,13 @@ public class User {
         return level.get();
     }
     
+    public void setEmail(String email){
+        this.emailProperty().set(email);
+    }
+    public String getEmail(){
+        return email.get();
+    }
+    
     //
     public SimpleIntegerProperty idProperty(){
         return id;
@@ -106,5 +115,8 @@ public class User {
     }
     public SimpleIntegerProperty levelProperty(){
         return level;
+    }
+    public SimpleStringProperty emailProperty(){
+        return email;
     }
 }
