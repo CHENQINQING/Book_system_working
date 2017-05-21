@@ -236,8 +236,18 @@ public class Sales_manageController implements Initializable {
             
             salespro.remove(i);
         }
+        pt=0.0;
         totalp2.setText("0");
         //importPro.removeAll();
+    }
+    
+    @FXML
+    private void handleCancelButton(ActionEvent event){
+        for(int i=salespro.size()-1;salespro.size()>0;i--){
+            salespro.remove(i);
+            pt=0.0;
+            totalp2.setText("0");
+        }
     }
     
     private void checkR(String bookName) throws SQLException{

@@ -216,6 +216,14 @@ public class reperoty_management implements Initializable {
         }
         //importPro.removeAll();
     }
+    
+    @FXML
+    private void handleCancelButton(ActionEvent event){
+        for(int i=importPro.size()-1;importPro.size()>0;i--){
+            importPro.remove(i);
+            //totalp2.setText("0");
+        }
+    }
 
     public void getTime() {
         Date date = new Date();

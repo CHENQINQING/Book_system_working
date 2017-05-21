@@ -26,7 +26,7 @@
             <Button layoutX="791.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="31.0" prefWidth="58.0" text="Add" />
             <Button layoutX="866.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
             <Button layoutX="648.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="confirm" />
-            <Button layoutX="738.0" layoutY="325.0" mnemonicParsing="false" text="cancel" />
+            <Button layoutX="738.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleCancelButton" text="cancel" />
             <ComboBox fx:id="book" layoutX="71.0" layoutY="254.0" prefWidth="150.0" />
             <Button layoutX="225.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSureButtonAction" text="refresh repertory" />
             <Label fx:id="bookName" layoutX="19.0" layoutY="330.0" prefHeight="21.0" prefWidth="195.0" text="book name here" />

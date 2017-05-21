@@ -19,7 +19,7 @@
       <Label layoutX="527.0" layoutY="190.0" text="Quantity" />
       <Label fx:id="QuantityL" layoutX="637.0" layoutY="190.0" prefHeight="21.0" prefWidth="82.0" text="0" />
       <ComboBox fx:id="book" layoutX="27.0" layoutY="489.0" prefHeight="31.0" prefWidth="217.0" />
-      <Button layoutX="530.0" layoutY="583.0" mnemonicParsing="false" text="cancel" />
+      <Button layoutX="530.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleCancelButton" text="cancel" />
       <Button layoutX="605.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="31.0" prefWidth="57.0" text="add" />
       <Button layoutX="688.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="delete" />
       <Button layoutX="448.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="confirm" />
