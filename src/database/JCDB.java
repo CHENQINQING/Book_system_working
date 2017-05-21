@@ -63,15 +63,15 @@ public class JCDB {
             String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?, email=?";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
-            prepStmt.setString(1, "John");
+            prepStmt.setString(1, "James");
             
-            prepStmt.setString(2, "John");
+            prepStmt.setString(2, "James");
             
-            prepStmt.setString(3, "admin1");
+            prepStmt.setString(3, "manager1");
             
-            prepStmt.setInt(4, 2);
+            prepStmt.setInt(4, 1);
             
-            prepStmt.setString(5, "john@gmail.com");
+            prepStmt.setString(5, "james@gmail.com");
             
             prepStmt.executeUpdate();
             
