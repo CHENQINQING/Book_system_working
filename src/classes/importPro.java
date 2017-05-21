@@ -5,13 +5,8 @@
  */
 package classes;
 
-import java.time.LocalDate;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -19,25 +14,28 @@ import javafx.beans.property.StringProperty;
  *
  * @author chenq
  */
-public class salesPro {
-
+public class importPro {
     private final StringProperty bookName;
     private final StringProperty Date;
     private final IntegerProperty amount;
-    private final DoubleProperty price;
 
     /**
      * Default constructor.
      */
 
 
-
-    public salesPro(String bookName, String Date, int amount,double price) {
+    /**
+     * Constructor with some initial data.
+     * 
+     * @param bookName
+     * @param lastName
+     */
+    public importPro(String bookName, String Date, int amount) {
         this.bookName = new SimpleStringProperty(bookName);
+
         // Some initial dummy data, just for convenient testing.
         this.Date = new SimpleStringProperty(Date);
         this.amount = new SimpleIntegerProperty(amount);
-        this.price = new SimpleDoubleProperty(price);
 
     }
 
@@ -78,19 +76,4 @@ public class salesPro {
     public IntegerProperty amountProperty() {
         return amount;
     }
-    
-    public double getPrice(){
-        return price.get();
-    }
-    
-    public void setPrice(double price){
-        this.price.set(price);
-    }
-    
-    public DoubleProperty priceProperty(){
-        return price;
-    }
-
-
 }
-

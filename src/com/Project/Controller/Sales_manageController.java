@@ -37,6 +37,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -61,6 +62,8 @@ public class Sales_manageController implements Initializable {
     @FXML
     private Label totalprice;
     @FXML
+    private Label totalp2;
+    @FXML
     private Label DateL;
     @FXML
     private Label QuantityL;
@@ -72,12 +75,23 @@ public class Sales_manageController implements Initializable {
     private Label bookName;
     @FXML
     private TextArea text2;
-
+    @FXML
+    private TableView<salesPro> tableView;
+    @FXML
+    private TableColumn<salesPro,String> bookNameT;  
+    @FXML
+    private TableColumn<salesPro,String> DateT;
+    @FXML
+    private TableColumn<salesPro,Integer> amountT;
+    @FXML
+    private TableColumn<salesPro,Double> priceT;
+            
     String date, totalp;
     String time;
     String sql;
     ResultSet rs;
     Double price = 0.0;
+    Double pt = 0.0;
     int quantity = 0;
     int reperint;
     String rep;
@@ -102,14 +116,14 @@ public class Sales_manageController implements Initializable {
             System.out.println(date);
             sql = "SELECT sales.RECORD_DATE,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.price,book.REPERTORY_SIZE "
                     + "FROM sales,book_has_sales,book "
-                    + "WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_book_id = book.book_id"
+                    + "WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_idBook = book.book_id"
                     + " and sales.RECORD_DATE like" + "'" + date + "%'";
             rs = connection.query(sql);
             if (rs.next()) {
                 rs = connection.query(sql);
                 while (rs.next()) {
-                    text1 = text1 + "book: " + rs.getString("BOOK_NAME") + "  price: " + rs.getDouble("BOOK_PRICE") + "  date: " + rs.getString("RECORD_DATE") + "  quantity:" + rs.getInt("TRADE_SUM") + "\r\n";
-                    price = price + rs.getDouble("BOOK_PRICE") * rs.getInt("TRADE_SUM");
+                    text1 = text1 + "book: " + rs.getString("BOOK_NAME") + "  price: " + rs.getDouble("price") + "   date: " + rs.getString("RECORD_DATE") + "   quantity: " + rs.getInt("TRADE_SUM") + "\r\n";
+                    price = price + rs.getDouble("price") * rs.getInt("TRADE_SUM");
                     quantity = quantity + rs.getInt("TRADE_SUM");
                 }
                 totalp = price.toString();
@@ -154,7 +168,7 @@ public class Sales_manageController implements Initializable {
     }
 
     @FXML
-    private void handleAddButton(ActionEvent event) {
+    private void handleAddButton(ActionEvent event) throws SQLException {
         getTime();
         int amount = 0;
         if (amountL.getText().trim().length() < 1) {
@@ -164,36 +178,80 @@ public class Sales_manageController implements Initializable {
                 JOptionPane.showMessageDialog(null, "Please choose a book", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else {
                 amount = Integer.parseInt(amountL.getText());
-                //String text=("book name: "+book.getValue()+"  ***date: "+time+"  ***amount: "+amount+"\r\n");
-                //text2.appendText(text);
-                sales.insert((String) book.getValue(), time, amount);
-                text2.appendText(sales.display());
+                rs = connection.query("select price from book where book_name = '"+(String) book.getValue()+"'");
+                Double p = 0.0;
+                while(rs.next()){
+                    p = (Double) rs.getDouble("price")*amount;
+                }
+                salespro.add(new salesPro((String) book.getValue(),time,amount,p));
+                tableView.setItems(salespro);
+                
             }
+            
+            
+            pt = pt+ salespro.get(salespro.size()-1).getPrice();
+            
+            totalp2.setText(String.valueOf(pt));
         }
 
     }
 
     @FXML
     private void handleDeleteButton(ActionEvent event) {
-        int i = 0;
-        if (delete.getLength() != 0) {
-            i = Integer.parseInt(delete.getText());
-            System.out.println(i+"tset");
-            if (text2.getLength() != 0) {
-                sales.delete(i);
-                text2.setText("");
-                text2.appendText(sales.display());
-            } else {
-                JOptionPane.showMessageDialog(null, "Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please type line", "ERROR", JOptionPane.ERROR_MESSAGE);
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+        double temp = salespro.get(selectedIndex).getPrice();
+        if(tableView.getSelectionModel().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please choose a Line", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        else{
+            tableView.getItems().remove(selectedIndex);
+            pt = pt-temp;
+            //System.out.println(salespro.get(selectedIndex).getPrice());
+            totalp2.setText(String.valueOf(pt));
+        }
+    }
+    
+    @FXML
+    private void handleConfirmButton(ActionEvent event) throws SQLException{
+        //int i =0;
+        int bookid = 0,salesid = 0;
+        System.out.println("yesy\r\n");
+        //System.out.println(importPro.get(1));
+        for(int i=salespro.size()-1;salespro.size()>0;i--){
+            rs = connection.query("select book_id from book where book_name = '"+salespro.get(i).getbookName()+"'");
+            while(rs.next()){ bookid = rs.getInt("book_id");}
+            String sqla = "insert into sales (RECORD_DATE) values('"+salespro.get(i).getDate()+"');";
+            connection.executeSql(sqla);
+            rs = connection.query("select idSales from sales where RECORD_DATE = '"+salespro.get(i).getDate()+"'");
+            System.out.println(salespro.get(i).getDate());
+            while(rs.next()){ salesid = rs.getInt("idSales");}            
+            //System.out.println(sql);
+            String sqlb = "insert into book_has_sales (TRADE_SUM,sales_idSales,book_idBook ) values( "+salespro.get(i).getamount()+","+salesid+","+bookid+")";
+            connection.executeSql(sqlb);
+            checkR(salespro.get(i).getbookName());
+            int am= Integer.valueOf(rep)-salespro.get(i).getamount();
+            String sqlc = "update book set REPERTORY_SIZE = "+am+" where book_id = "+bookid;
+            System.out.println("book:"+bookid+"imp:"+salesid);
+            connection.executeSql(sqlc);    
+            
+            salespro.remove(i);
+        }
+        totalp2.setText("0");
+        //importPro.removeAll();
+    }
+    
+    private void checkR(String bookName) throws SQLException{
+        sql = "select* from book where BOOK_NAME = " + "'" + bookName + "'";
+        rs = connection.query(sql);
+        while (rs.next()) {
+            reperint = rs.getInt("REPERTORY_SIZE");
+        }
+        rep = String.valueOf(reperint);
     }
 
     public void getTime() {
         Date date = new Date();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         time = format.format(date);
     }
 
@@ -209,6 +267,12 @@ public class Sales_manageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bookNameT.setCellValueFactory(new PropertyValueFactory<salesPro,String> ("bookName"));
+        DateT.setCellValueFactory(new PropertyValueFactory<salesPro,String> ("Date"));
+        amountT.setCellValueFactory(new PropertyValueFactory<salesPro,Integer> ("amount"));
+        priceT.setCellValueFactory(new PropertyValueFactory<salesPro,Double> ("price"));
+        
+        //tableView.getSelectionModel().selectedItemProperty().addListener(listener);
         try {
             // TODO
             getbooklist();

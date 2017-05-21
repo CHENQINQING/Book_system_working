@@ -20,17 +20,25 @@
       <Label fx:id="QuantityL" layoutX="637.0" layoutY="190.0" prefHeight="21.0" prefWidth="82.0" text="0" />
       <ComboBox fx:id="book" layoutX="27.0" layoutY="489.0" prefHeight="31.0" prefWidth="217.0" />
       <Button layoutX="530.0" layoutY="583.0" mnemonicParsing="false" text="cancel" />
-      <Button layoutX="605.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleAddButton" text="add" />
+      <Button layoutX="605.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="31.0" prefWidth="57.0" text="add" />
       <Button layoutX="688.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="delete" />
-      <Button layoutX="448.0" layoutY="583.0" mnemonicParsing="false" text="confirm" />
+      <Button layoutX="448.0" layoutY="583.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="confirm" />
       <Button layoutX="672.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="back" />
-      <Label layoutX="501.0" layoutY="304.0" text="amount" />
-      <TextField fx:id="amountL" layoutX="561.0" layoutY="299.0" />
-      <Label layoutX="502.0" layoutY="352.0" text="repertory" />
-      <Label fx:id="repertory" layoutX="628.0" layoutY="352.0" prefHeight="21.0" prefWidth="95.0" text="0" />
-      <Button layoutX="429.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleSureButtonAction" text="sure?" />
-      <Label fx:id="bookName" layoutX="261.0" layoutY="494.0" prefHeight="21.0" prefWidth="152.0" text="book name here" />
-      <TextArea fx:id="text2" layoutX="26.0" layoutY="246.0" prefHeight="200.0" prefWidth="443.0" />
-      <TextField fx:id="delete" layoutX="688.0" layoutY="529.0" prefHeight="31.0" prefWidth="62.0" />
+      <Label layoutX="493.0" layoutY="544.0" text="amount" />
+      <TextField fx:id="amountL" layoutX="561.0" layoutY="539.0" />
+      <Label layoutX="290.0" layoutY="479.0" text="repertory:" />
+      <Label fx:id="repertory" layoutX="373.0" layoutY="479.0" prefHeight="21.0" prefWidth="120.0" text="0" />
+      <Button layoutX="20.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleSureButtonAction" text="refresh repertory" />
+      <Label fx:id="bookName" layoutX="25.0" layoutY="534.0" prefHeight="21.0" prefWidth="152.0" text="book name here" />
+      <TableView fx:id="tableView" layoutX="20.0" layoutY="246.0" prefHeight="200.0" prefWidth="728.0">
+        <columns>
+          <TableColumn fx:id="bookNameT" prefWidth="220.0" text="bookName" />
+          <TableColumn fx:id="DateT" minWidth="5.0" prefWidth="185.0" text="Date" />
+            <TableColumn fx:id="amountT" prefWidth="164.0" text="amount" />
+            <TableColumn fx:id="priceT" prefWidth="158.0" text="price" />
+        </columns>
+      </TableView>
+      <Label layoutX="290.0" layoutY="520.0" text="Total price:" />
+      <Label fx:id="totalp2" layoutX="373.0" layoutY="520.0" prefHeight="21.0" prefWidth="120.0" text="0" />
    </children>
 </AnchorPane>

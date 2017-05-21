@@ -5,7 +5,9 @@
  */
 package com.Project.Controller;
 
+import classes.importPro;
 import classes.respertoryObject;
+import classes.salesPro;
 import database.DatabaseConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -29,8 +31,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -65,6 +70,14 @@ public class reperoty_management implements Initializable {
     private TextArea text2;
     @FXML
     private TextField delete;
+    @FXML
+    private TableView<importPro> tableView;
+    @FXML
+    private TableColumn<importPro,String> bookNameT;  
+    @FXML
+    private TableColumn<importPro,String> DateT;
+    @FXML
+    private TableColumn<importPro,Integer> amountT;
 
     String date, totalp;
     String sql;
@@ -79,6 +92,7 @@ public class reperoty_management implements Initializable {
     private ObservableList<String> booklist = FXCollections.observableArrayList();
     DatabaseConnection connection = new DatabaseConnection();
     respertoryObject res = new respertoryObject(20);
+    private ObservableList<importPro> importPro = FXCollections.observableArrayList();
 
     @FXML
     private void handleSearchButtonAction(ActionEvent event) throws SQLException {
@@ -98,9 +112,9 @@ public class reperoty_management implements Initializable {
             if (rs.next()) {
                 rs = connection.query(sql);
                 while (rs.next()) {
-                    text1 = text1 + "book: " + rs.getString("BOOK_NAME") + "  ***price: " + rs.getDouble("BOOK_PRICE") + "  ***date: " + rs.getString("RECORD_DATE") + "  ***quantity: " + rs.getInt("IN_SUM") + "\r\n";
-                    price = price + rs.getDouble("BOOK_PRICE") * rs.getInt("IN_SUM");
-                    quantity = quantity + rs.getInt("IN_SUM");
+                    text1 = text1 + "book: " + rs.getString("book_name") + "  ***price: " + rs.getDouble("price") + "  ***date: " + rs.getString("RECORD_DATE") + "  ***quantity: " + rs.getInt("INT_SUM") + "\r\n";
+                    price = price + rs.getDouble("price") * rs.getInt("INT_SUM");
+                    quantity = quantity + rs.getInt("INT_SUM");
                 }
                 totalp = price.toString();
                 textA.appendText(text1);
@@ -154,8 +168,11 @@ public class reperoty_management implements Initializable {
                 amount = Integer.parseInt(amountL.getText());
                 //String text=("book name: "+book.getValue()+"  ***date: "+time+"  ***amount: "+amount+"\r\n");
                 //text2.appendText(text);
-                res.insert((String) book.getValue(), time, amount);
-                text2.appendText(res.display());
+                
+                //sales.insert((String) book.getValue(), time, amount);
+                //text2.appendText(sales.display());
+                importPro.add(new importPro((String) book.getValue(),time,amount));
+                tableView.setItems(importPro);
             }
         }
 
@@ -163,24 +180,46 @@ public class reperoty_management implements Initializable {
 
     @FXML
     private void handleDeleteButton(ActionEvent event) {
-        int i = 0;
-        if (delete.getLength() != 0) {
-            i = Integer.parseInt(delete.getText());
-            if (text2.getLength() != 0) {
-                res.delete(i);
-                text2.setText("");
-                text2.appendText(res.display());
-            } else {
-                JOptionPane.showMessageDialog(null, "Empty", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please type line", "ERROR", JOptionPane.ERROR_MESSAGE);
+        int selectedIndex = tableView.getSelectionModel().getSelectedIndex();
+        if(tableView.getSelectionModel().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please choose a Line", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        else{
+            tableView.getItems().remove(selectedIndex);
+        }
+    }
+    
+    @FXML
+    private void handleConfirmButton(ActionEvent event) throws SQLException{
+        //int i =0;
+        int bookid = 0,importid = 0;
+        System.out.println("yesy\r\n");
+        //System.out.println(importPro.get(1));
+        for(int i=importPro.size()-1;importPro.size()>0;i--){
+            rs = connection.query("select book_id from book where book_name = '"+importPro.get(i).getbookName()+"'");
+            while(rs.next()){ bookid = rs.getInt("book_id");}
+            String sqla = "insert into import (RECORD_DATE) values('"+importPro.get(i).getDate()+"');";
+            connection.executeSql(sqla);
+            rs = connection.query("select idImport from import where RECORD_DATE = '"+importPro.get(i).getDate()+"'");
+            System.out.println(importPro.get(i).getDate());
+            while(rs.next()){ importid = rs.getInt("idImport");}            
+            //System.out.println(sql);
+            String sqlb = "insert into import_has_book (INT_SUM,import_idImport,book_idBook ) values( "+importPro.get(i).getamount()+","+importid+","+bookid+")";
+            connection.executeSql(sqlb);
+            checkR(importPro.get(i).getbookName());
+            int am= Integer.valueOf(rep)+importPro.get(i).getamount();
+            String sqlc = "update book set REPERTORY_SIZE = "+am+" where book_id = "+bookid;
+            System.out.println("book:"+bookid+"imp:"+importid);
+            connection.executeSql(sqlc);    
+            
+            importPro.remove(i);
+        }
+        //importPro.removeAll();
     }
 
     public void getTime() {
         Date date = new Date();
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         time = format.format(date);
     }
 
@@ -193,9 +232,20 @@ public class reperoty_management implements Initializable {
         book.setValue("choose");
         book.setItems(booklist);
     }
+    private void checkR(String bookName) throws SQLException{
+        sql = "select* from book where BOOK_NAME = " + "'" + bookName + "'";
+        rs = connection.query(sql);
+        while (rs.next()) {
+            reperint = rs.getInt("REPERTORY_SIZE");
+        }
+        rep = String.valueOf(reperint);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bookNameT.setCellValueFactory(new PropertyValueFactory<importPro,String> ("bookName"));
+        DateT.setCellValueFactory(new PropertyValueFactory<importPro,String> ("Date"));
+        amountT.setCellValueFactory(new PropertyValueFactory<importPro,Integer> ("amount"));
         try {
             // TODO
             getbooklist();

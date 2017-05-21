@@ -23,15 +23,20 @@
             <Label fx:id="QuantityL" layoutX="660.0" layoutY="14.0" prefHeight="21.0" prefWidth="170.0" text="0" />
             <Label layoutX="546.0" layoutY="259.0" prefHeight="21.0" prefWidth="73.0" text="repertory: " />
             <Label fx:id="repertory" layoutX="636.0" layoutY="259.0" prefHeight="21.0" prefWidth="65.0" text="0" />
-            <Button layoutX="745.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleAddButton" text="Add" />
-            <Button layoutX="799.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
-            <Button layoutX="648.0" layoutY="325.0" mnemonicParsing="false" text="confirm" />
+            <Button layoutX="791.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleAddButton" prefHeight="31.0" prefWidth="58.0" text="Add" />
+            <Button layoutX="866.0" layoutY="254.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
+            <Button layoutX="648.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleConfirmButton" text="confirm" />
             <Button layoutX="738.0" layoutY="325.0" mnemonicParsing="false" text="cancel" />
             <ComboBox fx:id="book" layoutX="71.0" layoutY="254.0" prefWidth="150.0" />
-            <Button layoutX="225.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSureButtonAction" text="sure?" />
+            <Button layoutX="225.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleSureButtonAction" text="refresh repertory" />
             <Label fx:id="bookName" layoutX="19.0" layoutY="330.0" prefHeight="21.0" prefWidth="195.0" text="book name here" />
-            <TextArea fx:id="text2" layoutX="18.0" layoutY="35.0" prefHeight="200.0" prefWidth="914.0" />
-            <TextField fx:id="delete" layoutX="871.0" layoutY="254.0" prefHeight="31.0" prefWidth="47.0" />
+            <TableView fx:id="tableView" layoutX="7.0" layoutY="46.0" prefHeight="200.0" prefWidth="930.0">
+              <columns>
+                <TableColumn fx:id="bookNameT" prefWidth="310.0" text="book name" />
+                <TableColumn fx:id="DateT" prefWidth="316.0" text="date" />
+                  <TableColumn fx:id="amountT" prefWidth="371.0" text="amount" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
       <TextArea fx:id="textA" layoutX="7.0" layoutY="103.0" prefHeight="200.0" prefWidth="930.0" />
