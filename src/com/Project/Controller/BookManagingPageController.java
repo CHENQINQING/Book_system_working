@@ -227,23 +227,6 @@ public class BookManagingPageController implements Initializable {
     private void refresh(){
         bookData.clear();
         getBookData();
-        /*Book book = new Book(
-                bookNameTf2.getText(), 
-                authorBt.getText(), 
-                Integer.parseInt(priceBt.getText()), 
-                publisherCombo.getSelectionModel().getSelectedItem().toString(), 
-                typeCombo.getSelectionModel().getSelectedItem().toString(), 
-                introArea.getText());
-        
-        tv.getItems().add(book);
-        
-        //Clear text field.
-        bookNameTf2.clear();
-        authorBt.clear();
-        priceBt.clear();
-        introArea.clear();
-        publisherCombo.setValue("publisher");
-        typeCombo.setValue("type");*/
     }
     
     @FXML

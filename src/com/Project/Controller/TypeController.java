@@ -13,9 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,9 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -90,6 +85,8 @@ public class TypeController implements Initializable {
         SaveToDatabase();
         typeData.clear();
         gettypeData();
+        TypeName.setText("");
+        TypeIntroduction.setText("");
     }
     
     private void SaveToDatabase() throws SQLException, NumberFormatException {
@@ -158,12 +155,10 @@ public class TypeController implements Initializable {
             }
         } catch (SQLException ex) {
             System.out.println("Error "+ ex);
-        };
-        
+        }        
         TYPE.setCellValueFactory(new PropertyValueFactory<Type,String>("type"));
         INTRODUCTION.setCellValueFactory(new PropertyValueFactory<Type,String>("introduction"));
         tt.setItems(typeData);
-        
     }
     
     @FXML

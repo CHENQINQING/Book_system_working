@@ -96,7 +96,7 @@ public class PublisherController implements Initializable {
         stage.setTitle("Menu");
         stage.show();
     }
-     @FXML
+    @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException{
         SaveToDatabase();
          //showNewPublisher();
@@ -152,56 +152,54 @@ public class PublisherController implements Initializable {
         }
     }
     
-    private void showNewPublisher(){
-        boolean isTel = Help.isInteger(telephone.getText());
-        if(!isTel){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("TELEPHONE NUMBER IS INVALID");
-            alert.show();
-        }
-        else if(publishername.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID PUBLISHER NAME.");
-            alert.show();
-        }
-        else if(address.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID ADDRESS.");
-            alert.show();
-        }
-        else if(publisherintroduction.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID INTRODUCTION.");
-            alert.show();
-        }
-        else{
-            String tele = telephone.getText();
-            Publisher p = new Publisher(publishername.getText(), address.getText(), telephone.getAnchor(), publisherintroduction.getText());
-        
-            pb.getItems().add(p);
-        
-            //Clear text field.
-            publishername.clear();
-            address.clear();
-            telephone.clear();
-            publisherintroduction.clear();
-        }
-    }
+//    private void showNewPublisher(){
+//        boolean isTel = Help.isInteger(telephone.getText());
+//        if(!isTel){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("TELEPHONE NUMBER IS INVALID");
+//            alert.show();
+//        }
+//        else if(publishername.getText().isEmpty()){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("INVALID PUBLISHER NAME.");
+//            alert.show();
+//        }
+//        else if(address.getText().isEmpty()){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("INVALID ADDRESS.");
+//            alert.show();
+//        }
+//        else if(publisherintroduction.getText().isEmpty()){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("INVALID INTRODUCTION.");
+//            alert.show();
+//        }
+//        else{
+//            String tele = telephone.getText();
+//            Publisher p = new Publisher(publishername.getText(), address.getText(), telephone.getAnchor(), publisherintroduction.getText());
+//        
+//            pb.getItems().add(p);
+//        
+//            //Clear text field.
+//            publishername.clear();
+//            address.clear();
+//            telephone.clear();
+//            publisherintroduction.clear();
+//        }
+//    }
 
     private void getPublisherData() {
        publisherData=FXCollections.observableArrayList();
        ResultSet rs = jcdb.ManageRitrivePublisher();
         try {
             while(rs.next()){
-//                String newTele = Integer.toString(rs.getInt("Pub_tel"));
                 System.out.println(rs.getString("Pub_name"));
                 System.out.println(rs.getString("Pub_address"));
                 System.out.println(rs.getInt("Pub_tel"));
-                //System.out.println(newTele);
                 System.out.println(rs.getString("Pub_introduction")); 
                 
                 publisherData.add(new Publisher(
