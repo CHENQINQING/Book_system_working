@@ -6,6 +6,7 @@
 package com.Project.Controller;
 
 import classes.Help;
+import classes.LoginStorage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -27,6 +29,7 @@ import javafx.stage.Stage;
  */
 public class ManagerMenuController implements Initializable {
 
+    @FXML private Label loginAs;
     @FXML private Button searchBt,addBt,feedbackBt,salesBt,reperotyBt,calculatorBt,typeBt,publisherBt,accountBt,logoutBt;
     private Help help = new Help();
     
@@ -35,7 +38,7 @@ public class ManagerMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        loginAs.setText("Login As: " + LoginStorage.getInstance().getUsername());
     }
 
     @FXML    
