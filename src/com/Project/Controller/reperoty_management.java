@@ -6,7 +6,7 @@
 package com.Project.Controller;
 
 import classes.importPro;
-import classes.respertoryObject;
+//import classes.respertoryObject;
 import classes.salesPro;
 import database.DatabaseConnection;
 import java.io.IOException;
@@ -91,7 +91,7 @@ public class reperoty_management implements Initializable {
     String text1 = "";
     private ObservableList<String> booklist = FXCollections.observableArrayList();
     DatabaseConnection connection = new DatabaseConnection();
-    respertoryObject res = new respertoryObject(20);
+    //respertoryObject res = new respertoryObject(20);
     private ObservableList<importPro> importPro = FXCollections.observableArrayList();
 
     @FXML

@@ -6,7 +6,7 @@
 package com.Project.Controller;
 
 import classes.Book;
-import classes.salesObject;
+//import classes.salesObject;
 import classes.salesPro;
 import database.DatabaseConnection;
 import java.io.IOException;
@@ -100,7 +100,7 @@ public class Sales_manageController implements Initializable {
     private ObservableList<String> booklist = FXCollections.observableArrayList();
     //private ObservableList<String> tablelist = FXCollections.observableArrayList();
     DatabaseConnection connection = new DatabaseConnection();
-    salesObject sales = new salesObject(20);
+    //salesObject sales = new salesObject(20);
     private ObservableList<salesPro> salespro = FXCollections.observableArrayList();
 
 //ObservableList<TableColumn> observableList = table.getColumns(); 
