@@ -7,14 +7,17 @@ package database;
 
 import classes.Book;
 import classes.BookStorage;
-import classes.LoginStorage;
+import classes.Feedback;
+import classes.Help;
 import classes.Publisher;
+import classes.User;
+import classes.UserStorage;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Scanner;
 import javafx.collections.ObservableList;
 
 /**
@@ -27,6 +30,7 @@ public class JCDB {
     private final static String password = "root";
     private final static String connectionURL = "jdbc:mysql://localhost/" + dbName  + "?user=" + user + "&password=" + password + "&useSSL=false";
     
+    private Help help = new Help();
     
     //A method thet search for a city name in the database
     /*public static void searchBook(String bookName){
@@ -49,14 +53,41 @@ public class JCDB {
         }
     }*/
     
+    /**
+    *
+    * Create a default login account()
+    */
+    public void createDefaultEmployee(){
+        try(Connection conn = establishConnection();){
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?, email=?";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            
+            prepStmt.setString(1, "John");
+            
+            prepStmt.setString(2, "John");
+            
+            prepStmt.setString(3, "admin1");
+            
+            prepStmt.setInt(4, 2);
+            
+            prepStmt.setString(5, "john@gmail.com");
+            
+            prepStmt.executeUpdate();
+            
+            System.out.println("default login account has been created and saved");
+        }
+        catch(Exception e){
+            System.out.println("Default login account: "+e);
+        }
+    }
+    
     public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
             //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
             String statement = "INSERT INTO book SET book_name=?, author=?, price=?, introduction=?, type=?, REPERTORY_SIZE=?, publisher_Pub_id=(SELECT Pub_id FROM publisher WHERE Pub_name = ?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
-            // remove ++ from here, do it in last
-            //prepStmt.setInt(1, id);
             prepStmt.setString(1, book.getName());
             prepStmt.setString(2, book.getAuthor());
             prepStmt.setDouble(3, book.getPrice());
@@ -91,7 +122,7 @@ public class JCDB {
         return rs;
     }
     
-    public ResultSet ritriveAllBook(){
+    public ResultSet retrieveAllBook(){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -217,6 +248,86 @@ public class JCDB {
              System.out.println("fill combox error: "+ e);
          }
      }
+    
+    public void customerFeedback(Feedback feedback){
+        try(Connection conn = establishConnection();){
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, dateTime=?, status=?, user_userId=(SELECT userId FROM user WHERE name=?)";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            
+            prepStmt.setInt(1, feedback.getId());
+            prepStmt.setString(2, feedback.getTitle());
+            prepStmt.setString(3, feedback.getBody());
+            prepStmt.setDate(4, help.toSqlDate(feedback.getDatetime()));
+            prepStmt.setString(5, feedback.getStatus());
+            prepStmt.setString(6, UserStorage.getInstance().getName());
+            
+            prepStmt.executeUpdate();
+            
+            System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            System.out.println("Customer Feedback: "+e);
+        }
+    }
+    
+    public void createCustomerID(User user){
+        try(Connection conn = establishConnection();){
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?,email=?";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            
+            prepStmt.setString(1, user.getName());
+            prepStmt.setString(2, user.getUsername());
+            prepStmt.setString(3, user.getPassword());
+            prepStmt.setInt(4, user.getLevel());
+            prepStmt.setString(5, user.getEmail());
+            
+            prepStmt.executeUpdate();
+            
+            System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            System.out.println("Create Customer ID: "+e);
+        }
+    }
+    
+    /*public ResultSet ritriveCustomerName(String name){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String statement = "SELECT name FROM user WHERE name = ?";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(statement);
+            prepStmt.setString(1, name);
+            rs = prepStmt.executeQuery();
+            System.out.println("Success");
+            return rs;
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any book.");
+            return null;
+        }
+    }*/
+    
+    public boolean verifyCustomer(String name) throws SQLException{
+        Connection conn = establishConnection();
+        String query = "SELECT count(*) FROM user WHERE name = ? AND level = 3";
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, name);
+        ResultSet rs = statement.executeQuery();
+        int count = 0;
+        while(rs.next()) {
+            System.out.println("count: "+rs.getInt(1));
+            count = rs.getInt(1);
+        }
+        if(count==0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     
     public Connection establishConnection() {
         Connection conn;

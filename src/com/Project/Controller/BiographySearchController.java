@@ -64,6 +64,7 @@ public class BiographySearchController implements Initializable {
     private Button searchBt,resetBt,saveBt,homeBt;
     
     private JCDB db = new JCDB();
+    private Help help = new Help();
     
     //ObservableList used for holding Book values.
     private ObservableList<Book> bookData;
@@ -224,42 +225,42 @@ public class BiographySearchController implements Initializable {
     //Resize button when mouse move entered button.
     @FXML
     public void mouseEnteredSearch(MouseEvent e){
-        Help.resizeButton(searchBt);
+        help.resizeButton(searchBt);
     }
     
     @FXML
     public void mouseExitedSearch(MouseEvent e){
-        Help.reverseButtonSize(searchBt);
+        help.reverseButtonSize(searchBt);
     }
     
     @FXML
     public void mouseEnteredHome(MouseEvent e){
-        Help.resizeButton(homeBt);
+        help.resizeButton(homeBt);
     }
     
     @FXML
     public void mouseExitedHome(MouseEvent e){
-        Help.reverseButtonSize(homeBt);
+        help.reverseButtonSize(homeBt);
     }
     
     @FXML
     public void mouseEnteredReset(MouseEvent e){
-        Help.resizeButton(resetBt);
+        help.resizeButton(resetBt);
     }
     
     @FXML
     public void mouseExitedReset(MouseEvent e){
-        Help.reverseButtonSize(resetBt);
+        help.reverseButtonSize(resetBt);
     }
     
     @FXML
     public void mouseEnteredField(MouseEvent e){
-        Help.resizeButton(bookNameTf1);
+        help.resizeButton(bookNameTf1);
     }
     
     @FXML
     public void mouseExitedField(MouseEvent e){
-        Help.reverseButtonSize(bookNameTf1);
+        help.reverseButtonSize(bookNameTf1);
     }
 }
 
