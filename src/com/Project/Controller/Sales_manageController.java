@@ -6,6 +6,7 @@
 package com.Project.Controller;
 
 import classes.Book;
+import classes.LoginStorage;
 //import classes.salesObject;
 import classes.salesPro;
 import database.DatabaseConnection;
@@ -102,6 +103,7 @@ public class Sales_manageController implements Initializable {
     DatabaseConnection connection = new DatabaseConnection();
     //salesObject sales = new salesObject(20);
     private ObservableList<salesPro> salespro = FXCollections.observableArrayList();
+    //private ObservableList<LoginStorage> LoginStorage = FXCollections.observableArrayList();
 
 //ObservableList<TableColumn> observableList = table.getColumns(); 
     @FXML
@@ -114,7 +116,7 @@ public class Sales_manageController implements Initializable {
         if (data_text.getText().matches("([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))|([1-2][0-9]{3})")) {
             date = data_text.getText();
             System.out.println(date);
-            sql = "SELECT sales.RECORD_DATE,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.price,book.REPERTORY_SIZE "
+            sql = "SELECT sales.RECORD_DATE,sales.user_userId,book_has_sales.TRADE_SUM,book.BOOK_NAME,book.price,book.REPERTORY_SIZE "
                     + "FROM sales,book_has_sales,book "
                     + "WHERE sales.idSales = book_has_sales.sales_idSales and book_has_sales.book_idBook = book.book_id"
                     + " and sales.RECORD_DATE like" + "'" + date + "%'";
@@ -122,7 +124,7 @@ public class Sales_manageController implements Initializable {
             if (rs.next()) {
                 rs = connection.query(sql);
                 while (rs.next()) {
-                    text1 = text1 + "book: " + rs.getString("BOOK_NAME") + "  price: " + rs.getDouble("price") + "   date: " + rs.getString("RECORD_DATE") + "   quantity: " + rs.getInt("TRADE_SUM") + "\r\n";
+                    text1 = text1 + "book: " + rs.getString("BOOK_NAME") + "  price: " + rs.getDouble("price") + "   date: " + rs.getString("RECORD_DATE") + "   quantity: " + rs.getInt("TRADE_SUM") +  "   SalerID: " + rs.getInt("user_userId")+"\r\n";
                     price = price + rs.getDouble("price") * rs.getInt("TRADE_SUM");
                     quantity = quantity + rs.getInt("TRADE_SUM");
                 }
@@ -220,7 +222,7 @@ public class Sales_manageController implements Initializable {
         for(int i=salespro.size()-1;salespro.size()>0;i--){
             rs = connection.query("select book_id from book where book_name = '"+salespro.get(i).getbookName()+"'");
             while(rs.next()){ bookid = rs.getInt("book_id");}
-            String sqla = "insert into sales (RECORD_DATE) values('"+salespro.get(i).getDate()+"');";
+            String sqla = "insert into sales (RECORD_DATE, user_userId) values('"+salespro.get(i).getDate()+"',"+LoginStorage.getInstance().getId()+");";
             connection.executeSql(sqla);
             rs = connection.query("select idSales from sales where RECORD_DATE = '"+salespro.get(i).getDate()+"'");
             System.out.println(salespro.get(i).getDate());
