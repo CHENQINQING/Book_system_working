@@ -5,7 +5,10 @@
  */
 package classes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,8 +32,9 @@ public class Feedback {
         this.date = null;
     }
     
-    public Feedback(String title){
+    public Feedback(String title,String body){
         this.title.set(title);       
+        this.body.set(body);
     }
     
     public void setStatus(String status){

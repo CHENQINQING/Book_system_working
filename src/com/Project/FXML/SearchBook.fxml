@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.SearchBook">
+   <children>
+      <Button layoutX="417.0" layoutY="185.0" mnemonicParsing="false" onAction="#SearchBook" text="Search" />
+      <TextField fx:id="searchField" layoutX="166.0" layoutY="185.0" />
+      <Label layoutX="183.0" layoutY="14.0" prefHeight="80.0" prefWidth="234.0" text="Search book" textFill="#a19393">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Button layoutX="520.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Menu" />
+   </children>
+</AnchorPane>

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -45,6 +48,8 @@ public class ShowFeedbackController implements Initializable {
     private ObservableList<String> titleList = FXCollections.observableArrayList();
     
     private ObservableList<Feedback> feedbackData;
+    @FXML
+    private TextField useridText;
 
 
     /**
@@ -68,8 +73,14 @@ public class ShowFeedbackController implements Initializable {
     }
     @FXML    
     public void ButtonRead(ActionEvent event) throws IOException{
-        System.out.println(titleCombo.getSelectionModel().getSelectedItem().toString());
         getFeedbackData(titleCombo.getSelectionModel().getSelectedItem().toString()); 
+    }
+    @FXML    
+    public void ButtonDelete(ActionEvent event) throws IOException{
+        Deletefeedback(titleCombo.getSelectionModel().getSelectedItem().toString()); 
+        titleCombo.setValue("choise title");
+        bodyText.setText("");
+        dateText.setText("");
     }
     
     private void getComboBoxValue(){
@@ -81,19 +92,50 @@ public class ShowFeedbackController implements Initializable {
     
     private void getFeedbackData(String title) {
        feedbackData=FXCollections.observableArrayList();
-       ResultSet rs = jcdb.ManageRitriveFeedback( title );
-//       Feedback feed = null;
-        try {
-            while(rs.next()){
-                System.out.println(rs.getString("body"));
-                bodyText.setText(rs.getString("body"));
-                System.out.println(rs.getString("datetime"));
-                dateText.setText(rs.getString("datetime"));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error "+ ex);
-        }        
-
+       if(title=="choise title"){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Please select a title.");
+            alert.showAndWait();
+        }
+       else{
+        ResultSet rs = jcdb.ManageRitriveFeedback( title );
+            try {
+                while(rs.next()){
+                    System.out.println(rs.getString("body"));
+                    bodyText.setText(rs.getString("body"));
+                    System.out.println(rs.getString("date"));
+                    dateText.setText(rs.getString("date"));
+                    useridText.setText(rs.getString("user_userId"));
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error "+ ex);
+            }        
+        }
     }
-    
+
+    private void Deletefeedback(String title){
+        feedbackData=FXCollections.observableArrayList();
+        if(title=="choise title"){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText("ERROR");
+            alert.setContentText("Please select a title.");
+            alert.showAndWait();
+        }
+         else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Confirm Deletion");
+            alert.setContentText("Are you sure you want to delete this feedback?");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.get() == ButtonType.OK){
+                ResultSet rs = jcdb.ManageDeleteFeedback(title); //remove publisher to database
+            }
+            else{
+                alert.close();
+            }
+        }
+    }
 }

@@ -51,5 +51,6 @@
         <Button fx:id="BUTTON_RIGHT_PAREN" layoutX="170.0" layoutY="380.0" mnemonicParsing="false" onAction="#BUTTON_RIGHT_PAREN_ONCLICK" prefHeight="60.0" prefWidth="60.0" styleClass="operator" text=")">
         </Button>
       <Button layoutX="245.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="back" />
+      <Button layoutX="176.0" layoutY="447.0" mnemonicParsing="false" onAction="#handleCloseButtonAction" text="close" />
     </children>
 </Pane>

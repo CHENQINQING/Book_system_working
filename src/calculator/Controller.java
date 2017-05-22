@@ -187,6 +187,17 @@ public class Controller {
         stage.setTitle("Menu");
         stage.show();
     }
+    @FXML
+    private void handleCloseButtonAction(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        //Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/calculator/calculator.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("calculator");
+        stage.close();
+    }
 
 //clear erro
     @FXML

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -9,21 +10,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: GRAY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="299.0" prefWidth="724.0" style="-fx-background-color: GRAY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.MenuController">
    <children>
-      <Label alignment="CENTER" layoutX="106.0" prefHeight="42.0" prefWidth="389.0" text="WELCOME C-L-L BOOK SYSTEM MENU" textFill="#00fffb">
+      <ImageView fitHeight="386.0" fitWidth="724.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../buttonIcon/MenuB.jpg" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="10.0" prefHeight="76.0" prefWidth="606.0" text="WELCOME C-L-L BOOK SYSTEM MENU" textFill="#0cbf24">
          <font>
-            <Font name="System Bold" size="21.0" />
+            <Font name="System Bold" size="31.0" />
          </font>
       </Label>
-      <Button layoutX="43.0" layoutY="103.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="BOOK SEARCH" />
-      <Button layoutX="407.0" layoutY="270.0" mnemonicParsing="false" onAction="#calculator" prefHeight="50.0" prefWidth="150.0" text="CALCULATOR" />
-      <Button layoutX="226.0" layoutY="270.0" mnemonicParsing="false" onAction="#sale" prefHeight="50.0" prefWidth="150.0" text="BOOK SALES" />
-      <Button layoutX="44.0" layoutY="270.0" mnemonicParsing="false" onAction="#resperoty" prefHeight="50.0" prefWidth="150.0" text="BOOK REPEROTY" />
-      <Button layoutX="44.0" layoutY="187.0" mnemonicParsing="false" onAction="#visitBookType" prefHeight="50.0" prefWidth="150.0" text="BOOK TYPE" />
-      <Button layoutX="226.0" layoutY="187.0" mnemonicParsing="false" onAction="#visitBookPublisher" prefHeight="50.0" prefWidth="150.0" text="BOOK PUBLISHER" />
-      <Button layoutX="407.0" layoutY="187.0" mnemonicParsing="false" onAction="#Feedback" prefHeight="50.0" prefWidth="150.0" text="FEEDBACK" />
-      <Button layoutX="407.0" layoutY="103.0" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="150.0" text="LOG OUT" />
-      <Button layoutX="226.0" layoutY="103.0" mnemonicParsing="false" onAction="#Bookmanaging" prefHeight="50.0" prefWidth="150.0" text="ADD BOOK" />
+      <Button layoutX="294.0" layoutY="254.0" mnemonicParsing="false" onAction="#SearchBook" prefHeight="31.0" prefWidth="123.0" text="BOOK SEARCH" />
+      <Button layoutX="436.0" layoutY="254.0" mnemonicParsing="false" onAction="#calculator" prefHeight="31.0" prefWidth="114.0" text="CALCULATOR" />
+      <Button layoutX="186.0" layoutY="102.0" mnemonicParsing="false" onAction="#sale" prefHeight="31.0" prefWidth="143.0" text="BOOK SALES" />
+      <Button layoutX="362.0" layoutY="102.0" mnemonicParsing="false" onAction="#resperoty" prefHeight="31.0" prefWidth="143.0" text="BOOK REPEROTY" />
+      <Button layoutX="528.0" layoutY="160.0" mnemonicParsing="false" onAction="#visitBookType" prefHeight="31.0" prefWidth="143.0" text="BOOK TYPE" />
+      <Button layoutX="362.0" layoutY="160.0" mnemonicParsing="false" onAction="#visitBookPublisher" prefHeight="31.0" prefWidth="143.0" text="BOOK PUBLISHER" />
+      <Button layoutX="581.0" layoutY="254.0" mnemonicParsing="false" onAction="#Feedback" prefHeight="31.0" prefWidth="114.0" text="FEEDBACK" />
+      <Button layoutX="629.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="17.0" prefWidth="91.0" text="LOG OUT" />
+      <Button layoutX="186.0" layoutY="159.0" mnemonicParsing="false" onAction="#Bookmanaging" prefHeight="31.0" prefWidth="143.0" text="ADD BOOK" />
+      <Label layoutX="36.0" layoutY="97.0" prefHeight="41.0" prefWidth="136.0" text="Sales part" textFill="#d30e0e">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="150.0" prefHeight="50.0" prefWidth="136.0" text="Book part" textFill="#1ab4f2">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

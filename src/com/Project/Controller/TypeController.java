@@ -5,6 +5,7 @@
  */
 package com.Project.Controller;
 
+import classes.LoginStorage;
 import classes.Type;
 import database.JCDB;
 import java.io.IOException;
@@ -71,13 +72,24 @@ public class TypeController implements Initializable {
     }
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Menu");
-        stage.show();
+        if(LoginStorage.getInstance().getAccountType() == 2){
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Menu");
+            stage.show();
+        }
+        else{
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Manager Menu");
+            stage.show();
+        }
     }
     
     @FXML
@@ -161,34 +173,34 @@ public class TypeController implements Initializable {
         tt.setItems(typeData);
     }
     
-    @FXML
-    private void handleDeleteAction(ActionEvent event){
-        ObservableList<Type> typeSelect, allType;
-        allType = tt.getItems();
-        typeSelect = tt.getSelectionModel().getSelectedItems();
-        
-        if(typeSelect.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText("ERROR");
-            alert.setContentText("Please select a publisher.");
-            alert.showAndWait();
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Confirm Deletion");
-            alert.setContentText("Are you sure you want to delete this type?");
-            
-            Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.OK){
-                jcdb.ManagerDeleteType(typeSelect.get(0).getType()); //remove publisher to database
-                typeSelect.forEach(allType::remove); //remove publisher to table view.
-            }
-            else{
-                alert.close();
-            }
-        }
-    }
+//    @FXML
+//    private void handleDeleteAction(ActionEvent event){
+//        ObservableList<Type> typeSelect, allType;
+//        allType = tt.getItems();
+//        typeSelect = tt.getSelectionModel().getSelectedItems();
+//        
+//        if(typeSelect.isEmpty()){
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error Message");
+//            alert.setHeaderText("ERROR");
+//            alert.setContentText("Please select a publisher.");
+//            alert.showAndWait();
+//        }
+//        else{
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setHeaderText("Confirm Deletion");
+//            alert.setContentText("Are you sure you want to delete this type?");
+//            
+//            Optional<ButtonType> result = alert.showAndWait();
+//            if(result.get() == ButtonType.OK){
+//                jcdb.ManagerDeleteType(typeSelect.get(0).getType()); //remove publisher to database
+//                typeSelect.forEach(allType::remove); //remove publisher to table view.
+//            }
+//            else{
+//                alert.close();
+//            }
+//        }
+//    }
     
     @FXML
     private void handleSearchAction(ActionEvent event){
