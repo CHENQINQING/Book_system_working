@@ -123,12 +123,12 @@ public class ManagerMenuController implements Initializable {
         stage.setTitle("Book resperoty management");
         stage.show();
     }
-    
+     
     @FXML    
     public void account(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerAccountPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Account page");

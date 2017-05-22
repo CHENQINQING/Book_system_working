@@ -84,14 +84,14 @@ public class LoginPageController implements Initializable {
             if(!validUsername){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("ERROR");
-                alert.setContentText("Account does not exists");
+                alert.setContentText("Your Account or Password Is Incorrect");
                 alert.showAndWait();
             }else{
                 id = db.getId(uname, pword, loginType);
                 if(id == 0){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("ERROR");
-                    alert.setContentText("Wrong Password");
+                    alert.setContentText("Your Account or Password Is Incorrect");
                     alert.showAndWait();
                 }else{
                     if(loginType.equals("Employee")){
