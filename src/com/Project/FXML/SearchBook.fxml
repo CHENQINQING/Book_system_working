@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,13 +10,24 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.SearchBook">
    <children>
-      <Button layoutX="417.0" layoutY="185.0" mnemonicParsing="false" onAction="#SearchBook" text="Search" />
-      <TextField fx:id="searchField" layoutX="166.0" layoutY="185.0" />
-      <Label layoutX="183.0" layoutY="14.0" prefHeight="80.0" prefWidth="234.0" text="Search book" textFill="#a19393">
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../buttonIcon/MenuB.jpg" />
+         </image>
+      </ImageView>
+      <Button blendMode="SCREEN" layoutX="417.0" layoutY="185.0" mnemonicParsing="false" onAction="#SearchBook" style="-fx-background-radius: 100;" text="Search">
          <font>
-            <Font size="34.0" />
+            <Font name="Bell MT Bold" size="18.0" />
+         </font></Button>
+      <TextField fx:id="searchField" blendMode="SCREEN" layoutX="154.0" layoutY="185.0" prefHeight="39.0" prefWidth="236.0" promptText="Searching By Name" style="-fx-background-radius: 10;" />
+      <Label alignment="CENTER" layoutX="120.0" layoutY="14.0" prefHeight="80.0" prefWidth="360.0" text="Book Searching" textFill="#ffb8b8">
+         <font>
+            <Font name="Bell MT Bold" size="40.0" />
          </font>
       </Label>
-      <Button layoutX="520.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Menu" />
+      <Button blendMode="SCREEN" layoutX="520.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleBackButtonAction" style="-fx-background-radius: 100;" text="Menu">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font></Button>
    </children>
 </AnchorPane>
