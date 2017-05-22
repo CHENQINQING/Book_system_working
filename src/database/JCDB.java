@@ -548,7 +548,7 @@ public class JCDB {
         ResultSet rs = null;
         try {
 //            String SQL = "SELECT body,date,email FROM feedback,user WHERE title = ? and user_useId = user_Id";
-            String SQL = "SELECT body,date FROM feedback WHERE title = ? ";
+            String SQL = "SELECT body,date,user_userId FROM feedback WHERE title = ? ";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             prepStmt.setString(1, title);

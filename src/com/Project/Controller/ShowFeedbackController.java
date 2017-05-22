@@ -48,6 +48,8 @@ public class ShowFeedbackController implements Initializable {
     private ObservableList<String> titleList = FXCollections.observableArrayList();
     
     private ObservableList<Feedback> feedbackData;
+    @FXML
+    private TextField useridText;
 
 
     /**
@@ -105,6 +107,7 @@ public class ShowFeedbackController implements Initializable {
                     bodyText.setText(rs.getString("body"));
                     System.out.println(rs.getString("date"));
                     dateText.setText(rs.getString("date"));
+                    useridText.setText(rs.getString("user_userId"));
                 }
             } catch (SQLException ex) {
                 System.out.println("Error "+ ex);
