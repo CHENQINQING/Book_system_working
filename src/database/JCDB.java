@@ -254,7 +254,6 @@ public class JCDB {
     
     public void customerFeedback(Feedback feedback){
         try(Connection conn = establishConnection();){
-            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
             String statement = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, date=?, status=?, user_userId=(SELECT userId FROM user WHERE name=?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
@@ -548,7 +547,24 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String SQL = "SELECT body,datetime FROM feedback WHERE title = ?";
+//            String SQL = "SELECT body,date,email FROM feedback,user WHERE title = ? and user_useId = user_Id";
+            String SQL = "SELECT body,date FROM feedback WHERE title = ? ";
+            conn = establishConnection();
+            prepStmt = conn.prepareStatement(SQL);
+            prepStmt.setString(1, title);
+            rs =prepStmt.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            System.out.println("Cannot ritrive any feedback information.");
+            return null;
+        }
+    }
+    public ResultSet ManageDeleteFeedback(String title){
+        Connection conn = null;
+        PreparedStatement prepStmt = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "DELETE FROM feedback WHERE title = ?";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             prepStmt.setString(1, title);
@@ -562,7 +578,7 @@ public class JCDB {
     public void fillTitleCombo(ObservableList option){
          Connection conn = null;
          try {
-             String SQL = "SELECT title FROM feedback ORDER BY title DESC";
+             String SQL = "SELECT title FROM feedback WHERE date ORDER BY date DESC";
              conn = establishConnection();
              PreparedStatement prepStmt = conn.prepareStatement(SQL);
              ResultSet rs = prepStmt.executeQuery();
@@ -574,14 +590,16 @@ public class JCDB {
              System.out.println("fill combox error: "+ e);
          }
      }
-    public void managerSaveFeedback(Feedback feed) throws SQLException {
+    public void employeeSaveFeedback(Feedback feed) throws SQLException {
         try(Connection conn = establishConnection();){
-            String SQL = "INSERT INTO feedback (title,body,email) VALUES (?,?,?)";
+            String  SQL = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, date=?,  user_userId=(SELECT userId FROM user WHERE name=?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
             
-//            prepStmt.setString(1, feed.getTitle());
-//            prepStmt.setString(2, feed.getBody());
-//            prepStmt.setString(3, feed.getEmail());
+            prepStmt.setInt(1, feed.getId());
+            prepStmt.setString(2, feed.getTitle());
+            prepStmt.setString(3, feed.getBody());
+            prepStmt.setDate(4, help.toSqlDate(feed.getDatetime()));
+            prepStmt.setString(5, LoginStorage.getInstance().getUsername());
             prepStmt.executeUpdate();
             
             System.out.println("the data has been moved into database.");

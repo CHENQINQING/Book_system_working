@@ -6,6 +6,7 @@
 package com.Project.Controller;
 
 import classes.Help;
+import classes.LoginStorage;
 import classes.Publisher;
 import database.JCDB;
 import java.io.IOException;
@@ -89,13 +90,24 @@ public class PublisherController implements Initializable {
     }
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Menu");
-        stage.show();
+        if(LoginStorage.getInstance().getAccountType() == 2){
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Menu");
+            stage.show();
+        }
+        else{
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Manager Menu");
+            stage.show();
+        }
     }
     @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException{
@@ -256,32 +268,4 @@ public class PublisherController implements Initializable {
         
         pb.setItems(searchData);
     }
-//    @FXML
-//    private void handleDeleteAction(ActionEvent event){
-//        ObservableList<Publisher> publisherSelect, allPublishers;
-//        allPublishers = pb.getItems();
-//        publisherSelect = pb.getSelectionModel().getSelectedItems();
-//        
-//        if(publisherSelect.isEmpty()){
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error Message");
-//            alert.setHeaderText("ERROR");
-//            alert.setContentText("Please select a publisher.");
-//            alert.showAndWait();
-//        }
-//        else{
-//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//            alert.setHeaderText("Confirm Deletion");
-//            alert.setContentText("Are you sure you want to delete this publisher?");
-//            
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if(result.get() == ButtonType.OK){
-//                JCDB.ManagerDeletePublisher(publisherSelect.get(0).getPublisher()); //remove publisher to database
-//                publisherSelect.forEach(allPublishers::remove); //remove publisher to table view.
-//            }
-//            else{
-//                alert.close();
-//            }
-//        }
-//    }
 }

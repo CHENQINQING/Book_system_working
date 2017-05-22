@@ -72,7 +72,7 @@ public class MenuController implements Initializable {
     public void Feedback(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/showFeedback.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Feedback.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Feedback");

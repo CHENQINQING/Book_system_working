@@ -10,7 +10,7 @@
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.FeedbackController">
    <children>
       <Button layoutX="309.0" layoutY="426.0" mnemonicParsing="false" onAction="#ButtonClear" prefHeight="36.0" prefWidth="82.0" text="Clear" />
-      <TextArea fx:id="bodyText" layoutX="80.0" layoutY="187.0" prefHeight="153.0" prefWidth="540.0" promptText="thank you for your feedback~">
+      <TextArea fx:id="bodyText" layoutX="80.0" layoutY="186.0" prefHeight="213.0" prefWidth="540.0" promptText="thank you for your feedback~">
          <font>
             <Font size="21.0" />
          </font></TextArea>
@@ -24,24 +24,18 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="137.0" layoutY="426.0" mnemonicParsing="false" onAction="#handleSaveAction" prefHeight="36.0" prefWidth="82.0" text="Save" />
+      <Button layoutX="137.0" layoutY="426.0" mnemonicParsing="false" onAction="#ButtonSave" prefHeight="36.0" prefWidth="82.0" text="Save" />
       <Button layoutX="488.0" layoutY="426.0" mnemonicParsing="false" onAction="#ButtonMeun" prefHeight="36.0" prefWidth="82.0" text="Menu" />
-      <TextField fx:id="titleText" layoutX="80.0" layoutY="126.0" prefHeight="25.0" prefWidth="540.0" promptText="what  its about~" />
+      <TextField fx:id="titleText" layoutX="80.0" layoutY="126.0" prefHeight="27.0" prefWidth="540.0" promptText="what  its about~" />
       <Label alignment="CENTER" layoutX="80.0" layoutY="99.0" prefHeight="27.0" prefWidth="56.0" text="Title:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="80.0" layoutY="162.0" prefHeight="25.0" prefWidth="56.0" text="Body:">
+      <Label alignment="CENTER" layoutX="80.0" layoutY="161.0" prefHeight="25.0" prefWidth="56.0" text="Body:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="80.0" layoutY="347.0" prefHeight="27.0" prefWidth="107.0" text="Your E-mail:">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="emailText" layoutX="80.0" layoutY="374.0" prefHeight="25.0" prefWidth="540.0" promptText="write down your email~" />
    </children>
 </AnchorPane>

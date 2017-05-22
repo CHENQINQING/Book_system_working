@@ -7,10 +7,16 @@ package com.Project.Controller;
 
 import classes.Feedback;
 import classes.Help;
+import classes.LoginStorage;
 import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,11 +43,10 @@ public class FeedbackController implements Initializable {
     private TextArea bodyText;
     @FXML
     private TextField titleText;
-    @FXML
-    private TextField emailText;
     
     private ObservableList<Feedback>feedbackData;
 
+    private Feedback feedback = new Feedback();
 
     /**
      * Initializes the controller class.
@@ -54,7 +59,6 @@ public class FeedbackController implements Initializable {
     private void ButtonClear(ActionEvent event) {
         titleText.setText("");
         bodyText.setText("");
-        emailText.setText("");
     }
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {
@@ -67,14 +71,11 @@ public class FeedbackController implements Initializable {
         stage.show();
     }
     @FXML
-    private void handleSaveAction(ActionEvent event) throws SQLException{
-        SaveToDatabase();
-        titleText.setText("");
-        bodyText.setText("");
-        emailText.setText("");
+    private void ButtonSave(ActionEvent event) throws SQLException,IOException{
+        SaveToDatabase(event);
     }
     
-    private void SaveToDatabase() throws SQLException, NumberFormatException {        
+    private void SaveToDatabase(ActionEvent event) throws SQLException, NumberFormatException, IOException{        
         if(titleText.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("ERROR");
@@ -87,24 +88,25 @@ public class FeedbackController implements Initializable {
             alert.setContentText("INVALID BODY.");
             alert.show();
         }
-        else if(emailText.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("ERROR");
-            alert.setContentText("INVALID E-MAIL.");
-            alert.show();
-        }
         else{
-//            Feedback feed = new Feedback(
-//                    titleText.getText(), 
-//                    bodyText.getText(), 
-//                    emailText.getText());
+            feedback.setTitle(titleText.getText());
+            feedback.setBody(bodyText.getText());
+            feedback.setDatetime(currentDate());
             
-//            jcdb.managerSaveFeedback(feed);
+            jcdb.employeeSaveFeedback(feedback);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("SAVED");
-            alert.setContentText("The Data Has Been Saved");
-            alert.show();
+            alert.setHeaderText("FEEDBACK SUCCEED");
+            alert.setContentText("Thanks For Your Suggestion, We Have Received Your Feedback.");
+            alert.showAndWait();
+
+            titleText.setText("");
+            bodyText.setText("");
+            ButtonMeun(event);
         }
+    }    
+    private LocalDate currentDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDate localDate = LocalDate.now();
+        return localDate;
     }
-    
 }

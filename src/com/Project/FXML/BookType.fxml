@@ -110,11 +110,6 @@
                               <Insets right="30.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#handleDeleteAction" prefHeight="29.0" prefWidth="62.0" text="Delete">
-                           <HBox.margin>
-                              <Insets left="30.0" right="30.0" />
-                           </HBox.margin>
-                        </Button>
                         <Button mnemonicParsing="false" onAction="#ButtonClear" prefHeight="29.0" prefWidth="62.0" text="Clear">
                            <HBox.margin>
                               <Insets left="30.0" right="30.0" />
