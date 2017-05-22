@@ -112,14 +112,15 @@ public class MenuController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
     }
-        @FXML    
+    @FXML    
     public void calculator(ActionEvent event) throws IOException{
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/calculator/calculator.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("calculator");
-        stage.show();
+        //Node node = (Node) event.getSource();
+        //Stage stage = (Stage) node.getScene().getWindow();
+        Stage SecStage = new Stage();
+        Parent SecRoot = FXMLLoader.load(getClass().getResource("/calculator/calculator.fxml"));
+        Scene SecScene = new Scene(SecRoot);
+        SecStage.setScene(SecScene);
+        SecStage.setTitle("calculator");
+        SecStage.show();
     }
 }
