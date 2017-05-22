@@ -96,7 +96,7 @@ public class BiographySearchController implements Initializable {
                 System.out.println(rs.getString("Pub_name"));
                 System.out.println(rs.getString("author"));
                 System.out.println(rs.getDouble("price"));
-                System.out.println(rs.getString("type"));
+                System.out.println(rs.getString("type_name"));
                 System.out.println(rs.getInt("REPERTORY_SIZE"));
                 
                 bookData.add(new Book(
@@ -104,7 +104,7 @@ public class BiographySearchController implements Initializable {
                         rs.getString("author"), 
                         rs.getDouble("price"), 
                         rs.getString("Pub_name"), 
-                        rs.getString("type"), 
+                        rs.getString("type_name"), 
                         rs.getInt("REPERTORY_SIZE"),
                         rs.getString("introduction")));
             }
@@ -134,14 +134,14 @@ public class BiographySearchController implements Initializable {
                 System.out.println(rs.getString("Pub_name"));
                 System.out.println(rs.getString("author"));
                 System.out.println(rs.getDouble("price"));
-                System.out.println(rs.getString("type"));
+                System.out.println(rs.getString("type_name"));
                 
                 bookData.add(new Book(
                         rs.getString("book_name"), 
                         rs.getString("author"), 
                         rs.getDouble("price"), 
                         rs.getString("Pub_name"), 
-                        rs.getString("type"), 
+                        rs.getString("type_name"), 
                         rs.getInt("REPERTORY_SIZE"),
                         rs.getString("introduction")));
             }
@@ -203,7 +203,7 @@ public class BiographySearchController implements Initializable {
                         rs.getString("author"), 
                         rs.getDouble("price"), 
                         rs.getString("Pub_name"), 
-                        rs.getString("type"), 
+                        rs.getString("type_name"), 
                         rs.getInt("REPERTORY_SIZE"),
                         rs.getString("introduction")));
             }

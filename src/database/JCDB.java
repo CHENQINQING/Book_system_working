@@ -87,21 +87,44 @@ public class JCDB {
     public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
             //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
-            String statement = "INSERT INTO book SET book_name=?, author=?, price=?, introduction=?, type=?, REPERTORY_SIZE=?, date=?, publisher_Pub_id=(SELECT Pub_id FROM publisher WHERE Pub_name = ?)";
+            String statement = "INSERT INTO book "
+                    + "SET book_name=?, author=?, price=?, introduction=?, REPERTORY_SIZE=?, date=?, "
+                    + "publisher_Pub_id=(SELECT Pub_id FROM publisher WHERE Pub_name = ?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             prepStmt.setString(1, book.getName());
             prepStmt.setString(2, book.getAuthor());
             prepStmt.setDouble(3, book.getPrice());
             prepStmt.setString(4, book.getIntroduction());
-            prepStmt.setString(5, book.getType());
-            prepStmt.setInt(6, book.getQuantity());
-            prepStmt.setDate(7, help.toSqlDate(book.getDate()));
-            prepStmt.setString(8, book.getPublisher());
+            //prepStmt.setString(5, book.getType());
+            prepStmt.setInt(5, book.getQuantity());
+            prepStmt.setDate(6, help.toSqlDate(book.getDate()));
+            prepStmt.setString(7, book.getPublisher());
             
             prepStmt.executeUpdate();
             
+            addBook_has_type(book.getName(), book.getType());
+            
             System.out.println("the data has been moved into database.");
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void addBook_has_type(String bookName, String typeName){
+        try(Connection conn = establishConnection();){
+            //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
+            String statement = "INSERT INTO book_has_type "
+                    + "SET book_book_id = (SELECT book_id FROM book WHERE book_name = ?), "
+                    + "type_type_id = (SELECT type_id FROM type WHERE type_name = ?)";
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            prepStmt.setString(1, bookName);
+            prepStmt.setString(2, typeName);
+            
+            prepStmt.executeUpdate();
+            
+            System.out.println("Book_has_type has been added");
         }
         catch(Exception e){
             e.printStackTrace();
@@ -113,7 +136,10 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
+            //String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
+            String statement = "SELECT book_name, Pub_name, author, price, type_name, REPERTORY_SIZE, introduction FROM publisher,type  "
+                    + "INNER JOIN book_has_type ON book_has_type.type_type_id = type.Type_id "
+                    + "INNER JOIN book ON book.book_id = book_has_type.book_book_id WHERE publisher_Pub_id = Pub_id AND book_name LIKE\"%" + name + "%\"";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
@@ -130,7 +156,10 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id";
+            //String statement = "SELECT book_name, Pub_name, author, price, type_name, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id";
+            String statement = "SELECT book_name, Pub_name, author, price, type_name, REPERTORY_SIZE, introduction FROM publisher,type  "
+                    + "INNER JOIN book_has_type ON book_has_type.type_type_id = type.Type_id "
+                    + "INNER JOIN book ON book.book_id = book_has_type.book_book_id WHERE publisher_Pub_id = Pub_id";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             rs = prepStmt.executeQuery();
@@ -165,7 +194,13 @@ public class JCDB {
         ResultSet rs = null;
         try {
             //String statement = "SELECT book_name, publisher_Pub_id, author, price, type, REPERTORY_SIZE FROM Book WHERE book_name = ?";
-            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND type = ? AND book_name LIKE\"%" + name + "%\"";
+            //String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND type = ? AND book_name LIKE\"%" + name + "%\"";
+            
+            String statement = "SELECT book_name, Pub_name, author, price, type_name, REPERTORY_SIZE, introduction FROM publisher,type  "
+                    + "INNER JOIN book_has_type ON book_has_type.type_type_id = type.Type_id "
+                    + "INNER JOIN book ON book.book_id = book_has_type.book_book_id "
+                    + "WHERE publisher_Pub_id = Pub_id AND type_name = ? AND book_name LIKE\"%" + name + "%\"";
+            
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             prepStmt.setString(1, typeName);
@@ -186,7 +221,11 @@ public class JCDB {
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-            String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND type = ?";
+            //String statement = "SELECT book_name, Pub_name, author, price, type, REPERTORY_SIZE, introduction FROM Book,publisher WHERE publisher_Pub_id = Pub_id AND type = ?";
+            String statement = "SELECT book_name, Pub_name, author, price, type_name, REPERTORY_SIZE, introduction FROM publisher,type  "
+                    + "INNER JOIN book_has_type ON book_has_type.type_type_id = type.Type_id "
+                    + "INNER JOIN book ON book.book_id = book_has_type.book_book_id "
+                    + "WHERE publisher_Pub_id = Pub_id AND type_name = ?";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(statement);
             prepStmt.setString(1, typeName);
@@ -423,7 +462,8 @@ public class JCDB {
     
     public void managerSaveType(String type,String introduction) throws SQLException {
         try(Connection conn = establishConnection();){
-            String SQL = "INSERT INTO type (Type_name,Type_introduction) VALUES (?,?)";
+            //String SQL = "INSERT INTO type (Type_name,Type_introduction) VALUES (?,?)";
+            String SQL = "INSERT INTO type (Type_name,type_introduction) VALUES (?,?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
             
             prepStmt.setString(1, type);
