@@ -36,7 +36,7 @@ import javafx.stage.Stage;
  *
  * @author Xuantong
  */
-public class BookSearchedDetialController implements Initializable {
+public class BookSearchController2 implements Initializable {
 
     /**
      * Initializes the controller class.
@@ -61,7 +61,7 @@ public class BookSearchedDetialController implements Initializable {
     private TableColumn<Book,String> introduction;
    
     @FXML
-    private Button searchBt,resetBt,homeBt;
+    private Button searchBt,resetBt,saveBt,homeBt;
     
     private JCDB db = new JCDB();
     private Help help = new Help();
@@ -163,9 +163,10 @@ public class BookSearchedDetialController implements Initializable {
     private void handleLogoutAction(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/LoginPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setTitle("Menu");
         stage.show();
     }
     
