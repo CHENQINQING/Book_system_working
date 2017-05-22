@@ -23,17 +23,15 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="355.0" prefWidth="348.0">
                <children>
-                  <Label alignment="CENTER" layoutX="101.0" layoutY="32.0" prefHeight="35.0" prefWidth="66.0" text="Title:">
+                  <Label alignment="CENTER" layoutX="30.0" layoutY="33.0" prefHeight="35.0" prefWidth="66.0" text="Title:">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font></Label>
                   <Label layoutX="30.0" layoutY="127.0" prefHeight="33.0" prefWidth="37.0" text="Body:" />
                   <TextArea fx:id="bodyText" editable="false" layoutX="30.0" layoutY="160.0" prefHeight="174.0" prefWidth="494.0" wrapText="true" />
-                  <Label layoutX="30.0" layoutY="94.0" prefHeight="33.0" prefWidth="37.0" text="Date:" />
-                  <TextField fx:id="dateText" editable="false" layoutX="67.0" layoutY="94.0" prefHeight="33.0" prefWidth="188.0" />
-                  <ComboBox fx:id="titleCombo" layoutX="169.0" layoutY="32.0" prefHeight="35.0" prefWidth="239.0" promptText="choise title" />
-                  <Label layoutX="277.0" layoutY="93.0" prefHeight="33.0" prefWidth="44.0" text="E-mail:" />
-                  <TextField fx:id="emailText" layoutX="321.0" layoutY="93.0" prefHeight="33.0" prefWidth="188.0" />
+                  <Label layoutX="108.0" layoutY="94.0" prefHeight="33.0" prefWidth="37.0" text="Date:" />
+                  <TextField fx:id="dateText" alignment="CENTER" editable="false" layoutX="145.0" layoutY="94.0" prefHeight="33.0" prefWidth="264.0" />
+                  <ComboBox fx:id="titleCombo" layoutX="96.0" layoutY="33.0" prefHeight="35.0" prefWidth="389.0" promptText="choise title" />
                </children>
             </AnchorPane>
         </items>
