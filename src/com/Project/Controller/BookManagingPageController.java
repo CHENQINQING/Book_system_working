@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -28,14 +30,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -225,14 +224,14 @@ public class BookManagingPageController implements Initializable {
         else{
             double price = Double.valueOf(priceBt.getText());
             int quantity = Integer.valueOf(quantityBt.getText());
-            Book book = new Book(
-                    bookNameTf2.getText(),
+            Book book = new Book(bookNameTf2.getText(),
                     authorBt.getText(),
                     price,
                     publisherCombo.getSelectionModel().getSelectedItem().toString(),
                     typeCombo.getSelectionModel().getSelectedItem().toString(), 
                     introArea.getText(),
-                    quantity);
+                    quantity,
+                    currentDate());
             
             db.managerAddNewBook(book);
             refresh();
@@ -341,6 +340,12 @@ public class BookManagingPageController implements Initializable {
                 alert.close();
             }
         }
+    }
+    
+    private LocalDate currentDate(){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDate localDate = LocalDate.now();
+        return localDate;
     }
     
     //Resize button when mouse move entered button.

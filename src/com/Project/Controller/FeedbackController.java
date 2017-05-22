@@ -5,9 +5,14 @@
  */
 package com.Project.Controller;
 
+import classes.Feedback;
+import classes.Help;
+import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -26,10 +32,16 @@ import javafx.stage.Stage;
  */
 public class FeedbackController implements Initializable {
 
+    JCDB jcdb=new JCDB();
     @FXML
-    private TextArea body;
+    private TextArea bodyText;
     @FXML
-    private TextField title;
+    private TextField titleText;
+    @FXML
+    private TextField emailText;
+    
+    private ObservableList<Feedback>feedbackData;
+
 
     /**
      * Initializes the controller class.
@@ -40,8 +52,9 @@ public class FeedbackController implements Initializable {
     }    
     @FXML
     private void ButtonClear(ActionEvent event) {
-        title.setText("");
-        body.setText("");
+        titleText.setText("");
+        bodyText.setText("");
+        emailText.setText("");
     }
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {
@@ -52,6 +65,46 @@ public class FeedbackController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Menu");
         stage.show();
+    }
+    @FXML
+    private void handleSaveAction(ActionEvent event) throws SQLException{
+        SaveToDatabase();
+        titleText.setText("");
+        bodyText.setText("");
+        emailText.setText("");
+    }
+    
+    private void SaveToDatabase() throws SQLException, NumberFormatException {        
+        if(titleText.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("ERROR");
+            alert.setContentText("INVALID TITLE.");
+            alert.show();
+        }
+        else if(bodyText.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("ERROR");
+            alert.setContentText("INVALID BODY.");
+            alert.show();
+        }
+        else if(emailText.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("ERROR");
+            alert.setContentText("INVALID E-MAIL.");
+            alert.show();
+        }
+        else{
+//            Feedback feed = new Feedback(
+//                    titleText.getText(), 
+//                    bodyText.getText(), 
+//                    emailText.getText());
+            
+//            jcdb.managerSaveFeedback(feed);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("SAVED");
+            alert.setContentText("The Data Has Been Saved");
+            alert.show();
+        }
     }
     
 }
