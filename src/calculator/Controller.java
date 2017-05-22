@@ -9,6 +9,7 @@ package calculator;
  *
  * @author chenq
  */
+import classes.LoginStorage;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -179,13 +180,29 @@ public class Controller {
     }
     @FXML
     private void handleBackButtonAction(ActionEvent event) throws IOException{
-        Node node = (Node) event.getSource();
+        if(LoginStorage.getInstance().getAccountType() == 2){
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        else{
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        /*Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Menu");
-        stage.show();
+        stage.show();*/
     }
     @FXML
     private void handleCloseButtonAction(ActionEvent event) throws IOException{

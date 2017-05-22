@@ -100,13 +100,13 @@ public class ShowFeedbackController implements Initializable {
             alert.showAndWait();
         }
        else{
-        ResultSet rs = jcdb.ManageRitriveFeedback( title );
+        ResultSet rs = jcdb.ManagerRitriveFeedback( title );
             try {
                 while(rs.next()){
                     System.out.println(rs.getString("body"));
                     bodyText.setText(rs.getString("body"));
-                    System.out.println(rs.getString("date"));
-                    dateText.setText(rs.getString("date"));
+                    System.out.println(rs.getDate("date").toString());
+                    dateText.setText(rs.getDate("date").toString());
                     useridText.setText(rs.getString("user_userId"));
                 }
             } catch (SQLException ex) {
@@ -131,7 +131,7 @@ public class ShowFeedbackController implements Initializable {
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-                ResultSet rs = jcdb.ManageDeleteFeedback(title); //remove publisher to database
+                ResultSet rs = jcdb.ManagerDeleteFeedback(title); //remove publisher to database
             }
             else{
                 alert.close();

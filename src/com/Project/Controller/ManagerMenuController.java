@@ -45,7 +45,7 @@ public class ManagerMenuController implements Initializable {
     public void search(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/SearchBook.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Search page");
@@ -133,6 +133,18 @@ public class ManagerMenuController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Account page");
         stage.show();
+    }
+    
+    @FXML    
+    public void calculator(ActionEvent event) throws IOException{
+        //Node node = (Node) event.getSource();
+        //Stage stage = (Stage) node.getScene().getWindow();
+        Stage SecStage = new Stage();
+        Parent SecRoot = FXMLLoader.load(getClass().getResource("/calculator/calculator.fxml"));
+        Scene SecScene = new Scene(SecRoot);
+        SecStage.setScene(SecScene);
+        SecStage.setTitle("calculator");
+        SecStage.show();
     }
     
     
@@ -236,16 +248,5 @@ public class ManagerMenuController implements Initializable {
     @FXML
     public void mouseExitedAccount(MouseEvent e){
         help.reverseButtonSize(accountBt);
-    }
-    @FXML    
-    public void calculator(ActionEvent event) throws IOException{
-        //Node node = (Node) event.getSource();
-        //Stage stage = (Stage) node.getScene().getWindow();
-        Stage SecStage = new Stage();
-        Parent SecRoot = FXMLLoader.load(getClass().getResource("/calculator/calculator.fxml"));
-        Scene SecScene = new Scene(SecRoot);
-        SecStage.setScene(SecScene);
-        SecStage.setTitle("calculator");
-        SecStage.show();
     }
 }

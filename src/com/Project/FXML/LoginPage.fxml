@@ -86,7 +86,15 @@
                                           <Font name="Bell MT Bold" size="15.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="main" layoutX="23.0" layoutY="41.0" mnemonicParsing="false" onMouseClicked="#handleMoreButton" onMouseEntered="#mouseEnteredType" onMouseExited="#mouseExitedType" style="-fx-background-radius: 100;" text="Category &gt;&gt;">
+                                    <Button fx:id="more" layoutX="47.0" layoutY="41.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredMore" onMouseExited="#mouseExitedMore" style="-fx-background-radius: 100;" text="More">
+                                       <font>
+                                          <Font name="Bell MT Bold" size="15.0" />
+                                       </font>
+                                       <effect>
+                                          <Blend />
+                                       </effect>
+                                    </Button>
+                                    <Button fx:id="main" layoutX="23.0" layoutY="41.0" mnemonicParsing="false" onMouseClicked="#handleMoveButton" onMouseEntered="#mouseEnteredType" onMouseExited="#mouseExitedType" style="-fx-background-radius: 100;" text="Category &gt;&gt;">
                                        <font>
                                           <Font name="Bell MT Bold" size="18.0" />
                                        </font>

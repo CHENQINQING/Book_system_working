@@ -65,15 +65,15 @@ public class JCDB {
             String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?, email=?";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
-            prepStmt.setString(1, "John");
+            prepStmt.setString(1, "Lu");
             
-            prepStmt.setString(2, "John");
+            prepStmt.setString(2, "lu");
             
-            prepStmt.setString(3, "admin1");
+            prepStmt.setString(3, "a");
             
-            prepStmt.setInt(4, 2);
+            prepStmt.setInt(4, 1);
             
-            prepStmt.setString(5, "john@gmail.com");
+            prepStmt.setString(5, "lu@gmail.com");
             
             prepStmt.executeUpdate();
             
@@ -582,7 +582,7 @@ public class JCDB {
         return id;
     }
     
-    public ResultSet ManageRitriveFeedback(String title){
+    public ResultSet ManagerRitriveFeedback(String title){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
@@ -599,7 +599,7 @@ public class JCDB {
             return null;
         }
     }
-    public ResultSet ManageDeleteFeedback(String title){
+    public ResultSet ManagerDeleteFeedback(String title){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;

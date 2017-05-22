@@ -43,7 +43,7 @@ import javafx.util.Duration;
 public class LoginPageController implements Initializable {
     @FXML private Tab searchTab, loginTab;
     @FXML private TabPane tabPane;
-    @FXML private Button searchBt, loginBt,main,comic,learning,leisure,bio,feedback;
+    @FXML private Button searchBt, loginBt,main,comic,learning,leisure,bio,feedback,more;
     @FXML private ComboBox combo,loginCombo;
     @FXML private TextField username,searchField;
     @FXML private PasswordField password;
@@ -338,39 +338,52 @@ public class LoginPageController implements Initializable {
         help.reverseButtonSize(feedback);
     }
     
+    @FXML
+    public void mouseEnteredMore(MouseEvent e){
+        help.resizeButton(more);
+    }
+    
+    @FXML
+    public void mouseExitedMore(MouseEvent e){
+        help.reverseButtonSize(more);
+    }
     
     
     @FXML
-    public void handleMoreButton(MouseEvent e){
-        categoryMenuBar(learning, 500);
-        categoryMenuBar(leisure, 400);
-        categoryMenuBar(bio, 300);
-        categoryMenuBar(comic, 200);
+    public void handleMoveButton(MouseEvent e){
+        categoryMenuBar(learning, 500,0);
+        categoryMenuBar(leisure, 400,0);
+        categoryMenuBar(bio, 300,0);
+        categoryMenuBar(comic, 200,0);
+        categoryMenuBar(more, 0, 50);
     }
     
    @FXML
    public void handleMoveBack(MouseEvent e){
-       categoryMenuBarReverse(learning, 0);
-        categoryMenuBarReverse(leisure, 0);
-        categoryMenuBarReverse(bio, 0);
-        categoryMenuBarReverse(comic, 0);
+       categoryMenuBarReverse(learning, 0,0);
+        categoryMenuBarReverse(leisure, 0,0);
+        categoryMenuBarReverse(bio, 0,0);
+        categoryMenuBarReverse(comic, 0,0);
+        categoryMenuBarReverse(more, 0,0);
    }
     
-    public void categoryMenuBar(Button bt,int x){
+    public void categoryMenuBar(Button bt,int x,int y){
         //TranslateTransition ---> get a move.
         TranslateTransition translate = new TranslateTransition();
         translate.setDuration(Duration.seconds(2));
         translate.setNode(bt);
         translate.setToX(x);
+        translate.setToY(y);
         translate.play();
     }
     
-    public void categoryMenuBarReverse(Button bt,int x){
+    public void categoryMenuBarReverse(Button bt,int x,int y){
         //TranslateTransition ---> get a move.
         TranslateTransition translate = new TranslateTransition();
         translate.setDuration(Duration.seconds(2));
         translate.setNode(bt);
         translate.setToX(x);
+        translate.setToY(y);
         translate.play();
     }
 }
