@@ -63,15 +63,15 @@ public class JCDB {
             String statement = "INSERT INTO user SET name=?, username=?, password=?, level=?, email=?";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
-            prepStmt.setString(1, "James");
+            prepStmt.setString(1, "John");
             
-            prepStmt.setString(2, "James");
+            prepStmt.setString(2, "John");
             
-            prepStmt.setString(3, "manager1");
+            prepStmt.setString(3, "admin1");
             
-            prepStmt.setInt(4, 1);
+            prepStmt.setInt(4, 2);
             
-            prepStmt.setString(5, "james@gmail.com");
+            prepStmt.setString(5, "john@gmail.com");
             
             prepStmt.executeUpdate();
             
@@ -85,7 +85,7 @@ public class JCDB {
     public void managerAddNewBook(Book book) throws SQLException {
         try(Connection conn = establishConnection();){
             //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
-            String statement = "INSERT INTO book SET book_name=?, author=?, price=?, introduction=?, type=?, REPERTORY_SIZE=?, publisher_Pub_id=(SELECT Pub_id FROM publisher WHERE Pub_name = ?)";
+            String statement = "INSERT INTO book SET book_name=?, author=?, price=?, introduction=?, type=?, REPERTORY_SIZE=?, date=?, publisher_Pub_id=(SELECT Pub_id FROM publisher WHERE Pub_name = ?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             prepStmt.setString(1, book.getName());
@@ -94,7 +94,8 @@ public class JCDB {
             prepStmt.setString(4, book.getIntroduction());
             prepStmt.setString(5, book.getType());
             prepStmt.setInt(6, book.getQuantity());
-            prepStmt.setString(7, book.getPublisher());
+            prepStmt.setDate(7, help.toSqlDate(book.getDate()));
+            prepStmt.setString(8, book.getPublisher());
             
             prepStmt.executeUpdate();
             
@@ -252,7 +253,7 @@ public class JCDB {
     public void customerFeedback(Feedback feedback){
         try(Connection conn = establishConnection();){
             //String statement = "INSERT INTO book (book_name, publisher_Pub_id, author, price, introduction, type) VALUES (?,?,?,?,?,?,?)";
-            String statement = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, dateTime=?, status=?, user_userId=(SELECT userId FROM user WHERE name=?)";
+            String statement = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, date=?, status=?, user_userId=(SELECT userId FROM user WHERE name=?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             prepStmt.setInt(1, feedback.getId());

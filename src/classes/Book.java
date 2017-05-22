@@ -5,6 +5,8 @@
  */
 package classes;
 
+import java.time.LocalDate;
+import java.util.Date;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,6 +29,7 @@ public class Book {
     //private int inventory;
     private SimpleStringProperty type = new SimpleStringProperty();
     private SimpleIntegerProperty quantity = new SimpleIntegerProperty();
+    private LocalDate date;
     
     public Book(){
         this.name = new SimpleStringProperty();
@@ -37,6 +40,7 @@ public class Book {
         this.introduction = new SimpleStringProperty();
         this.publisher = new SimpleStringProperty();
         this.quantity = new SimpleIntegerProperty();
+        this.date = null;
     }
     
     public Book(String name, String author, double price,String publisher, String type,int quantity,String intro) {
@@ -49,7 +53,7 @@ public class Book {
         this.introduction = new SimpleStringProperty(intro);
     }
     
-    public Book(String name, String author, double price,String publisher, String type, String intro, int quantity) {
+    public Book(String name, String author, double price,String publisher, String type, String intro, int quantity, LocalDate date) {
         this.name = new SimpleStringProperty(name);
         this.author = new SimpleStringProperty(author);
         this.price = new SimpleDoubleProperty(price);
@@ -57,6 +61,7 @@ public class Book {
         this.introduction = new SimpleStringProperty(intro);
         this.publisher = new SimpleStringProperty(publisher);
         this.quantity = new SimpleIntegerProperty(quantity);
+        this.date = date;
     }
     
     public Book(String name, String author, double price, int publisherId, String type, String intro,String publisher) {
@@ -197,6 +202,14 @@ public class Book {
      */
     public void setType(String type) {
         this.type.set(type);
+    }
+    
+    public LocalDate getDate() {
+        return date;
+    }
+
+     public void setDate(LocalDate date) {
+        this.date = date;
     }
     
     //property value
