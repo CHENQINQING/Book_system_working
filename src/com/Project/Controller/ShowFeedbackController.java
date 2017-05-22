@@ -23,11 +23,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -46,6 +43,8 @@ public class ShowFeedbackController implements Initializable {
     private ComboBox titleCombo;
 
     private ObservableList<String> titleList = FXCollections.observableArrayList();
+    
+    private ObservableList<Feedback> feedbackData;
 
 
     /**
@@ -67,29 +66,34 @@ public class ShowFeedbackController implements Initializable {
         stage.setTitle("Menu");
         stage.show();
     }
+    @FXML    
+    public void ButtonRead(ActionEvent event) throws IOException{
+        System.out.println(titleCombo.getSelectionModel().getSelectedItem().toString());
+        getFeedbackData(titleCombo.getSelectionModel().getSelectedItem().toString()); 
+    }
     
     private void getComboBoxValue(){
-        jcdb.fillPublisherCombo(titleList);
+        jcdb.fillTitleCombo(titleList);
         //set comboBox value.
+        titleCombo.setValue("choise title");
         titleCombo.setItems(titleList);
     }
     
-//    private void getFeedbackData() {
-//       feedbackData=FXCollections.observableArrayList();
-//       ResultSet rs = jcdb.ManageRitriveFeedback();
+    private void getFeedbackData(String title) {
+       feedbackData=FXCollections.observableArrayList();
+       ResultSet rs = jcdb.ManageRitriveFeedback( title );
 //       Feedback feed = null;
-//        try {
-//            while(rs.next()){
-//                System.out.println(rs.getString("title"));
-//                System.out.println(rs.getString("body"));
-//                System.out.println(rs.getString("datetime"));
-//                feed = new Feedback(rs.getString("title"));
-//               // feedbackData.add(feed);
-//            }
-//        } catch (SQLException ex) {
-//            System.out.println("Error "+ ex);
-//        }        
-//        table.setItems(feedbackData);
-//    }
+        try {
+            while(rs.next()){
+                System.out.println(rs.getString("body"));
+                bodyText.setText(rs.getString("body"));
+                System.out.println(rs.getString("datetime"));
+                dateText.setText(rs.getString("datetime"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error "+ ex);
+        }        
+
+    }
     
 }

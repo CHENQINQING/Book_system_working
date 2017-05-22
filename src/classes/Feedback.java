@@ -5,69 +5,82 @@
  */
 package classes;
 
+import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
 /**
  *
- * @author liushuai
+ * @author Xuantong
  */
 public class Feedback {
-    private final IntegerProperty id = new SimpleIntegerProperty(this, "id");
-    private final StringProperty title = new SimpleStringProperty(this, "title");
-    private final StringProperty body = new SimpleStringProperty(this, "body");
-    private final StringProperty email = new SimpleStringProperty(this, "email");
-    private final StringProperty datetime = new SimpleStringProperty(this, "datatime");
+    private IntegerProperty id = new SimpleIntegerProperty();
+    private StringProperty title = new SimpleStringProperty();
+    private StringProperty body = new SimpleStringProperty();
+    private StringProperty status = new SimpleStringProperty();
+    private LocalDate date;
     
-    public Feedback(String title,String body,String email){
-        this.title.set(title);   
-        this.body.set(body); 
-        this.email.set(email); 
+    public Feedback(){
+        this.id = new SimpleIntegerProperty();
+        this.title = new SimpleStringProperty();
+        this.body = new SimpleStringProperty();
+        this.status = new SimpleStringProperty();
+        this.date = null;
     }
-    public final StringProperty titleProperty() {
-        return this.title;
+    
+    public Feedback(String title){
+        this.title.set(title);       
+    }
+    
+    public void setStatus(String status){
+        this.statusProperty().set(status);
+    }
+    public String getStatus(){
+        return status.get();
+    }
+    public StringProperty statusProperty(){
+        return status;
+    }
+    
+    public StringProperty titleProperty() {
+        return title;
     }
 
-    public final java.lang.String getTitle() {
-        return this.titleProperty().get();
+    public String getTitle() {
+        return titleProperty().get();
     }
 
-    public final void setTitle(final java.lang.String title) {
+    public void setTitle(String title) {
         this.titleProperty().set(title);
     }
-    public final StringProperty bodyProperty() {
-        return this.body;
+    public StringProperty bodyProperty() {
+        return body;
     }
 
-    public final java.lang.String getBody() {
-        return this.bodyProperty().get();
+    public String getBody() {
+        return bodyProperty().get();
     }
 
-    public final void setBody(final java.lang.String body) {
+    public void setBody(String body) {
         this.bodyProperty().set(body);
     }
-    public final StringProperty datetimeProperty() {
-        return this.datetime;
+
+    public LocalDate getDatetime() {
+        return date;
     }
 
-    public final java.lang.String getDatetime() {
-        return this.datetimeProperty().get();
+     public void setDatetime(LocalDate date) {
+        this.date = date;
     }
-
-    public final void setDatetime(final java.lang.String datetime) {
-        this.datetimeProperty().set(datetime);
+    
+    public void setId(int id){
+        this.idProperty().set(id);
     }
-    public final StringProperty emailProperty() {
-        return this.email;
+    public int getId(){
+        return id.get();
     }
-
-    public final java.lang.String getEmail() {
-        return this.emailProperty().get();
-    }
-
-    public final void setEmail(final java.lang.String email) {
-        this.datetimeProperty().set(email);
+    public IntegerProperty idProperty(){
+        return id;
     }
 }

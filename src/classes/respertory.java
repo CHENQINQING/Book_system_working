@@ -9,14 +9,12 @@ package classes;
  *
  * @author chenq
  */
-public class salesInf {
-    
+public class respertory {
     private String bookName;
     private String Date;
     private int amount;
-    private double price;
     
-    public salesInf(String bookName,String Date,int amount){
+    public respertory(String bookName,String Date,int amount){
         this.bookName = bookName;
         this.amount = amount;
         this.Date = Date;
@@ -62,19 +60,5 @@ public class salesInf {
      */
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    /**
-     * @return the price
-     */
-    public double getPrice() {
-        return price;
-    }
-
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(double price) {
-        this.price = price;
     }
 }

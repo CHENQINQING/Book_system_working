@@ -40,7 +40,8 @@ import javafx.stage.Stage;
  * @author liushuai
  */
 public class PublisherController implements Initializable {
-    JCDB jcdb =new JCDB();
+    private JCDB jcdb =new JCDB();
+    private Help help = new Help();
     
     @FXML
     private Button ButtonClear;
@@ -110,7 +111,7 @@ public class PublisherController implements Initializable {
     }
     
     private void SaveToDatabase() throws SQLException, NumberFormatException {
-        boolean isTel = Help.isInteger(telephone.getText());
+        boolean isTel = help.isInteger(telephone.getText());
         
         if(!isTel){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -137,7 +138,7 @@ public class PublisherController implements Initializable {
             alert.show();
         }
         else{
-            int tele =Integer.valueOf( telephone.getText());;
+            int tele =Integer.valueOf( telephone.getText());
             Publisher p = new Publisher(
                     publishername.getText(), 
                     address.getText(), 

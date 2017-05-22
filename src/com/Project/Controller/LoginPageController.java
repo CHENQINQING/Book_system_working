@@ -8,6 +8,7 @@ package com.Project.Controller;
 import classes.BookStorage;
 import classes.Help;
 import classes.LoginStorage;
+import classes.User;
 import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -41,12 +43,15 @@ import javafx.util.Duration;
 public class LoginPageController implements Initializable {
     @FXML private Tab searchTab, loginTab;
     @FXML private TabPane tabPane;
-    @FXML private Button searchBt, loginBt,main,comic,learning,leisure,bio;
+    @FXML private Button searchBt, loginBt,main,comic,learning,leisure,bio,feedback;
     @FXML private ComboBox combo,loginCombo;
-    @FXML private TextField username, password,searchField;
+    @FXML private TextField username,searchField;
+    @FXML private PasswordField password;
     @FXML private Label title;
     
     private JCDB db = new JCDB();
+    private User user = new User();
+    private Help help = new Help();
     
     //ObservableList used for holding comboBox value.
     //private ObservableList<String> list = FXCollections.observableArrayList("Name","Author","Publisher");
@@ -189,129 +194,148 @@ public class LoginPageController implements Initializable {
         stage.show();
     }
     
+    @FXML
+    private void handleFeedback(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/CustomerFeedbackInfo.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     
     //Resize button when mouse move entered button.
     //user search page
     @FXML
     public void mouseEnteredSearch(MouseEvent e){
-        Help.resizeButton(searchField);
+        help.resizeButton(searchField);
     }
     
     @FXML
     public void mouseExitedSearch(MouseEvent e){
-        Help.reverseButtonSize(searchField);
+        help.reverseButtonSize(searchField);
     }
     
     @FXML
     public void mouseEnteredCombo(MouseEvent e){
-        Help.resizeButton(combo);
+        help.resizeButton(combo);
     }
     
     @FXML
     public void mouseExitedCombo(MouseEvent e){
-        Help.reverseButtonSize(combo);
+        help.reverseButtonSize(combo);
     }
     
     @FXML
     public void mouseEnteredSearchBt(MouseEvent e){
-        Help.resizeButton(searchBt);
+        help.resizeButton(searchBt);
     }
     
     @FXML
     public void mouseExitedSearchBt(MouseEvent e){
-        Help.reverseButtonSize(searchBt);
+        help.reverseButtonSize(searchBt);
     }
     
     //Resize button when mouse move entered button.
     //loging page
     @FXML
     public void mouseEnteredUsername(MouseEvent e){
-        Help.resizeButton(username);
+        help.resizeButton(username);
     }
     
     @FXML
     public void mouseExitedUsername(MouseEvent e){
-        Help.reverseButtonSize(username);
+        help.reverseButtonSize(username);
     }
     
     @FXML
     public void mouseEnteredPassword(MouseEvent e){
-        Help.resizeButton(password);
+        help.resizeButton(password);
     }
     
     @FXML
     public void mouseExitedPassword(MouseEvent e){
-        Help.reverseButtonSize(password);
+        help.reverseButtonSize(password);
     }
     
     @FXML
     public void mouseEnteredLoginCombo(MouseEvent e){
-        Help.resizeButton(loginCombo);
+        help.resizeButton(loginCombo);
     }
     
     @FXML
     public void mouseExitedLoginCombo(MouseEvent e){
-        Help.reverseButtonSize(loginCombo);
+        help.reverseButtonSize(loginCombo);
     }
     
     @FXML
     public void mouseEnteredLoginBt(MouseEvent e){
-        Help.resizeButton(loginBt);
+        help.resizeButton(loginBt);
     }
     
     @FXML
     public void mouseExitedLoginBt(MouseEvent e){
-        Help.reverseButtonSize(loginBt);
+        help.reverseButtonSize(loginBt);
     }
     
     @FXML
     public void mouseEnteredType(MouseEvent e){
-        Help.resizeButton(main);
+        help.resizeButton(main);
     }
     
     @FXML
     public void mouseExitedType(MouseEvent e){
-        Help.reverseButtonSize(main);
+        help.reverseButtonSize(main);
     }
     
     @FXML
     public void mouseEnteredLearning(MouseEvent e){
-        Help.resizeButton(learning);
+        help.resizeButton(learning);
     }
     
     @FXML
     public void mouseExitedLearning(MouseEvent e){
-        Help.reverseButtonSize(learning);
+        help.reverseButtonSize(learning);
     }
     
     @FXML
     public void mouseEnteredLeisure(MouseEvent e){
-        Help.resizeButton(leisure);
+        help.resizeButton(leisure);
     }
     
     @FXML
     public void mouseExitedLeisure(MouseEvent e){
-        Help.reverseButtonSize(leisure);
+        help.reverseButtonSize(leisure);
     }
     
     @FXML
     public void mouseEnteredBio(MouseEvent e){
-        Help.resizeButton(bio);
+        help.resizeButton(bio);
     }
     
     @FXML
     public void mouseExitedBio(MouseEvent e){
-        Help.reverseButtonSize(bio);
+        help.reverseButtonSize(bio);
     }
     
     @FXML
     public void mouseEnteredComic(MouseEvent e){
-        Help.resizeButton(comic);
+        help.resizeButton(comic);
     }
     
     @FXML
     public void mouseExitedComic(MouseEvent e){
-        Help.reverseButtonSize(comic);
+        help.reverseButtonSize(comic);
+    }
+    
+    @FXML
+    public void mouseEnteredFeedback(MouseEvent e){
+        help.resizeButton(feedback);
+    }
+    
+    @FXML
+    public void mouseExitedFeedback(MouseEvent e){
+        help.reverseButtonSize(feedback);
     }
     
     

@@ -94,12 +94,12 @@ public class FeedbackController implements Initializable {
             alert.show();
         }
         else{
-            Feedback feed = new Feedback(
-                    titleText.getText(), 
-                    bodyText.getText(), 
-                    emailText.getText());
+//            Feedback feed = new Feedback(
+//                    titleText.getText(), 
+//                    bodyText.getText(), 
+//                    emailText.getText());
             
-            jcdb.managerSaveFeedback(feed);
+//            jcdb.managerSaveFeedback(feed);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("SAVED");
             alert.setContentText("The Data Has Been Saved");
