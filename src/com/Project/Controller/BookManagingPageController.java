@@ -7,6 +7,7 @@ package com.Project.Controller;
 
 import classes.Book;
 import classes.Help;
+import classes.LoginStorage;
 import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -146,12 +148,29 @@ public class BookManagingPageController implements Initializable {
     
     @FXML
     private void handleBackAction(ActionEvent event) throws IOException {
-        Node node = (Node) event.getSource();
+        if(LoginStorage.getInstance().getAccountType() == 2){
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        else{
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/ManagerMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        
+        /*Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/Menu.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
     }
     
      @FXML
