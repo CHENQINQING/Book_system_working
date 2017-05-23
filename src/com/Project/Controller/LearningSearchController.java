@@ -104,7 +104,7 @@ public class LearningSearchController implements Initializable {
                         rs.getString("author"), 
                         rs.getDouble("price"), 
                         rs.getString("Pub_name"), 
-                        rs.getString("type"), 
+                        rs.getString("type_name"), 
                         rs.getInt("REPERTORY_SIZE"),
                         rs.getString("introduction")));
             }
