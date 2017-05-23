@@ -113,13 +113,13 @@ public class ShowFeedbackController implements Initializable {
                while(rs.next()){
                    System.out.println(rs.getInt("feedback_id"));
                    System.out.println(rs.getString("body"));
+                   System.out.println(rs.getDate("date").toString());
                    System.out.println(rs.getString("status"));
                    
                    feedback.setId(rs.getInt("feedback_id"));
                    bodyText.setText(rs.getString("body"));
-                   System.out.println(rs.getDate("date").toString());
                    dateText.setText(rs.getDate("date").toString());
-                   useridText.setText(rs.getString("user_userId"));
+                   useridText.setText(rs.getString("name"));
                    
                    if(rs.getString("status") == null){
                        status.setText(" ");
@@ -151,7 +151,12 @@ public class ShowFeedbackController implements Initializable {
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK){
-                jcdb.ManagerDeleteFeedback(feedback.getId()); //remove publisher to database
+//                System.out.println("feedback id: "+feedback.getId());
+                jcdb.ManagerDeleteFeedback(feedback.getId()); //remove feedback from database
+                titleCombo.setValue("choise title");
+                bodyText.clear();
+                dateText.clear();
+                useridText.clear();
             }
             else{
                 alert.close();
