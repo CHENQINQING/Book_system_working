@@ -588,7 +588,7 @@ public class JCDB {
         ResultSet rs = null;
         try {
 //            String SQL = "SELECT body,date,email FROM feedback,user WHERE title = ? and user_useId = user_Id";
-            String SQL = "SELECT feedback_id,body,date,status,user_userId FROM feedback WHERE title = ? ";
+            String SQL = "SELECT feedback_id,body,date,status,name FROM feedback,user WHERE userId = user_userId AND title = ?";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             prepStmt.setString(1, title);
@@ -604,13 +604,13 @@ public class JCDB {
         Connection conn = null;
         PreparedStatement prepStmt = null;
         try {
-            String SQL = "DELETE FROM book_system.feedback WHERE feedback_id=?";
+            String SQL = "DELETE FROM feedback WHERE feedback_id=?";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             prepStmt.setInt(1, feedback_id);
             prepStmt.executeQuery();
         } catch (Exception e) {
-            System.out.println("Cannot ritrive any feedback information.");
+            System.out.println("Cannot remove feedback.");
         }
     }
     public void fillTitleCombo(ObservableList option){
@@ -630,7 +630,7 @@ public class JCDB {
      }
     public void employeeSaveFeedback(Feedback feed) throws SQLException {
         try(Connection conn = establishConnection();){
-            String  SQL = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, date=?,  user_userId=(SELECT userId FROM user WHERE name=?)";
+            String  SQL = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, date=?, user_userId=(SELECT userId FROM user WHERE name=?)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(SQL);
             
             prepStmt.setInt(1, feed.getId());
