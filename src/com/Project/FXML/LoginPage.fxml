@@ -86,7 +86,7 @@
                                           <Font name="Bell MT Bold" size="15.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="more" layoutX="47.0" layoutY="41.0" mnemonicParsing="false" onMouseEntered="#mouseEnteredMore" onMouseExited="#mouseExitedMore" style="-fx-background-radius: 100;" text="More">
+                                    <Button fx:id="more" layoutX="47.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleMoreTypeSearch" onMouseEntered="#mouseEnteredMore" onMouseExited="#mouseExitedMore" style="-fx-background-radius: 100;" text="More">
                                        <font>
                                           <Font name="Bell MT Bold" size="15.0" />
                                        </font>

@@ -106,22 +106,32 @@ public class ShowFeedbackController implements Initializable {
             alert.setContentText("Please select a title.");
             alert.showAndWait();
         }
-       else{
-        ResultSet rs = jcdb.ManagerRitriveFeedback( title );
-            try {
-                while(rs.next()){
-                    feedback.setId(rs.getInt("feedback_id"));
-                    System.out.println(rs.getInt("feedback_id"));
-                    System.out.println(rs.getString("body"));
-                    bodyText.setText(rs.getString("body"));
-                    System.out.println(rs.getDate("date").toString());
-                    dateText.setText(rs.getDate("date").toString());
-                    useridText.setText(rs.getString("user_userId"));
-                    status.setText("The user feel: "+rs.getString("status"));
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error "+ ex);
-            }        
+        else{
+           
+           ResultSet rs = jcdb.ManagerRitriveFeedback( title );
+           try {
+               while(rs.next()){
+                   System.out.println(rs.getInt("feedback_id"));
+                   System.out.println(rs.getString("body"));
+                   System.out.println(rs.getString("status"));
+                   
+                   feedback.setId(rs.getInt("feedback_id"));
+                   bodyText.setText(rs.getString("body"));
+                   System.out.println(rs.getDate("date").toString());
+                   dateText.setText(rs.getDate("date").toString());
+                   useridText.setText(rs.getString("user_userId"));
+                   
+                   if(rs.getString("status") == null){
+                       status.setText(" ");
+                   }
+                   else{
+                       status.setText("The user feels: "+rs.getString("status"));
+                   }
+                   
+               }
+           } catch (SQLException ex) {
+               System.out.println("Error "+ ex);
+           }        
         }
     }
 
