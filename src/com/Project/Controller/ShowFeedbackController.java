@@ -87,6 +87,7 @@ public class ShowFeedbackController implements Initializable {
         bodyText.setText("");
         dateText.setText("");
         useridText.setText("");
+        status.setText("");
     }
     
     private void getComboBoxValue(){
