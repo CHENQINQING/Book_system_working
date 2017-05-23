@@ -34,6 +34,7 @@
                   <ComboBox fx:id="titleCombo" layoutX="96.0" layoutY="33.0" prefHeight="35.0" prefWidth="389.0" promptText="choise title" />
                   <Label layoutX="49.0" layoutY="94.0" prefHeight="33.0" prefWidth="66.0" text="From user:" />
                   <TextField fx:id="useridText" alignment="CENTER" editable="false" layoutX="115.0" layoutY="94.0" prefHeight="33.0" prefWidth="37.0" />
+                  <Label fx:id="status" alignment="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="15.0" prefWidth="264.0" />
                </children>
             </AnchorPane>
         </items>

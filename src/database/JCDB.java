@@ -588,7 +588,7 @@ public class JCDB {
         ResultSet rs = null;
         try {
 //            String SQL = "SELECT body,date,email FROM feedback,user WHERE title = ? and user_useId = user_Id";
-            String SQL = "SELECT body,date,user_userId FROM feedback WHERE title = ? ";
+            String SQL = "SELECT feedback_id,body,date,status,user_userId FROM feedback WHERE title = ? ";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             prepStmt.setString(1, title);
@@ -599,20 +599,18 @@ public class JCDB {
             return null;
         }
     }
-    public ResultSet ManagerDeleteFeedback(String title){
+    public void ManagerDeleteFeedback(int feedback_id){
+        System.out.println(feedback_id);
         Connection conn = null;
         PreparedStatement prepStmt = null;
-        ResultSet rs = null;
         try {
-            String SQL = "DELETE FROM feedback WHERE title = ?";
+            String SQL = "DELETE FROM book_system.feedback WHERE feedback_id=?";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
-            prepStmt.setString(1, title);
-            rs =prepStmt.executeQuery();
-            return rs;
+            prepStmt.setInt(1, feedback_id);
+            prepStmt.executeQuery();
         } catch (Exception e) {
             System.out.println("Cannot ritrive any feedback information.");
-            return null;
         }
     }
     public void fillTitleCombo(ObservableList option){
