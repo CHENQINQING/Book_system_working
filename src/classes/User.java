@@ -31,6 +31,13 @@ public class User {
     this.level = new SimpleIntegerProperty();
     this.email = new SimpleStringProperty();
     }
+
+    public User(String name, int level, String email) {
+        this.name = new SimpleStringProperty(name);
+        this.level = new SimpleIntegerProperty(level);
+        this.email = new SimpleStringProperty(email);
+    }
+
     
     public int getId() {
         return id.get();

@@ -14,6 +14,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,18 +82,42 @@ public class CustomerFeedbackInfoController implements Initializable {
                     alert2.showAndWait();
                 }
             }
+            else if(!emailTf.getText().isEmpty()){
+                if(!checkEmail(emailTf.getText())){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Email ERROR");
+                    alert.setContentText("Email address is incorrect.");
+                    alert.showAndWait();
+                }
+                else{
+                    UserStorage.getInstance().setName(name.getText());
+                
+                    user.setName(name.getText());
+                    user.setLevel(3);
+                    user.setUsername(" ");
+                    user.setPassword(" ");
+                    user.setEmail(emailTf.getText());
+                    db.createCustomerID(user);
+                
+                    Node node = (Node) event.getSource();
+                    Stage stage = (Stage) node.getScene().getWindow();
+                    Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/CustomerFeedback.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
             else{
                 UserStorage.getInstance().setName(name.getText());
-                
                 user.setName(name.getText());
                 user.setLevel(3);
                 user.setUsername(" ");
                 user.setPassword(" ");
-                user.setEmail(emailTf.getText());
+                user.setEmail(" ");
                 db.createCustomerID(user);
                 
                 Node node = (Node) event.getSource();
-                Stage stage = (Stage) node.getScene().getWindow();
+                Stage stage = (Stage) node.getScene().getWindow();    
                 Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/CustomerFeedback.fxml"));
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
@@ -106,15 +132,14 @@ public class CustomerFeedbackInfoController implements Initializable {
         }
     }
     
-    @FXML
-    private void handleNamelessAction(ActionEvent event){
-//        name.clear();
-//        name.setEditable(false);
-    }
-    
-    @FXML
-    private void handleSighNameAction(ActionEvent event){
-//        name.setEditable(true);
+    private static boolean checkEmail(String emaile){
+        String RULE_EMAIL = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
+        //正则表达式的模式
+        Pattern p = Pattern.compile(RULE_EMAIL);
+        //正则表达式的匹配器
+        Matcher m = p.matcher(emaile);
+        //进行正则匹配
+        return m.matches();
     }
     
     @FXML
