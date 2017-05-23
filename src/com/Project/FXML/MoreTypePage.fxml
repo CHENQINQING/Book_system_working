@@ -9,22 +9,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.BookSearchController2">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Project.Controller.MoreTypePageController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true">
          <image>
-            <Image url="@../../../buttonIcon/MenuB.jpg" />
-         </image></ImageView>
-      <VBox alignment="CENTER" layoutX="114.0" layoutY="50.0" prefHeight="500.0" prefWidth="700.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Image url="@../../../buttonIcon/background3.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="114.0" layoutY="50.0" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="75.0" prefWidth="700.0">
                <children>
-                  <TextField fx:id="bookNameTf1" onAction="#handleSearchAction" onMouseEntered="#mouseEnteredField" onMouseExited="#mouseExitedField" prefHeight="39.0" prefWidth="299.0" promptText="Book Name" style="-fx-background-radius: 10;">
+                  <TextField fx:id="bookNameTf1" blendMode="SCREEN" onAction="#handleSearchAction" onMouseEntered="#mouseEnteredField" onMouseExited="#mouseExitedField" prefHeight="39.0" prefWidth="299.0" promptText="Category" style="-fx-background-radius: 10;">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="searchBt" mnemonicParsing="false" onAction="#handleSearchAction" onMouseEntered="#mouseEnteredSearch" onMouseExited="#mouseExitedSearch" style="-fx-background-radius: 10;" text="Search">
+                  <Button fx:id="searchBt" blendMode="SCREEN" mnemonicParsing="false" onAction="#handleSearchAction" onMouseEntered="#mouseEnteredSearch" onMouseExited="#mouseExitedSearch" style="-fx-background-radius: 10;" text="Search">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
@@ -39,7 +40,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="resetBt" mnemonicParsing="false" onAction="#handleResetAction" onMouseEntered="#mouseEnteredReset" onMouseExited="#mouseExitedReset" style="-fx-background-radius: 10;" text="Reset">
+                  <Button fx:id="resetBt" blendMode="SCREEN" mnemonicParsing="false" onAction="#handleResetAction" onMouseEntered="#mouseEnteredReset" onMouseExited="#mouseExitedReset" style="-fx-background-radius: 10;" text="Reset">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -52,6 +53,9 @@
                      </font>
                   </Button>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
             </HBox>
             <TableView fx:id="tv" blendMode="LIGHTEN" prefHeight="375.0" prefWidth="780.0" style="-fx-background-radius: 10;">
               <columns>
@@ -59,17 +63,20 @@
                 <TableColumn fx:id="AUTHOR" prefWidth="116.0" text="AUTHORS" />
                   <TableColumn fx:id="PUBLISHER" minWidth="8.0" prefWidth="111.0" text="PUBLISHER" />
                   <TableColumn fx:id="PRICE" minWidth="0.0" prefWidth="70.0" text="PRICE" />
-                  <TableColumn fx:id="TYPE" prefWidth="94.0" text="TYPE" />
-                  <TableColumn fx:id="quantityId" prefWidth="103.0" text="QUANTITY" />
-                  <TableColumn fx:id="introduction" prefWidth="181.0" text="INTRODUCTION" />
+                  <TableColumn fx:id="quantityId" prefWidth="116.0" text="QUANTITY" />
+                  <TableColumn fx:id="introduction" prefWidth="194.0" text="INTRODUCTION" />
+                  <TableColumn fx:id="TYPE" prefWidth="68.0" text="TYPE" />
               </columns>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </TableView>
-            <HBox alignment="BOTTOM_RIGHT" prefHeight="46.0" prefWidth="700.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="780.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
                <children>
-                  <Button fx:id="homeBt" mnemonicParsing="false" onAction="#handleBackAction" onMouseEntered="#mouseEnteredHome" onMouseExited="#mouseExitedHome" style="-fx-background-radius: 10;" text="Menu">
+                  <Button fx:id="homeBt" blendMode="SCREEN" mnemonicParsing="false" onAction="#handleLogoutAction" onMouseEntered="#mouseEnteredHome" onMouseExited="#mouseExitedHome" style="-fx-background-radius: 10;" text="Home">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -84,6 +91,14 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="800.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <ComboBox fx:id="moreComboValue" blendMode="LIGHTEN" onAction="#handleDisplayDataAction" prefHeight="51.0" prefWidth="191.0" promptText="More Category " style="-fx-background-radius: 100;" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

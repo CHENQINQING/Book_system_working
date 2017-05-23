@@ -174,6 +174,16 @@ public class LoginPageController implements Initializable {
         stage.show();
     }
     
+    @FXML
+    public void handleMoreTypeSearch(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/MoreTypePage.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     //go to manager page.
     private void visitEmployee(ActionEvent event) throws IOException{
         Node node = (Node) event.getSource();
