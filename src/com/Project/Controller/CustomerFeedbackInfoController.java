@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -60,13 +61,14 @@ public class CustomerFeedbackInfoController implements Initializable {
             if(db.verifyCustomer(name.getText())){
                 System.out.println("This customer is already in database.");
                 
-                Alert alert = new Alert(AlertType.CONFIRMATION);
+                ButtonType yes = new ButtonType("YES", ButtonBar.ButtonData.OK_DONE);
+                ButtonType no = new ButtonType("NO", ButtonBar.ButtonData.CANCEL_CLOSE);
+                Alert alert = new Alert(AlertType.CONFIRMATION, "Your name has been used. Have you ever created this name before?", yes,no);
                 alert.setTitle("Confirmation");
                 alert.setHeaderText("Name Repeat");
-                alert.setContentText("Your name has been used. Have you ever created this name before?");
 
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
+                if (result.isPresent() && result.get() == yes){
                     UserStorage.getInstance().setName(name.getText());
                 
                     Node node = (Node) event.getSource();

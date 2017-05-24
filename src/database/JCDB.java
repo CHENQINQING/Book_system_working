@@ -20,6 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -293,7 +296,7 @@ public class JCDB {
     
     public void customerFeedback(Feedback feedback){
         try(Connection conn = establishConnection();){
-            String statement = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, date=?, status=?, user_userId=(SELECT userId FROM user WHERE name=?)";
+            String statement = "INSERT INTO feedback SET feedback_id=?, title=?, body=?, date=?, status=?, user_userId=(SELECT userId FROM user WHERE name=? AND level = 3)";
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             
             prepStmt.setInt(1, feedback.getId());
@@ -529,6 +532,52 @@ public class JCDB {
         return rs;
     }
     
+    public void createNewAccount(TextField name,TextField username,TextField passwordTF,TextField level,TextField email) throws SQLException{
+        try {
+            User user = new User();
+            Connection conn = establishConnection();
+            String statement = "INSERT INTO user SET name=?,username=?,password=?,level=?,email=?";
+            user.setName(name.getText());
+            user.setUsername(username.getText());
+            user.setPassword(passwordTF.getText());
+            user.setLevel(Integer.parseInt(level.getText()));
+            user.setEmail(email.getText());
+            
+            PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
+            prepStmt.setString(1, user.getName());
+            prepStmt.setString(2, user.getUsername());
+            prepStmt.setString(3, user.getPassword());
+            prepStmt.setInt(4, user.getLevel());
+            prepStmt.setString(5, user.getEmail());
+            
+            prepStmt.executeUpdate();
+            System.out.println("Create New Account Successed");
+        } catch (Exception e) {
+            System.out.println("Create Failed: "+e);
+        }
+        
+    }
+    
+    public boolean verifyNewAccount(String uname) throws SQLException{
+        Connection conn = establishConnection();
+        String query = "SELECT count(*) FROM user WHERE username = ?";
+        
+        PreparedStatement statement = conn.prepareStatement(query);
+        statement.setString(1, uname);
+        ResultSet rs = statement.executeQuery();
+        int count = 0;
+        while(rs.next()) {
+            System.out.println("count: "+rs.getInt(1));
+            count = rs.getInt(1);
+        }
+        if(count==0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
     public boolean verifyAccount(String uname, String accountType) throws SQLException{
         Connection conn = establishConnection();
         String query = "";
@@ -540,7 +589,6 @@ public class JCDB {
         }
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setString(1, uname);
-        //statement.setInt(2, LoginStorage.getInstance().getAccountType());
         ResultSet rs = statement.executeQuery();
         int count = 0;
         while(rs.next()) {
@@ -582,21 +630,38 @@ public class JCDB {
         return id;
     }
     
-    public ResultSet ManagerRitriveFeedback(String title){
+    public void ManagerRitriveFeedback(String title, TextArea bodyText,TextField dateText,TextField userText,Label status,Feedback feedback){
         Connection conn = null;
         PreparedStatement prepStmt = null;
         ResultSet rs = null;
         try {
-//            String SQL = "SELECT body,date,email FROM feedback,user WHERE title = ? and user_useId = user_Id";
+//          String SQL = "SELECT body,date,email FROM feedback,user WHERE title = ? and user_useId = user_Id";
             String SQL = "SELECT feedback_id,body,date,status,name FROM feedback,user WHERE userId = user_userId AND title = ?";
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             prepStmt.setString(1, title);
             rs =prepStmt.executeQuery();
-            return rs;
+            while(rs.next()){
+                System.out.println(rs.getInt("feedback_id"));
+                System.out.println(rs.getString("body"));
+                System.out.println(rs.getDate("date").toString());
+                System.out.println(rs.getString("status"));
+                
+                feedback.setId(rs.getInt("feedback_id"));
+                bodyText.setText(rs.getString("body"));
+                dateText.setText(rs.getDate("date").toString());
+                userText.setText(rs.getString("name"));
+                if(rs.getString("status") == null){
+                    status.setText(" ");
+                }
+                else{
+                    status.setText("The user feels: "+rs.getString("status"));
+                }
+            }
+            //return rs;
         } catch (Exception e) {
-            System.out.println("Cannot ritrive any feedback information.");
-            return null;
+            System.out.println("Cannot ritrive any feedback information."+e);
+            //return null;
         }
     }
     public void ManagerDeleteFeedback(int feedback_id){
@@ -608,12 +673,12 @@ public class JCDB {
             conn = establishConnection();
             prepStmt = conn.prepareStatement(SQL);
             prepStmt.setInt(1, feedback_id);
-            prepStmt.executeQuery();
+            prepStmt.execute();
         } catch (Exception e) {
             System.out.println("Cannot remove feedback.");
         }
     }
-    public void fillTitleCombo(ObservableList option){
+    public void fillTitle(ObservableList option){
          Connection conn = null;
          try {
              String SQL = "SELECT title FROM feedback WHERE date ORDER BY date DESC";

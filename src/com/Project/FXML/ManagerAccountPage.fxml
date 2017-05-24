@@ -140,7 +140,7 @@
                                           <Font name="Bell MT Bold" size="17.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#cancel" style="-fx-background-radius: 100;" text="Cancel">
+                                    <Button mnemonicParsing="false" onAction="#cancel" style="-fx-background-radius: 100;" text="Clear">
                                        <font>
                                           <Font name="Bell MT Bold" size="17.0" />
                                        </font>

@@ -9,6 +9,7 @@ import classes.BookStorage;
 import classes.User;
 import classes.importPro;
 import database.DatabaseConnection;
+import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -73,6 +74,7 @@ public class ManagerAccountPageController implements Initializable {
     private ObservableList<User> user = FXCollections.observableArrayList();
     private ObservableList<User> data;
     private DatabaseConnection connection = new DatabaseConnection();
+    private JCDB db = new JCDB();
     
     @FXML
     public void SearchBook(ActionEvent event) throws IOException, SQLException{
@@ -107,13 +109,13 @@ public class ManagerAccountPageController implements Initializable {
         if(nameT.getText().isEmpty()||userNameT.getText().isEmpty()||passT.getText().isEmpty()||emailT.getText().isEmpty()||levelT.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("ERROR");
-            alert.setContentText("Search Field cannot be empty");
+            alert.setContentText("Please Fill Out Information");
             alert.showAndWait();
         }
         else if(!checkEmail(emailT.getText())){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Email ERROR");
-            alert.setContentText("Please type correct email address.");
+            alert.setContentText("Email is incorrect");
             alert.showAndWait();
         }
         else if(!checkLevel(levelT.getText())){
@@ -124,23 +126,32 @@ public class ManagerAccountPageController implements Initializable {
             alert.showAndWait();
         }
         else{
-            //BookStorage.getInstance().setName(searchTf.getText());            
-            String sql = "insert into user (name,username,password,level,email) values ('"+nameT.getText()+"','"+userNameT.getText()+"','"+passT.getText()+"',"+levelT.getText()+",'"+emailT.getText()+"')";
+            if(db.verifyNewAccount(userNameT.getText())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Invalid Username");
+                alert.setContentText("Username has existed");
+                alert.showAndWait();
+            }
+            else{
+                db.createNewAccount(nameT, userNameT, passT, levelT, emailT);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Success");
+                alert.setContentText("Account Created");
+                alert.show();
+            
+                nameT.setText("");
+                userNameT.setText("");
+                passT.setText("");
+                emailT.setText("");
+                levelT.setText("");
+            
+                refresh();
+            }
+            /*String sql = "insert into user (name,username,password,level,email) values ('"+nameT.getText()+"','"+userNameT.getText()+"','"+passT.getText()+"',"+levelT.getText()+",'"+emailT.getText()+"')";
             System.out.println(sql);
-            connection.executeSql(sql);
+            connection.executeSql(sql);*/
             
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("Success");
-            alert.setContentText("Account Created");
-            alert.show();
             
-            nameT.setText("");
-            userNameT.setText("");
-            passT.setText("");
-            emailT.setText("");
-            levelT.setText("");
-            
-            refresh();
         }
     }
     

@@ -80,10 +80,10 @@ public class CustomerFeedbackController implements Initializable {
     
     @FXML
     private void handleSaveAction(ActionEvent event) throws SQLException, NumberFormatException, IOException{
-        SaveToDatabase(event);
+        SaveToDatabase(event,"Thanks For Your Suggestion, We Have Received Your Feedback");
     }
     
-    private void SaveToDatabase(ActionEvent event) throws SQLException, NumberFormatException, IOException {
+    private void SaveToDatabase(ActionEvent event,String content) throws SQLException, NumberFormatException, IOException {
         if(!title.getText().isEmpty() && !body.getText().isEmpty()){
             if(title.getText().isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -106,7 +106,7 @@ public class CustomerFeedbackController implements Initializable {
                 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("FEEDBACK RECEIVED");
-                alert.setContentText("Thanks For Your Suggestion, We Have Received Your Feedback");
+                alert.setContentText(content);
                 alert.showAndWait();
                 
                 title.setText("");
@@ -123,33 +123,36 @@ public class CustomerFeedbackController implements Initializable {
     }
     
     @FXML
-    private void handleSadAction(ActionEvent event){
+    private void handleSadAction(ActionEvent event) throws SQLException, NumberFormatException, IOException{
         feedback.setStatus("Not happy with our service");
         
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        SaveToDatabase(event, "Thanks For Your Suggestion, We Will Improve Our Service");
+        /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("FEEDBACK RECEIVED");
         alert.setContentText("Thanks For Your Suggestion, We Will Improve Our Service");
-        alert.showAndWait();
+        alert.showAndWait();*/
     }
     
     @FXML
-    private void handleNormalAction(ActionEvent event){
+    private void handleNormalAction(ActionEvent event) throws SQLException, NumberFormatException, IOException{
         feedback.setStatus("It is okay with our service");
         
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        SaveToDatabase(event, "Thanks For Your Suggestion, We Will Improve Our Service");
+        /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("FEEDBACK RECEIVED");
         alert.setContentText("Thanks For Your Suggestion, We Will Improve Our Service");
-        alert.showAndWait();
+        alert.showAndWait();*/
     }
     
     @FXML
-    private void handleGoodAction(ActionEvent event){
+    private void handleGoodAction(ActionEvent event) throws SQLException, NumberFormatException, IOException{
         feedback.setStatus("Very satisfied with our service");
         
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        SaveToDatabase(event, "Thanks For Your Suggestion, Enjoy Your Time");
+        /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("FEEDBACK RECEIVED");
         alert.setContentText("Thanks For Your Suggestion, Enjoy Your Time");
-        alert.showAndWait();
+        alert.showAndWait();*/
     }
     
     private LocalDate currentDate(){

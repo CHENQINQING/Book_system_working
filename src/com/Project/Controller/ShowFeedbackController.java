@@ -10,10 +10,14 @@ import classes.Type;
 import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,11 +28,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -37,34 +44,27 @@ import javafx.stage.Stage;
  * @author liushuai
  */
 public class ShowFeedbackController implements Initializable {
-    JCDB jcdb =new JCDB();
+    private JCDB jcdb =new JCDB();
+    private ObservableList<String> titleList = FXCollections.observableArrayList();
+    private Feedback feedback = new Feedback();
+    
     @FXML
     private TextArea bodyText;
     @FXML
     private TextField dateText;
-    
     @FXML
-    private ComboBox titleCombo;
-
-    private ObservableList<String> titleList = FXCollections.observableArrayList();
-    
-    private ObservableList<Feedback> feedbackData;
+    private ListView listView;
     @FXML
-    private TextField useridText;
-    
-    private Feedback feedback = new Feedback();
+    private TextField userText;
     @FXML
     private Label status;
-
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        //getFeedbackData();
-        getComboBoxValue();
+          getListView();
     }    
     @FXML
     private void ButtonMeun(ActionEvent event) throws IOException {
@@ -77,24 +77,32 @@ public class ShowFeedbackController implements Initializable {
         stage.show();
     }
     @FXML    
-    public void ButtonRead(ActionEvent event) throws IOException{
-        getFeedbackData(titleCombo.getSelectionModel().getSelectedItem().toString()); 
+    public void readFeedback(MouseEvent event){
+        getFeedbackData();
     }
+    
     @FXML    
     public void ButtonDelete(ActionEvent event) throws IOException{
-        Deletefeedback(titleCombo.getSelectionModel().getSelectedItem().toString());
+        Deletefeedback();
     }
     
-    private void getComboBoxValue(){
-        jcdb.fillTitleCombo(titleList);
-        //set comboBox value.
-        titleCombo.setValue("choise title");
-        titleCombo.setItems(titleList);
+    private void getListView(){
+        jcdb.fillTitle(titleList);
+        listView.setItems(titleList);
     }
     
-    private void getFeedbackData(String title) {
-       feedbackData=FXCollections.observableArrayList();
-       if(title=="choise title"){
+    private void getFeedbackData(){
+        try {
+            String title = listView.getSelectionModel().getSelectedItem().toString();
+            jcdb.ManagerRitriveFeedback(title,bodyText,dateText,userText,status,feedback);
+        } catch (Exception e) {
+            System.out.println("listView no value in here");
+        }
+    }
+
+    private void Deletefeedback(){
+        String title = listView.getSelectionModel().getSelectedItem().toString();
+        if(title.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText("ERROR");
@@ -102,56 +110,21 @@ public class ShowFeedbackController implements Initializable {
             alert.showAndWait();
         }
         else{
-           
-           ResultSet rs = jcdb.ManagerRitriveFeedback( title );
-           try {
-               while(rs.next()){
-                   System.out.println(rs.getInt("feedback_id"));
-                   System.out.println(rs.getString("body"));
-                   System.out.println(rs.getDate("date").toString());
-                   System.out.println(rs.getString("status"));
-                   
-                   feedback.setId(rs.getInt("feedback_id"));
-                   bodyText.setText(rs.getString("body"));
-                   dateText.setText(rs.getDate("date").toString());
-                   useridText.setText(rs.getString("name"));
-                   
-                   if(rs.getString("status") == null){
-                       status.setText(" ");
-                   }
-                   else{
-                       status.setText("The user feels: "+rs.getString("status"));
-                   }
-                   
-               }
-           } catch (SQLException ex) {
-               System.out.println("Error "+ ex);
-           }        
-        }
-    }
-
-    private void Deletefeedback(String title){
-        feedbackData=FXCollections.observableArrayList();
-        if(title=="choise title"){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText("ERROR");
-            alert.setContentText("Please select a title.");
-            alert.showAndWait();
-        }
-         else{
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            ButtonType delete = new ButtonType("DELETE", ButtonBar.ButtonData.OK_DONE);
+            ButtonType back = new ButtonType("BACK", ButtonBar.ButtonData.CANCEL_CLOSE);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure you want to delete this feedback?",delete,back);
             alert.setHeaderText("Confirm Deletion");
-            alert.setContentText("Are you sure you want to delete this feedback?");
             
             Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.OK){
-//                System.out.println("feedback id: "+feedback.getId());
+            if(result.isPresent() && result.get() == delete){
                 jcdb.ManagerDeleteFeedback(feedback.getId()); //remove feedback from database
-                titleCombo.setValue("choise title");
+                
                 bodyText.clear();
                 dateText.clear();
-                useridText.clear();
+                userText.clear();
+                System.out.println("Remove success");
+                listView.getItems().clear();
+                getListView();
             }
             else{
                 alert.close();
