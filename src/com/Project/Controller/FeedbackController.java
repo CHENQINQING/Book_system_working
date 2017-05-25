@@ -105,7 +105,7 @@ public class FeedbackController implements Initializable {
         }
     }    
     private LocalDate currentDate(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate localDate = LocalDate.now();
         return localDate;
     }
