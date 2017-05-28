@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -31,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -64,6 +68,8 @@ public class MoreTypePageController implements Initializable {
     private Button searchBt,resetBt,saveBt,homeBt;
     @FXML
     private ComboBox moreComboValue;
+    @FXML
+    private Label label;
     
     private JCDB db = new JCDB();
     private Help help = new Help();
@@ -84,6 +90,7 @@ public class MoreTypePageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(BookStorage.getInstance().getName());
         getComboBoxValue();
+        animation();
         //getBookData();
     }
     
@@ -141,24 +148,31 @@ public class MoreTypePageController implements Initializable {
         
         try {
             typeName = moreComboValue.getSelectionModel().getSelectedItem().toString();
-            bookData = FXCollections.observableArrayList();
-            ResultSet rs = db.customerRitriveBookByType(typeName);
-            
-            while(rs.next()){
-                System.out.println(rs.getString("book_name"));
-                System.out.println(rs.getString("Pub_name"));
-                System.out.println(rs.getString("author"));
-                System.out.println(rs.getDouble("price"));
-                System.out.println(rs.getString("type_name"));
+            if(!typeName.isEmpty()){
+                bookNameTf1.setVisible(true);
+                searchBt.setVisible(true);
+                resetBt.setVisible(true);
+                label.setVisible(false);
                 
-                bookData.add(new Book(
-                        rs.getString("book_name"), 
-                        rs.getString("author"), 
-                        rs.getDouble("price"), 
-                        rs.getString("Pub_name"), 
-                        rs.getString("type_name"), 
-                        rs.getInt("REPERTORY_SIZE"),
-                        rs.getString("introduction")));
+                bookData = FXCollections.observableArrayList();
+                ResultSet rs = db.customerRitriveBookByType(typeName);
+            
+                while(rs.next()){
+                    System.out.println(rs.getString("book_name"));
+                    System.out.println(rs.getString("Pub_name"));
+                    System.out.println(rs.getString("author"));
+                    System.out.println(rs.getDouble("price"));
+                    System.out.println(rs.getString("type_name"));
+                
+                    bookData.add(new Book(
+                            rs.getString("book_name"), 
+                            rs.getString("author"), 
+                            rs.getDouble("price"), 
+                            rs.getString("Pub_name"), 
+                            rs.getString("type_name"), 
+                            rs.getInt("REPERTORY_SIZE"),
+                            rs.getString("introduction")));
+                }
             }
         } catch (Exception e) {
             System.out.println("Error "+ e);
@@ -278,5 +292,14 @@ public class MoreTypePageController implements Initializable {
     @FXML
     public void mouseExitedField(MouseEvent e){
         help.reverseButtonSize(bookNameTf1);
+    }
+    
+    private void animation(){
+        ScaleTransition st = new ScaleTransition(Duration.millis(1000), label);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(Timeline.INDEFINITE);
+        st.play();
     }
 }

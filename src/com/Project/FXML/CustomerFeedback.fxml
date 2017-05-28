@@ -22,7 +22,7 @@
       </ImageView>
       <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="570.0" text="Tell Us What You Think" textFill="#d02a2a">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="836.0" text="Help Us Improve Our Service" textFill="#d02a2a">
                <font>
                   <Font name="Bell MT Bold" size="40.0" />
                </font>

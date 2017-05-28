@@ -8,6 +8,8 @@ package com.Project.Controller;
 import classes.Book;
 import classes.Help;
 import classes.LoginStorage;
+import classes.User;
+import classes.UserStorage;
 import database.JCDB;
 import java.io.IOException;
 import java.net.URL;
@@ -28,13 +30,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -73,7 +78,7 @@ public class BookManagingPageController implements Initializable {
     @FXML
     private ComboBox typeCombo;
     @FXML
-    private Button searchBt,deleteBt,saveBt,clearBt,logoutBt,homeBt;
+    private Button searchBt,deleteBt,saveBt,clearBt,logoutBt,homeBt,updateBt;
     
     private JCDB db = new JCDB();
     private Help help  = new Help();
@@ -342,6 +347,16 @@ public class BookManagingPageController implements Initializable {
         }
     }
     
+    @FXML
+    private void handleUpdateAction(ActionEvent event) throws IOException{
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/com/Project/FXML/UpdateBook.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     private LocalDate currentDate(){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDate localDate = LocalDate.now();
@@ -396,7 +411,7 @@ public class BookManagingPageController implements Initializable {
     public void mouseExitedLogout(MouseEvent e){
         help.reverseButtonSize(logoutBt);
     }
-     @FXML
+    @FXML
     public void mouseEnteredHome(MouseEvent e){
         help.resizeButton(homeBt);
     }
@@ -404,6 +419,15 @@ public class BookManagingPageController implements Initializable {
     @FXML
     public void mouseExitedHome(MouseEvent e){
         help.reverseButtonSize(homeBt);
+    }
+    @FXML
+    public void mouseEnteredUpdate(MouseEvent e){
+        help.resizeButton(updateBt);
+    }
+    
+    @FXML
+    public void mouseExitedUpdate(MouseEvent e){
+        help.reverseButtonSize(updateBt);
     }
     
     

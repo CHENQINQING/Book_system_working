@@ -44,20 +44,22 @@ import javafx.stage.Stage;
  * @author liushuai
  */
 public class ShowFeedbackController implements Initializable {
-    private JCDB jcdb =new JCDB();
+    private JCDB db =new JCDB();
     private ObservableList<String> titleList = FXCollections.observableArrayList();
     private Feedback feedback = new Feedback();
     
     @FXML
     private TextArea bodyText;
     @FXML
-    private TextField dateText;
+    private TextField dateText,emailTf;
     @FXML
     private ListView listView;
     @FXML
     private TextField userText;
     @FXML
     private Label status;
+    @FXML
+    ComboBox multiple;
 
     /**
      * Initializes the controller class.
@@ -81,20 +83,29 @@ public class ShowFeedbackController implements Initializable {
         getFeedbackData();
     }
     
+    @FXML
+    public void readMutipleFeedback(ActionEvent event){
+        try {
+            db.readMultipleFeedback(multiple, userText, dateText, bodyText, status,emailTf);
+        } catch (Exception e) {
+            System.out.println("readMultiple error: "+e);
+        }
+    }
+    
     @FXML    
     public void ButtonDelete(ActionEvent event) throws IOException{
         Deletefeedback();
     }
     
     private void getListView(){
-        jcdb.fillTitle(titleList);
+        db.fillTitle(titleList);
         listView.setItems(titleList);
     }
     
     private void getFeedbackData(){
         try {
             String title = listView.getSelectionModel().getSelectedItem().toString();
-            jcdb.ManagerRitriveFeedback(title,bodyText,dateText,userText,status,feedback);
+            db.ManagerRitriveFeedback(title,bodyText,dateText,userText,status,feedback,multiple,emailTf);
         } catch (Exception e) {
             System.out.println("listView no value in here");
         }
@@ -117,7 +128,7 @@ public class ShowFeedbackController implements Initializable {
             
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent() && result.get() == delete){
-                jcdb.ManagerDeleteFeedback(feedback.getId()); //remove feedback from database
+                db.ManagerDeleteFeedback(feedback.getId()); //remove feedback from database
                 
                 bodyText.clear();
                 dateText.clear();
