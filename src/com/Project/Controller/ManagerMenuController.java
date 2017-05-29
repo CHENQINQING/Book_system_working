@@ -10,6 +10,8 @@ import classes.LoginStorage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +34,6 @@ public class ManagerMenuController implements Initializable {
     @FXML private Label loginAs;
     @FXML private Button searchBt,addBt,feedbackBt,salesBt,reperotyBt,calculatorBt,typeBt,publisherBt,accountBt,logoutBt;
     private Help help = new Help();
-    
     /**
      * Initializes the controller class.
      */

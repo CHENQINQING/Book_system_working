@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +49,7 @@ public class LoginPageController implements Initializable {
     @FXML private ComboBox combo,loginCombo;
     @FXML private TextField username,searchField;
     @FXML private PasswordField password;
-    @FXML private Label title;
+    @FXML private Label title,loginLabel;
     
     private JCDB db = new JCDB();
     private User user = new User();
@@ -59,6 +61,7 @@ public class LoginPageController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        animation();
         setComboBoxValue();
     }
     
@@ -395,5 +398,14 @@ public class LoginPageController implements Initializable {
         translate.setToX(x);
         translate.setToY(y);
         translate.play();
+    }
+    
+    private void animation(){
+        ScaleTransition st = new ScaleTransition(Duration.millis(1000), loginLabel);
+        st.setToX(1.2);
+        st.setToY(1.2);
+        st.setAutoReverse(true);
+        st.setCycleCount(Timeline.INDEFINITE);
+        st.play();
     }
 }
