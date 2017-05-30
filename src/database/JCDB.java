@@ -690,14 +690,14 @@ public class JCDB {
             String statement = "INSERT INTO user SET name=?,username=?,password=?,level=?,email=?";
             user.setName(name.getText());
             user.setUsername(username.getText());
-            user.setPassword(passwordTF.getText());
+            //user.setPassword(passwordTF.getText());
             user.setLevel(Integer.parseInt(level.getText()));
             user.setEmail(email.getText());
             
             PreparedStatement prepStmt = (PreparedStatement) conn.prepareStatement(statement);
             prepStmt.setString(1, user.getName());
             prepStmt.setString(2, user.getUsername());
-            prepStmt.setString(3, user.getPassword());
+            prepStmt.setString(3, passwordTF.getText());//something wrong
             prepStmt.setInt(4, user.getLevel());
             prepStmt.setString(5, user.getEmail());
             

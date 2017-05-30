@@ -134,6 +134,7 @@ public class ManagerAccountPageController implements Initializable {
             }
             else{
                 db.createNewAccount(nameT, userNameT, passT, levelT, emailT);
+                
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("Success");
                 alert.setContentText("Account Created");
